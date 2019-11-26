@@ -1,11 +1,19 @@
 <template>
   <div>
-    <baidu-map class='map' :center='center' :zoom='zoom'
-    :mapStyle='mapStyle' @ready='handler'>
-      <myOverlay
-        :position="{lng: 116.404, lat: 39.915}"
-      >
-      </myOverlay>
+    <baidu-map
+      class='map'
+      :center='center'
+      :zoom='zoom'
+      :dragging='true'
+      :mapStyle='mapStyle'
+      @ready='handler'
+    >
+    <myOverlay v-for="(item, index) in citys" :key="index" :position="{lng: item.lng, lat: item.lat}">
+    </myOverlay>
+    <bm-info-window :position="{lng: 116.404, lat: 39.915}" title="Info Window Title" :show="infoWindow.show" @close="infoWindowClose" @open="infoWindowOpen">
+      <p v-text="infoWindow.contents"></p>
+      <button @click="clear">Clear</button>
+    </bm-info-window>
     </baidu-map>
   </div>
 </template>
@@ -17,20 +25,25 @@ export default {
   data () {
     return {
       center: { lng: 0, lat: 0 },
-      zoom: 3,
+      zoom: 15,
       active: false,
+      city: { lng: 116.404, lat: 39.915 },
       citys: [
         {
-          'name': '天安门',
-          'pos-lng': 116.404,
-          'pos-lat': 39.915
+          name: '天安门',
+          lng: 116.404,
+          lat: 39.915
         },
         {
-          'name': '故宫',
-          'pos-lng': 117.404,
-          'pos-lat': 38.915
+          name: '崇文门',
+          lng: 116.416,
+          lat: 39.900
         }
       ],
+      infoWindow: {
+        show: true,
+        contents: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+      },
       mapStyle: {
         styleJson: [
           {
@@ -183,6 +196,15 @@ export default {
       this.center.lng = 116.404
       this.center.lat = 39.915
       this.zoom = 15
+    },
+    infoWindowClose (e) {
+      this.infoWindow.show = false
+    },
+    infoWindowOpen (e) {
+      this.infoWindow.show = true
+    },
+    clear () {
+      this.infoWindow.contents = ''
     }
   },
   components: {
@@ -196,5 +218,6 @@ export default {
 .map {
   width: 100%;
   height: 600px;
+  padding: 0;
 }
 </style>

@@ -8,7 +8,7 @@
   @mouseover.native="handleMouseOver"
   @mouseleave.native="handleMouseLeave">
   <div class="imgContainer">
-    <img :src="iconUrl">
+    <img :src="iconUrl" :id="imgSize">
   </div>
 </bm-overlay>
 </template>
@@ -17,20 +17,18 @@
 export default {
   data () {
     return {
-      iconWidth: 48,
-      iconHeight: 48,
       active: false
     }
   },
   props: ['position'],
   components: {
   },
-  mounted () {
-
-  },
   computed: {
     iconUrl: function () {
-      return this.active ? require('../../assets/location.png') : require('../../assets/location-big.png')
+      return this.active ? require('../../assets/location-big.svg') : require('../../assets/location.svg')
+    },
+    imgSize: function () {
+      return this.active ? 'bigImg' : 'littleImg'
     }
   },
   watch: {
@@ -46,7 +44,7 @@ export default {
       const {lng, lat} = this.position
       const pixel = map.pointToOverlayPixel(new BMap.Point(lng, lat))
       el.style.left = pixel.x - 32 + 'px'
-      el.style.bottom = pixel.y + 64 + 'px'
+      el.style.top = pixel.y - 64 + 'px'
     },
     handleMouseOver () {
       console.log('进入图标')
@@ -62,20 +60,18 @@ export default {
 
 <style lang="scss" scoped>
 .sample {
-  background: rgba(0,0,0,0.5);
-  position: absolute;
-}
-.sample.active {
-  background: rgba(0,0,0,0.75);
-}
-.imgContainer {
   height: 64px;
   width: 64px;
-  vertical-align: middle;
-}
-img {
-  border:1px solid #fff;
   position: absolute;
-  bottom: 0px;
+}
+.imgContainer{
+  height: 64px;
+  width: 64px;
+}
+#littleImg {
+  margin: 16px 8px 0px 8px;
+}
+#bigImg {
+  margin: 0;
 }
 </style>
