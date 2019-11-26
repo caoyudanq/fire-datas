@@ -6,14 +6,11 @@
       :zoom='zoom'
       :dragging='true'
       :mapStyle='mapStyle'
+      :scroll-wheel-zoom='true'
       @ready='handler'
     >
     <myOverlay v-for="(item, index) in citys" :key="index" :position="{lng: item.lng, lat: item.lat}">
     </myOverlay>
-    <bm-info-window :position="{lng: 116.404, lat: 39.915}" title="Info Window Title" :show="infoWindow.show" @close="infoWindowClose" @open="infoWindowOpen">
-      <p v-text="infoWindow.contents"></p>
-      <button @click="clear">Clear</button>
-    </bm-info-window>
     </baidu-map>
   </div>
 </template>
@@ -40,10 +37,6 @@ export default {
           lat: 39.900
         }
       ],
-      infoWindow: {
-        show: true,
-        contents: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-      },
       mapStyle: {
         styleJson: [
           {
@@ -196,15 +189,6 @@ export default {
       this.center.lng = 116.404
       this.center.lat = 39.915
       this.zoom = 15
-    },
-    infoWindowClose (e) {
-      this.infoWindow.show = false
-    },
-    infoWindowOpen (e) {
-      this.infoWindow.show = true
-    },
-    clear () {
-      this.infoWindow.contents = ''
     }
   },
   components: {
