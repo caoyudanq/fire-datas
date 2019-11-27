@@ -1,16 +1,19 @@
 <template>
   <div>
     <baidu-map
-      class='map'
-      :center='center'
-      :zoom='zoom'
-      :dragging='true'
-      :mapStyle='mapStyle'
-      :scroll-wheel-zoom='true'
-      @ready='handler'
+      class="map"
+      :center="center"
+      :zoom="zoom"
+      :dragging="true"
+      :mapStyle="mapStyle"
+      :scroll-wheel-zoom="true"
+      @ready="handler"
     >
-    <myOverlay v-for="(item, index) in citys" :key="index" :position="{lng: item.lng, lat: item.lat}">
-    </myOverlay>
+      <myOverlay
+        v-for="(item, index) in citys"
+        :key="index"
+        :position="{lng: item.lng, lat: item.lat}"
+      ></myOverlay>
     </baidu-map>
   </div>
 </template>
@@ -19,7 +22,7 @@
 import myOverlay from '../../components/map/MyOverlay'
 export default {
   name: 'Map',
-  data () {
+  data() {
     return {
       center: { lng: 0, lat: 0 },
       zoom: 15,
@@ -34,7 +37,7 @@ export default {
         {
           name: '崇文门',
           lng: 116.416,
-          lat: 39.900
+          lat: 39.9
         }
       ],
       mapStyle: {
@@ -185,7 +188,7 @@ export default {
     }
   },
   methods: {
-    handler ({ BMap, map }) {
+    handler({ BMap, map }) {
       this.center.lng = 116.404
       this.center.lat = 39.915
       this.zoom = 15

@@ -23,7 +23,9 @@
                 <span>数据分析</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="1-1">选项1</el-menu-item>
+                <el-menu-item index="1-1">
+                  <router-link to="/home/login">选项1</router-link>
+                </el-menu-item>
                 <el-menu-item index="1-2">选项2</el-menu-item>
                 <el-menu-item index="1-3">选项3</el-menu-item>
               </el-menu-item-group>
@@ -50,7 +52,7 @@
           </el-menu>
         </el-aside>
         <el-main>
-          <router-view name="map"></router-view>
+          <router-view></router-view>
         </el-main>
       </el-container>
     </el-container>
@@ -60,9 +62,8 @@
 <script>
 export default {
   name: 'App',
-  data () {
-    const item = {
-    }
+  data() {
+    const item = {}
     return {
       tableData: Array(20).fill(item)
     }
