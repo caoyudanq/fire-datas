@@ -9,46 +9,31 @@
       <el-container>
         <el-aside width="200px">
           <el-menu
-            default-active="2"
+            :default-active="$route.path"
             class="el-menu-vertical-demo"
             @open="handleOpen"
             @close="handleClose"
             text-color="#fff"
             active-text-color="#ffd04b"
             background-color="#0f334b"
+            router="true"
           >
-            <el-submenu index="1">
-              <template slot="title">
-                <i class="el-icon-data-analysis"></i>
-                <span>数据分析</span>
-              </template>
-              <el-menu-item-group>
-                <el-menu-item index="1-1">
-                  <router-link to="/home/login">选项1</router-link>
-                </el-menu-item>
-                <el-menu-item index="1-2">选项2</el-menu-item>
-                <el-menu-item index="1-3">选项3</el-menu-item>
-              </el-menu-item-group>
-              <el-submenu index="1-4">
-                <template slot="title">选项4</template>
-                <el-menu-item index="1-4-1">选项1</el-menu-item>
-              </el-submenu>
-            </el-submenu>
-            <el-submenu index="2">
-              <template slot="title">
-                <i class="el-icon-s-order"></i>
-                <span>历史记录</span>
-              </template>
-              <el-menu-item-group>
-                <el-menu-item index="2-1">选项1</el-menu-item>
-                <el-menu-item index="2-2">选项2</el-menu-item>
-                <el-menu-item index="2-3">选项3</el-menu-item>
-              </el-menu-item-group>
-              <el-submenu index="2-4">
-                <template slot="title">选项4</template>
-                <el-menu-item index="2-4-1">选项1</el-menu-item>
-              </el-submenu>
-            </el-submenu>
+            <el-menu-item index="history">
+              <i class="el-icon-menu"></i>
+              <span slot="title">历史日志</span>
+            </el-menu-item>
+            <el-menu-item index="analysis">
+              <i class="el-icon-setting"></i>
+              <span slot="title">数据分析</span>
+            </el-menu-item>
+            <el-menu-item index="hazard">
+              <i class="el-icon-document"></i>
+              <span slot="title">隐患日志</span>
+            </el-menu-item>
+            <el-menu-item index="others" disabled>
+              <i class="el-icon-setting"></i>
+              <span slot="title">其他</span>
+            </el-menu-item>
           </el-menu>
         </el-aside>
         <el-main>

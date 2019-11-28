@@ -1,8 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Map from '@/components/map/Map'
-import Login from '../components/account/Login'
-import SignUp from '../components/account/SignUp'
+// import Login from '../components/account/Login'
+import History from '../components/navigation/HistoryData.vue'
+import Hazard from '../components/navigation/HazardData.vue'
+import Analysis from '../components/navigation/Analysis.vue'
+// import SignUp from '../components/account/SignUp'
 
 Vue.use(Router)
 
@@ -10,21 +13,19 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/home'
+      component: Map
     },
     {
-      path: '/home',
-      component: Map,
-      children: [
-        {
-          path: 'login',
-          components: Login
-        },
-        {
-          path: 'singup',
-          component: SignUp
-        }
-      ]
+      path: '/history',
+      component: History
+    },
+    {
+      path: '/analysis',
+      component: Analysis
+    },
+    {
+      path: '/hazard',
+      component: Hazard
     }
   ]
 })

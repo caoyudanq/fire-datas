@@ -1,6 +1,6 @@
 <!-- 登录模板 -->
 <template>
-  <div>登录界面</div>
+  <div class="login"><h1>登录界面</h1></div>
 </template>
 
 <script>
@@ -18,4 +18,10 @@ export default {
   methods: {}
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.login {
+  height: 600px;
+  width: 100%;
+  color: aliceblue;
+}
+</style>
