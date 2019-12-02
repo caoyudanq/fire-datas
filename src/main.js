@@ -13,6 +13,10 @@ Vue.config.productionTip = false
 Vue.use(BMap, {
   ak: 'BM7qTEGCkviuX0inNOVIUg1dLyIrnE2p'
 })
+
+router.beforeEach((to, from, next) => {
+  next({path: '/login'})
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

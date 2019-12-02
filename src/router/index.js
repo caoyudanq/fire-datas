@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Map from '@/components/map/Map'
-// import Login from '../components/account/Login'
+import Login from '../components/account/Login'
 import History from '../components/navigation/HistoryData.vue'
 import Hazard from '../components/navigation/HazardData.vue'
 import Analysis from '../components/navigation/Analysis.vue'
@@ -26,6 +26,10 @@ export default new Router({
     {
       path: '/hazard',
       component: Hazard
+    },
+    {
+      path: '/login',
+      component: Login
     }
   ]
 })
