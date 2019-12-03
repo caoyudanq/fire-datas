@@ -1,9 +1,9 @@
 <!-- 登录模板 -->
 <template>
   <el-form
-    :model="ruleForm2"
-    :rules="rules2"
-    ref="ruleForm2"
+    :model="ruleForm"
+    :rules="rules"
+    ref="ruleFormRef"
     label-position="left"
     label-width="0px"
     class="demo-ruleForm login-container"
@@ -12,27 +12,25 @@
     <el-form-item prop="account">
       <el-input
         type="text"
-        v-model="ruleForm2.account"
-        auto-complete="off"
+        v-model="ruleForm.account"
         placeholder="账号"
       ></el-input>
     </el-form-item>
     <el-form-item prop="checkPass">
       <el-input
         type="password"
-        v-model="ruleForm2.checkPass"
-        auto-complete="off"
+        v-model="ruleForm.checkPass"
         placeholder="密码"
       ></el-input>
     </el-form-item>
-    <el-checkbox v-model="checked" checked class="remember"
+    <el-checkbox v-model="checked" class="remember"
       >记住密码</el-checkbox
     >
     <el-form-item style="width:100%;">
       <el-button
         type="primary"
         style="width:100%;"
-        @click.native.prevent="handleSubmit2"
+        @click.native.prevent="login"
         :loading="logining"
         >登录</el-button
       >
@@ -43,16 +41,48 @@
 <script>
 export default {
   data() {
-    return {}
+    return {
+      logining: false,
+      token: 'user_cyd',
+      ruleForm: {
+        account: 'admin',
+        checkPass: '123456'
+      },
+      rules: {
+        account: [
+          { required: true, message: '请输入账号', trigger: 'blur' }
+        ],
+        checkPass: [
+          { required: true, message: '请输入密码', trigger: 'blur' }
+        ]
+      },
+      checked: true
+    }
   },
 
   components: {},
 
   computed: {},
+  created() {
+    this.getData()
+  },
 
   mounted: {},
 
-  methods: {}
+  methods: {
+    getData() {
+      this.$http.get(`/api/seller`).then((result) => {
+        console.log(result)
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
+    login() {
+      alert('登陆成功')
+      window.sessionStorage.setItem('token', this.token)
+      this.$router.push('/main')
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>

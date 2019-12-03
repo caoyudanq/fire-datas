@@ -13,12 +13,23 @@ const portfinder = require('portfinder')
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
+  const express = require('express')
+  const app = express()
+  var appData = require('../data.json')//加载本地数据文件
+  var seller = appData.seller
+  var user = appData.user
+  var goods = appData.goods
+  var ratings = appData.ratings
+  var apiRoutes = express.Router()
+  app.use('/api', apiRoutes)
+
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
   },
   // cheap-module-eval-source-map is faster for development
   devtool: config.dev.devtool,
+
 
   // these devServer options should be customized in /config/index.js
   devServer: {
@@ -42,7 +53,45 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll,
+    },
+    before(app) {
+      app.get('/api/appData', (req, res) => {
+          res.json({
+            errno: 0,
+            data: appData
+          }) //接口返回json数据，上面配置的数据appData就赋值给data请求后调用
+        }),
+        app.get('/api/seller', (req, res) => {
+          res.json({
+            // 这里是你的json内容
+            errno: 0,
+            data: seller
+          })
+        }),
+        app.get('/api/goods', (req, res) => {
+          res.json({
+            // 这里是你的json内容
+            errno: 0,
+            data: goods
+          })
+        }),
+        app.get('/api/ratings', (req, res) => {
+          res.json({
+            // 这里是你的json内容
+            errno: 0,
+            data: ratings
+          })
+        }),
+        app.get('/api/user', (req, res) => {
+          res.json({
+            // 这里是你的json内容
+            errno: 0,
+            data: user
+          })
+        })
     }
+      
+    
   },
   plugins: [
     new webpack.DefinePlugin({

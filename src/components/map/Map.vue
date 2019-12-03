@@ -21,7 +21,6 @@
 <script>
 import myOverlay from '../../components/map/MyOverlay'
 export default {
-  name: 'Map',
   data() {
     return {
       center: { lng: 0, lat: 0 },

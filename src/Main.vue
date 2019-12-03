@@ -1,9 +1,10 @@
 <template>
-  <div id="app">
+  <div id="app1">
     <el-container>
       <el-header>
         <div class="block">
           <span>火警物联网</span>
+          
         </div>
       </el-header>
       <el-container>
@@ -18,19 +19,19 @@
             background-color="#0f334b"
             router="true"
           >
-            <el-menu-item index="history">
+            <el-menu-item index="/main/history">
               <i class="el-icon-menu"></i>
               <span slot="title">历史日志</span>
             </el-menu-item>
-            <el-menu-item index="analysis">
+            <el-menu-item index="/main/analysis">
               <i class="el-icon-setting"></i>
               <span slot="title">数据分析</span>
             </el-menu-item>
-            <el-menu-item index="hazard">
+            <el-menu-item index="/main/hazard">
               <i class="el-icon-document"></i>
               <span slot="title">隐患日志</span>
             </el-menu-item>
-            <el-menu-item index="others" disabled>
+            <el-menu-item index="/main/others" disabled>
               <i class="el-icon-setting"></i>
               <span slot="title">其他</span>
             </el-menu-item>
@@ -45,13 +46,17 @@
 </template>
 
 <script>
+import myMap from '@/components/map/Map'
+
 export default {
-  name: 'App',
   data() {
     const item = {}
     return {
       tableData: Array(20).fill(item)
     }
+  },
+  components: {
+    myMap
   }
 }
 </script>
@@ -96,7 +101,7 @@ body > .el-container {
   font-size: 12px;
   color: #909399;
 }
-#app {
+#app1 {
   height: 100%;
   width: 100%;
 }
