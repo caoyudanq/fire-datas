@@ -2,9 +2,27 @@
   <div id="app1">
     <el-container>
       <el-header>
-        <div class="block">
-          <span>火警物联网</span>
-          
+        <div class="header">
+          <el-row :gutter="20">
+            <el-col :span="4">
+              <div class="grid-content bg-purple" id="logo">
+                logo
+              </div>
+            </el-col>
+            <el-col :span="16">
+              <div class="grid-content bg-purple" id="title">
+                火警物联网
+              </div>
+            </el-col>
+            <el-col :span="4">
+              <div class="grid-content bg-purple" id="user">
+                <el-avatar icon="el-icon-user-solid" id="userIcon" size="small"></el-avatar>
+                <div id="exit">
+                  <el-button size="mini" @click="exit">退出</el-button>
+                </div>
+              </div>
+            </el-col>
+          </el-row>
         </div>
       </el-header>
       <el-container>
@@ -19,16 +37,20 @@
             background-color="#0f334b"
             router="true"
           >
+            <el-menu-item index="/main">
+              <i class="el-icon-s-platform"></i>
+              <span slot="title">首页</span>
+            </el-menu-item>
             <el-menu-item index="/main/history">
-              <i class="el-icon-menu"></i>
+              <i class="el-icon-document"></i>
               <span slot="title">历史日志</span>
             </el-menu-item>
             <el-menu-item index="/main/analysis">
-              <i class="el-icon-setting"></i>
+              <i class="el-icon-data-analysis"></i>
               <span slot="title">数据分析</span>
             </el-menu-item>
             <el-menu-item index="/main/hazard">
-              <i class="el-icon-document"></i>
+              <i class="el-icon-s-opportunity"></i>
               <span slot="title">隐患日志</span>
             </el-menu-item>
             <el-menu-item index="/main/others" disabled>
@@ -57,6 +79,11 @@ export default {
   },
   components: {
     myMap
+  },
+  methods: {
+    exit() {
+      alert('exit')
+    }
   }
 }
 </script>
@@ -66,7 +93,31 @@ export default {
   background-color: #0f334b;
   text-align: center;
   color: #fff;
-  line-height: 60px;
+  #title, #logo {
+    line-height: 60px;
+  }
+  #user {
+    padding: 0 0 0 50px;
+    #userIcon {
+      margin-top: 24px;
+    }
+    #exit {
+      display: inline;
+      color: #606266;
+      font-size: 12px;
+      margin-left: 10px;
+      .el-button{
+        color: rgb(165, 165, 165);
+        background-color: #0F334B;
+        border-color: #0F334B;
+      }
+      .el-button:hover{
+        color: rgb(196, 195, 195);
+        background-color: #0F334B;
+        border-color: #0F334B;
+      }
+    }
+  }
 }
 .el-aside {
   background-color: #0f334b;

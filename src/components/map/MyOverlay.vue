@@ -12,11 +12,16 @@
   </div>
   <bm-info-window
   :position="{lng: this.position.lng, lat: this.position.lat}"
-  title="火警信息"
   :show="infoWindow.show"
   @close="infoWindowClose"
   @open="infoWindowOpen">
-    <p v-text="infoWindow.contents"></p>
+    <p v-text="infoWindow.infoTitle" class="infoTitle"></p>
+    <div class="infoContent">
+    <p v-text="infoWindow.sectionName"></p>
+    <p v-text="infoWindow.sectionLoction"></p>
+    <p v-text="infoWindow.buildingName"></p>
+    <p v-text="infoWindow.telephone"></p>
+    </div>
   </bm-info-window>
 </bm-overlay>
 </template>
@@ -28,7 +33,12 @@ export default {
       active: false,
       infoWindow: {
         show: false,
-        contents: '设备编号'
+        infoTitle: '单位信息',
+        sectionName: '单位名称：',
+        buildingName: '建筑物名称：',
+        sectionLoction: '单位地址：',
+        telephone: '电话：'
+
       }
     }
   },
@@ -59,12 +69,10 @@ export default {
       el.style.top = pixel.y + 'px'
     },
     handleMouseOver () {
-      console.log('进入图标')
       this.infoWindow.show = true
       this.active = true
     },
     handleMouseLeave () {
-      console.log('离开图标')
       this.infoWindow.show = false
       this.active = false
     },
@@ -79,6 +87,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.infoTitle {
+  font-size: 20px;
+  font-weight: bold;
+}
+.infoContent {
+  font-size: 12px;
+  font-weight: 400;
+}
 .sample {
   height: 64px;
   width: 64px;

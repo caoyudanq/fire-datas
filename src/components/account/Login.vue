@@ -63,9 +63,6 @@ export default {
   components: {},
 
   computed: {},
-  created() {
-    this.getData()
-  },
 
   mounted: {},
 
@@ -79,7 +76,9 @@ export default {
     },
     login() {
       alert('登陆成功')
+      console.log(this.ruleForm)
       window.sessionStorage.setItem('token', this.token)
+      this.$http.post('login', this.ruleForm)
       this.$router.push('/main')
     }
   }
