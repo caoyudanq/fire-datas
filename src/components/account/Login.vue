@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -67,18 +68,20 @@ export default {
   mounted: {},
 
   methods: {
-    getData() {
-      this.$http.get(`/api/seller`).then((result) => {
-        console.log(result)
-      }).catch((err) => {
-        console.log(err)
-      })
-    },
+    ...mapMutations(['addUserName', 'addPassword']),
+    // getData() {
+    //   this.$http.get(`/api/seller`).then((result) => {
+    //     console.log(result)
+    //   }).catch((err) => {
+    //     console.log(err)
+    //   })
+    // },
     login() {
-      alert('登陆成功')
       console.log(this.ruleForm)
       window.sessionStorage.setItem('token', this.token)
       this.$http.post('login', this.ruleForm)
+      this.$store.commit('addUserName', this.ruleForm.account)
+      this.$store.commit('addPassword', this.ruleForm.checkPass)
       this.$router.push('/main')
     }
   }

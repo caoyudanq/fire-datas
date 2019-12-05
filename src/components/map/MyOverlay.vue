@@ -1,34 +1,54 @@
 <template>
-<bm-overlay
-  ref="customOverlay"
-  pane='labelPane'
-  :class="{sample: true, active}"
-  @draw='draw'
-  :active="active">
-  <div class="imgContainer"
-    @mouseover="handleMouseOver"
-    @mouseleave="handleMouseLeave">
-    <img :src="iconUrl" :id="imgSize">
-  </div>
-  <bm-info-window
-  :position="{lng: this.position.lng, lat: this.position.lat}"
-  :show="infoWindow.show"
-  @close="infoWindowClose"
-  @open="infoWindowOpen">
-    <p v-text="infoWindow.infoTitle" class="infoTitle"></p>
-    <div class="infoContent">
-    <p v-text="infoWindow.sectionName"></p>
-    <p v-text="infoWindow.sectionLoction"></p>
-    <p v-text="infoWindow.buildingName"></p>
-    <p v-text="infoWindow.telephone"></p>
+  <bm-overlay
+    ref="customOverlay"
+    pane="labelPane"
+    :class="{ sample: true, active }"
+    :status="this.status"
+    :sectionInfo="this.sectionInfo"
+    @draw="draw"
+    :active="active"
+  >
+    <div
+      class="imgContainer"
+      @mouseover="handleMouseOver"
+      @mouseleave="handleMouseLeave"
+    >
+      <img :src="iconUrl" :id="imgSize" />
     </div>
-  </bm-info-window>
-</bm-overlay>
+    <bm-info-window
+      :position="{ lng: this.position.lng, lat: this.position.lat }"
+      :show="infoWindow.show"
+      @close="infoWindowClose"
+      @open="infoWindowOpen"
+    >
+      <p class="infoTitle">
+        {{ infoWindow.infoTitle }}
+      </p>
+      <div class="infoContent">
+        <p>
+          {{ infoWindow.sectionName }}
+          {{ sectionInfo.sectionName }}
+        </p>
+        <p>
+          {{ infoWindow.sectionLoction }}
+          {{ sectionInfo.sectionLoction }}
+        </p>
+        <p>
+          {{ infoWindow.buildingName }}
+          {{ sectionInfo.buildingName }}
+        </p>
+        <p>
+          {{ infoWindow.telephone }}
+          {{ sectionInfo.telephone }}
+        </p>
+      </div>
+    </bm-info-window>
+  </bm-overlay>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       active: false,
       infoWindow: {
@@ -38,48 +58,57 @@ export default {
         buildingName: '建筑物名称：',
         sectionLoction: '单位地址：',
         telephone: '电话：'
-
       }
     }
   },
-  props: ['position'],
-  components: {
-  },
+  props: ['position', 'status', 'sectionInfo'],
+  components: {},
   computed: {
-    iconUrl: function () {
-      return this.active ? require('../../assets/location-big.svg') : require('../../assets/location.svg')
+    iconUrl: function() {
+      if (this.status === 1)
+        return this.active
+          ? require('../../assets/location-big-red.svg')
+          : require('../../assets/location-red.svg')
+      else if (this.status === 2)
+        return this.active
+          ? require('../../assets/location-big-yellow.svg')
+          : require('../../assets/location-yellow.svg')
+      else
+        return this.active
+          ? require('../../assets/location-big-green.svg')
+          : require('../../assets/location-green.svg')
     },
-    imgSize: function () {
+    imgSize: function() {
       return this.active ? 'bigImg' : 'littleImg'
     }
   },
   watch: {
     position: {
-      handler () {
+      handler() {
         this.$refs.customOverlay.reload()
       },
       deep: true
     }
   },
   methods: {
-    draw ({ el, BMap, map, overlay }) {
-      const {lng, lat} = this.position
+    draw({ el, BMap, map, overlay }) {
+      const { lng, lat } = this.position
       const pixel = map.pointToOverlayPixel(new BMap.Point(lng, lat))
       el.style.left = pixel.x - 64 + 'px'
       el.style.top = pixel.y + 'px'
     },
-    handleMouseOver () {
+    handleMouseOver() {
       this.infoWindow.show = true
       this.active = true
     },
-    handleMouseLeave () {
+    handleMouseLeave() {
       this.infoWindow.show = false
       this.active = false
     },
-    infoWindowClose (e) {
+    infoWindowClose(e) {
       this.infoWindow.show = false
     },
-    infoWindowOpen (e) {
+    infoWindowOpen(e) {
       this.infoWindow.show = true
     }
   }
@@ -100,7 +129,7 @@ export default {
   width: 64px;
   position: absolute;
 }
-.imgContainer{
+.imgContainer {
   height: 64px;
   width: 64px;
 }

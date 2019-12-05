@@ -6,6 +6,7 @@ import router from './router'
 import BMap from 'vue-baidu-map'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import store from './store/store'
 // 导入抽取的axios
 import axios from './axios/index'
 Vue.use(axios)
@@ -21,6 +22,7 @@ Vue.use(BMap, {
 new Vue({
   el: '#app',
   router,
+  store,
   components: { Home },
   template: '<Home/>'
 })

@@ -12,7 +12,13 @@
       <myOverlay
         v-for="(item, index) in citys"
         :key="index"
-        :position="{lng: item.lng, lat: item.lat}"
+        :position="{ lng: item.lng, lat: item.lat }"
+        :status="item.status"
+        :sectionInfo="{ sectionName: item.sectionName,
+        sectionLoction: item.sectionLoction,
+        buildingName: item.buildingName,
+        telephone: item.telephone
+        }"
       ></myOverlay>
     </baidu-map>
   </div>
@@ -26,17 +32,42 @@ export default {
       center: { lng: 0, lat: 0 },
       zoom: 15,
       active: false,
-      city: { lng: 116.404, lat: 39.915 },
       citys: [
         {
-          name: '天安门',
+          sectionName: '故宫',
+          sectionLoction: '天安门',
+          telephone: '123456789',
+          buildingName: '故宫博物院',
           lng: 116.404,
-          lat: 39.915
+          lat: 39.915,
+          status: 1
         },
         {
-          name: '崇文门',
+          sectionName: '故宫',
+          sectionLoction: '天安门东',
+          telephone: '123456789',
+          buildingName: '崇文门',
           lng: 116.416,
-          lat: 39.9
+          lat: 39.9,
+          status: 2
+        },
+        {
+          sectionName: '故宫',
+          sectionLoction: '天安门',
+          telephone: '123456789',
+          buildingName: '4栋',
+          lng: 116.409,
+          lat: 39.915,
+          status: 0
+        },
+        {
+          sectionName: '故宫',
+          sectionLoction: '天安门',
+          telephone: '123456789',
+          buildingName: '4栋',
+          lng: 116.416,
+          lat: 39.0,
+          status: 0
         }
       ],
       mapStyle: {

@@ -16,7 +16,15 @@
             </el-col>
             <el-col :span="4">
               <div class="grid-content bg-purple" id="user">
-                <el-avatar icon="el-icon-user-solid" id="userIcon" size="small"></el-avatar>
+                <el-dropdown>
+                  <span class="el-dropdown-link">
+                    <i class="el-icon-user-solid"></i>
+                  </span>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item @click="changeUserInfo">查看用户信息</el-dropdown-item>
+                    <el-dropdown-item>修改用户信息</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
                 <div id="exit">
                   <el-button size="mini" @click="exit">退出</el-button>
                 </div>
@@ -81,8 +89,12 @@ export default {
     myMap
   },
   methods: {
+    changeUserInfo() {
+    },
     exit() {
-      alert('exit')
+      this.$store.commit('addUserName', '')
+      this.$store.commit('addPassword', '')
+      this.$router.push('/Login')
     }
   }
 }
@@ -93,11 +105,13 @@ export default {
   background-color: #0f334b;
   text-align: center;
   color: #fff;
-  #title, #logo {
+  #title,
+  #logo {
     line-height: 60px;
   }
   #user {
     padding: 0 0 0 50px;
+    line-height: 60px;
     #userIcon {
       margin-top: 24px;
     }
@@ -106,15 +120,15 @@ export default {
       color: #606266;
       font-size: 12px;
       margin-left: 10px;
-      .el-button{
+      .el-button {
         color: rgb(165, 165, 165);
-        background-color: #0F334B;
-        border-color: #0F334B;
+        background-color: #0f334b;
+        border-color: #0f334b;
       }
-      .el-button:hover{
+      .el-button:hover {
         color: rgb(196, 195, 195);
-        background-color: #0F334B;
-        border-color: #0F334B;
+        background-color: #0f334b;
+        border-color: #0f334b;
       }
     }
   }
