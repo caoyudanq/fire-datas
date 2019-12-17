@@ -1,6 +1,6 @@
 <template>
   <div id="app1">
-    <el-container>
+    <el-container id="container">
       <el-header>
         <div class="header">
           <el-row :gutter="20">
@@ -51,9 +51,9 @@
             </el-menu-item>
             <el-menu-item index="/main/history">
               <i class="el-icon-document"></i>
-              <span slot="title">历史日志</span>
+              <span slot="title">报警日志</span>
             </el-menu-item>
-            <el-menu-item index="/main/analysis">
+            <el-menu-item index="/main/analysis" disabled>
               <i class="el-icon-data-analysis"></i>
               <span slot="title">数据分析</span>
             </el-menu-item>
@@ -169,5 +169,8 @@ body > .el-container {
 #app1 {
   height: 100%;
   width: 100%;
+  #container {
+    height: 100%;
+  }
 }
 </style>

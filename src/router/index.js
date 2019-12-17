@@ -4,7 +4,7 @@ import Main from '../Main.vue'
 import Map from '@/components/map/Map'
 import Login from '../components/account/Login'
 import History from '../components/navigation/History.vue'
-import Hazard from '../components/navigation/HazardData.vue'
+import Hazard from '../components/navigation/Hazard.vue'
 import Analysis from '../components/navigation/Analysis.vue'
 // import SignUp from '../components/account/SignUp'
 

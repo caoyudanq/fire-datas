@@ -69,19 +69,33 @@ export default {
 
   methods: {
     ...mapMutations(['addUserName', 'addPassword']),
-    // getData() {
-    //   this.$http.get(`/api/seller`).then((result) => {
-    //     console.log(result)
-    //   }).catch((err) => {
-    //     console.log(err)
-    //   })
-    // },
     login() {
-      console.log(this.ruleForm)
+      // console.log(this.ruleForm)
       window.sessionStorage.setItem('token', this.token)
-      this.$http.post('login', this.ruleForm)
+      // this.$http.post('login', this.ruleForm)
+      // .then(res => {
+      //       if (res.data.errno === 0) {
+      //         this.$Message.success('登陆成功');
+      //         this.$router.push('roomInfo');
+      //         //全局存储token
+      //         window.localStorage["token"] = JSON.stringify(res.data.data.token);
+      //       } else {
+      //         this.$Message.error('登录失败');
+      //         this.forgetPassword = true;
+      //       }
+      //     }).catch(err => {
+      //     console.log("登录失败");
+      //   })
       this.$store.commit('addUserName', this.ruleForm.account)
       this.$store.commit('addPassword', this.ruleForm.checkPass)
+      // this.$http.get('/api/user').then((result) => {
+      //   console.log('result=' + result.body)
+      //   if (result) {
+      //     this.tableData = result
+      //   }
+      // }).catch((err) => {
+      //   alert(err)
+      // })
       this.$router.push('/main')
     }
   }

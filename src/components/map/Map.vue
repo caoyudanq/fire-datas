@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="container">
     <baidu-map
       class="map"
       :center="center"
@@ -32,44 +32,7 @@ export default {
       center: { lng: 0, lat: 0 },
       zoom: 15,
       active: false,
-      citys: [
-        {
-          sectionName: '故宫',
-          sectionLoction: '天安门',
-          telephone: '123456789',
-          buildingName: '故宫博物院',
-          lng: 116.404,
-          lat: 39.915,
-          status: 1
-        },
-        {
-          sectionName: '故宫',
-          sectionLoction: '天安门东',
-          telephone: '123456789',
-          buildingName: '崇文门',
-          lng: 116.416,
-          lat: 39.9,
-          status: 2
-        },
-        {
-          sectionName: '故宫',
-          sectionLoction: '天安门',
-          telephone: '123456789',
-          buildingName: '4栋',
-          lng: 116.409,
-          lat: 39.915,
-          status: 0
-        },
-        {
-          sectionName: '故宫',
-          sectionLoction: '天安门',
-          telephone: '123456789',
-          buildingName: '4栋',
-          lng: 116.416,
-          lat: 39.0,
-          status: 0
-        }
-      ],
+      citys: [],
       mapStyle: {
         styleJson: [
           {
@@ -217,11 +180,22 @@ export default {
       }
     }
   },
+  created() {
+    console.log('Map.vue被创建了')
+    this.getCitysData()
+  },
   methods: {
     handler({ BMap, map }) {
       this.center.lng = 116.404
       this.center.lat = 39.915
       this.zoom = 15
+    },
+    getCitysData() {
+      this.$http.get('/api/citys')
+        .then(res => {
+          console.log(res.data.data)
+          this.citys = res.data.data
+        })
     }
   },
   components: {
@@ -231,10 +205,10 @@ export default {
 </script>
 
 <!-- Add 'scoped' attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
 .map {
   width: 100%;
-  height: 600px;
+  height: 100%;
   padding: 0;
 }
 </style>

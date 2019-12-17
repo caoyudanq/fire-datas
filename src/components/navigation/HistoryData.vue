@@ -1,9 +1,8 @@
 <template>
-  <el-table
+  <div id="container">
+    <el-table
     :data="tableData"
-    height="600px"
     stripe=true
-    style="width: 100%,   max-height:600px"
     id="table"
   >
     <el-table-column prop="device" label="设备名称" :width=width>
@@ -19,158 +18,76 @@
     <el-table-column prop="status" label="复位状态" :width=width>
     </el-table-column>
   </el-table>
+  </div>
 </template>
-
-<style lang="scss" scoped>
-#table {
-  justify-content: space-between
-}
-</style>
 
 <script>
 export default {
-  methods: {
-  },
   data() {
     return {
       width: 200,
-      tableData: [
-        {
-          device: '住院楼地下室清洗室6H31D',
-          section: '江山贝林医院',
-          type: '火警',
-          date: '2016-05-02',
-          status: '未复位',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          device: '住院楼地下室清洗室6H31D',
-          section: '江山贝林医院',
-          type: '火警',
-          date: '2016-05-02',
-          status: '未复位',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          device: '住院楼地下室清洗室6H31D',
-          section: '江山贝林医院',
-          type: '火警',
-          date: '2016-05-02',
-          status: '未复位',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          device: '住院楼地下室清洗室6H31D',
-          section: '江山贝林医院',
-          type: '火警',
-          date: '2016-05-02',
-          status: '未复位',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          device: '住院楼地下室清洗室6H31D',
-          section: '江山贝林医院',
-          type: '火警',
-          date: '2016-05-02',
-          status: '未复位',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          device: '住院楼地下室清洗室6H31D',
-          section: '江山贝林医院',
-          type: '火警',
-          date: '2016-05-02',
-          status: '未复位',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          device: '住院楼地下室清洗室6H31D',
-          section: '江山贝林医院',
-          type: '火警',
-          date: '2016-05-02',
-          status: '未复位',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          device: '住院楼地下室清洗室6H31D',
-          section: '江山贝林医院',
-          type: '火警',
-          date: '2016-05-02',
-          status: '未复位',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          device: '住院楼地下室清洗室6H31D',
-          section: '江山贝林医院',
-          type: '火警',
-          date: '2016-05-02',
-          status: '未复位',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          device: '住院楼地下室清洗室6H31D',
-          section: '江山贝林医院',
-          type: '火警',
-          date: '2016-05-02',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          device: '住院楼地下室清洗室6H31D',
-          section: '江山贝林医院',
-          type: '火警',
-          date: '2016-05-02',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          device: '住院楼地下室清洗室6H31D',
-          section: '江山贝林医院',
-          type: '火警',
-          date: '2016-05-02',
-          status: '未复位',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          device: '住院楼地下室清洗室6H31D',
-          section: '江山贝林医院',
-          type: '火警',
-          date: '2016-05-02',
-          status: '未复位',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          device: '住院楼地下室清洗室6H31D',
-          section: '江山贝林医院',
-          type: '火警',
-          date: '2016-05-02',
-          status: '未复位',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          device: '住院楼地下室清洗室6H31D',
-          section: '江山贝林医院',
-          type: '火警',
-          date: '2016-05-02',
-          status: '未复位',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          device: '住院楼地下室清洗室6H31D',
-          section: '江山贝林医院',
-          type: '火警',
-          date: '2016-05-02',
-          status: '未复位',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          device: '住院楼地下室清洗室6H31D',
-          section: '江山贝林医院',
-          type: '火警',
-          date: '2016-05-02',
-          status: '未复位',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }
-      ]
+      tableData: []
     }
+  },
+  props: ['pageIndex', 'dataType', 'section'],
+  methods: {
+    getHistoryData() {
+      this.$http.get('/api/tableData' + this.pageIndex)
+        .then(res => {
+          console.log(res.data.data)
+          this.tableData = res.data.data
+          console.log(this.tableData)
+        })
+    },
+    getHistoryDataBySection() {
+      this.$http.get('/api/' + this.section + this.pageIndex)
+        .then(res => {
+          console.log(res)
+          if (res.status === 200) {
+            console.log(res.data.data)
+            this.tableData = res.data.data
+          } else {
+            this.$emit('changeView')
+          }
+        })
+    }
+  },
+  created() {
+    console.log('historyData被创建了')
+    console.log('pageIndex=' + this.pageIndex)
+    if (this.dataType === 'firedatas') {
+      this.getHistoryData()
+    } else {
+      this.getHistoryDataBySection()
+    }
+  },
+  watch: {
+    pageIndex: function(newVal, oldVal) {
+      console.log('new:' + newVal)
+      console.log('old:' + oldVal)
+      if (this.dataType === 'firedatas') {
+        this.getHistoryData()
+      } else {
+        this.getHistoryDataBySection()
+      }
+    },
+    dataType: function(newVal, oldVal) {
+      if (this.dataType === 'firedatas') {
+        this.getHistoryData()
+      } else {
+        this.getHistoryDataBySection()
+      }
+    }
+  },
+  computed: {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+#table {
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+</style>

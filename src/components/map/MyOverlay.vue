@@ -7,11 +7,10 @@
     :sectionInfo="this.sectionInfo"
     @draw="draw"
     :active="active"
+    @click.native="click"
   >
     <div
       class="imgContainer"
-      @mouseover="handleMouseOver"
-      @mouseleave="handleMouseLeave"
     >
       <img :src="iconUrl" :id="imgSize" />
     </div>
@@ -65,18 +64,19 @@ export default {
   components: {},
   computed: {
     iconUrl: function() {
-      if (this.status === 1)
+      if (this.status === 1) {
         return this.active
           ? require('../../assets/location-big-red.svg')
           : require('../../assets/location-red.svg')
-      else if (this.status === 2)
+      } else if (this.status === 2) {
         return this.active
           ? require('../../assets/location-big-yellow.svg')
           : require('../../assets/location-yellow.svg')
-      else
+      } else {
         return this.active
           ? require('../../assets/location-big-green.svg')
           : require('../../assets/location-green.svg')
+      }
     },
     imgSize: function() {
       return this.active ? 'bigImg' : 'littleImg'
@@ -97,19 +97,25 @@ export default {
       el.style.left = pixel.x - 64 + 'px'
       el.style.top = pixel.y + 'px'
     },
-    handleMouseOver() {
-      this.infoWindow.show = true
-      this.active = true
-    },
-    handleMouseLeave() {
+    // handleMouseOver() {
+    //   this.infoWindow.show = true
+    //   this.active = true
+    // },
+    // handleMouseLeave() {
+    //   this.infoWindow.show = false
+    //   this.active = false
+    // },
+    infoWindowClose(e) {
       this.infoWindow.show = false
       this.active = false
     },
-    infoWindowClose(e) {
-      this.infoWindow.show = false
-    },
     infoWindowOpen(e) {
       this.infoWindow.show = true
+    },
+    click() {
+      console.log('点击标志物')
+      this.infoWindow.show = true
+      this.active = true
     }
   }
 }

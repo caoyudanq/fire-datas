@@ -19,7 +19,15 @@ const PORT = process.env.PORT && Number(process.env.PORT)
   var seller = appData.seller
   var user = appData.user
   var goods = appData.goods
-  var ratings = appData.ratings
+  var citys = appData.citys
+  var tableData1 = appData.tableData1
+  var tableData2 = appData.tableData2
+  var tableData3 = appData.tableData3
+  var tableData4 = appData.tableData4
+  var tableData5 = appData.tableData5
+  var section = appData.section1  
+  var section2 = appData.section2
+  var section3 = appData.section3
   var apiRoutes = express.Router()
   app.use('/api', apiRoutes)
 
@@ -61,11 +69,37 @@ const devWebpackConfig = merge(baseWebpackConfig, {
             data: appData
           }) //接口返回json数据，上面配置的数据appData就赋值给data请求后调用
         }),
+        app.get('/api/section1', (req, res) => {
+          res.json({
+            errno: 0,
+            data: section
+          })
+        }),
+        app.get('/api/section2', (req, res) => {
+          res.json({
+            errno: 0,
+            data: section2
+          })
+        }),
+        app.get('/api/section3', (req, res) => {
+          res.json({
+            // 这里是你的json内容
+            errno: 0,
+            data: section3
+          })
+        }),
         app.get('/api/seller', (req, res) => {
           res.json({
             // 这里是你的json内容
             errno: 0,
             data: seller
+          })
+        }),
+        app.get('/api/citys', (req, res) => {
+          res.json({
+            // 这里是你的json内容
+            errno: 0,
+            data: citys
           })
         }),
         app.get('/api/goods', (req, res) => {
@@ -75,11 +109,39 @@ const devWebpackConfig = merge(baseWebpackConfig, {
             data: goods
           })
         }),
-        app.get('/api/ratings', (req, res) => {
+        app.get('/api/tableData1', (req, res) => {
           res.json({
             // 这里是你的json内容
             errno: 0,
-            data: ratings
+            data: tableData1
+          })
+        }),
+        app.get('/api/tableData2', (req, res) => {
+          res.json({
+            // 这里是你的json内容
+            errno: 0,
+            data: tableData2
+          })
+        }),
+        app.get('/api/tableData3', (req, res) => {
+          res.json({
+            // 这里是你的json内容
+            errno: 0,
+            data: tableData3
+          })
+        }),
+        app.get('/api/tableData4', (req, res) => {
+          res.json({
+            // 这里是你的json内容
+            errno: 0,
+            data: tableData4
+          })
+        }),
+        app.get('/api/tableData5', (req, res) => {
+          res.json({
+            // 这里是你的json内容
+            errno: 0,
+            data: tableData5
           })
         }),
         app.get('/api/user', (req, res) => {
