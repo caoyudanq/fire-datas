@@ -1,4 +1,186 @@
 {
+  "unitInfo": [
+    {
+      "alarmLogs": [
+          {
+              "alarmTime": 1554360970,
+              "buildingName": "一层宴会厅走道",
+              "classifyResult": "",
+              "result": "误报",
+              "unit": "江山万隆度假村"
+          },
+          {
+              "alarmTime": 1554360801,
+              "buildingName": "一层宴会厅走道",
+              "classifyResult": "",
+              "result": "误报",
+              "unit": "江山万隆度假村"
+          },
+          {
+              "alarmTime": 1550818769,
+              "buildingName": "万隆度假村用传",
+              "classifyResult": "",
+              "result": "误报",
+              "unit": "江山万隆度假村"
+          },
+          {
+              "alarmTime": 1550818513,
+              "buildingName": "万隆度假村用传",
+              "classifyResult": "",
+              "result": "误报",
+              "unit": "江山万隆度假村"
+          },
+          {
+              "alarmTime": 1550111898,
+              "buildingName": "万隆度假村蓝天用传",
+              "classifyResult": "",
+              "result": "误报",
+              "unit": "江山万隆度假村"
+          }
+      ],
+      "hiddenLogs": [
+          {
+              "alarmFrequency": 202,
+              "alarmTime": 1556342380,
+              "classifyResult": "",
+              "confirmResult": "未确认",
+              "deviceName": "万隆度假村压力表",
+              "failType": "故障",
+              "resetStatus": "未复位",
+              "resetTime": 0,
+              "unit": "江山万隆度假村"
+          }
+      ],
+      "location": {
+          "lat": 28.70429199106716,
+          "lng": 118.51973196595133
+      },
+      "presetTimeAlarmCount": 0,
+      "presetTimeHiddenCount": 1,
+      "status": 0,
+      "unitName": "江山万隆度假村1"
+    },
+    {
+      "alarmLogs": [
+          {
+              "alarmTime": 1554360970,
+              "buildingName": "一层宴会厅走道",
+              "classifyResult": "",
+              "result": "误报",
+              "unit": "江山万隆度假村"
+          },
+          {
+              "alarmTime": 1554360801,
+              "buildingName": "一层宴会厅走道",
+              "classifyResult": "",
+              "result": "误报",
+              "unit": "江山万隆度假村"
+          },
+          {
+              "alarmTime": 1550818769,
+              "buildingName": "万隆度假村用传",
+              "classifyResult": "",
+              "result": "误报",
+              "unit": "江山万隆度假村"
+          },
+          {
+              "alarmTime": 1550818513,
+              "buildingName": "万隆度假村用传",
+              "classifyResult": "",
+              "result": "误报",
+              "unit": "江山万隆度假村"
+          },
+          {
+              "alarmTime": 1550111898,
+              "buildingName": "万隆度假村蓝天用传",
+              "classifyResult": "",
+              "result": "误报",
+              "unit": "江山万隆度假村"
+          }
+      ],
+      "hiddenLogs": [
+          {
+              "alarmFrequency": 202,
+              "alarmTime": 1556342380,
+              "classifyResult": "",
+              "confirmResult": "未确认",
+              "deviceName": "万隆度假村压力表",
+              "failType": "故障",
+              "resetStatus": "未复位",
+              "resetTime": 0,
+              "unit": "江山万隆度假村"
+          }
+      ],
+      "location": {
+          "lat": 28.71429199106716,
+          "lng": 118.61973196595133
+      },
+      "presetTimeAlarmCount": 0,
+      "presetTimeHiddenCount": 1,
+      "status": 0,
+      "unitName": "江山万隆度假村2"
+    },
+    {
+      "alarmLogs": [
+          {
+              "alarmTime": 1554360970,
+              "buildingName": "一层宴会厅走道",
+              "classifyResult": "",
+              "result": "误报",
+              "unit": "江山万隆度假村"
+          },
+          {
+              "alarmTime": 1554360801,
+              "buildingName": "一层宴会厅走道",
+              "classifyResult": "",
+              "result": "误报",
+              "unit": "江山万隆度假村"
+          },
+          {
+              "alarmTime": 1550818769,
+              "buildingName": "万隆度假村用传",
+              "classifyResult": "",
+              "result": "误报",
+              "unit": "江山万隆度假村"
+          },
+          {
+              "alarmTime": 1550818513,
+              "buildingName": "万隆度假村用传",
+              "classifyResult": "",
+              "result": "误报",
+              "unit": "江山万隆度假村"
+          },
+          {
+              "alarmTime": 1550111898,
+              "buildingName": "万隆度假村蓝天用传",
+              "classifyResult": "",
+              "result": "误报",
+              "unit": "江山万隆度假村"
+          }
+      ],
+      "hiddenLogs": [
+          {
+              "alarmFrequency": 202,
+              "alarmTime": 1556342380,
+              "classifyResult": "",
+              "confirmResult": "未确认",
+              "deviceName": "万隆度假村压力表",
+              "failType": "故障",
+              "resetStatus": "未复位",
+              "resetTime": 0,
+              "unit": "江山万隆度假村"
+          }
+      ],
+      "location": {
+          "lat": 28.72429199106716,
+          "lng": 118.61973196595133
+      },
+      "presetTimeAlarmCount": 0,
+      "presetTimeHiddenCount": 1,
+      "status": 0,
+      "unitName": "江山万隆度假村3"
+    }
+  ],
   "user": {
     "id": 1,
     "name": "cyd"

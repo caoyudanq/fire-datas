@@ -51,7 +51,8 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   if (to.path === '/login') { // 用户要访问登录页，不需要设置权限
     next()
-  }// 如果要访问的不是登录页，要判断sessionStory里面是否已经存储了token，只有存储了的用户才能访问其他页面
+  }
+  // 如果要访问的不是登录页，要判断sessionStory里面是否已经存储了token，只有存储了的用户才能访问其他页面
   // let user = JSON.parse(sessionStorage.getItem('user'))
   const tokenStr = window.sessionStorage.getItem('token')
   if (to.path !== '/login' && !tokenStr) {

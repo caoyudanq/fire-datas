@@ -9,17 +9,18 @@
       :scroll-wheel-zoom="true"
       @ready="handler"
     >
-      <myOverlay
-        v-for="(item, index) in citys"
-        :key="index"
-        :position="{ lng: item.lng, lat: item.lat }"
-        :status="item.status"
-        :sectionInfo="{ sectionName: item.sectionName,
-        sectionLoction: item.sectionLoction,
-        buildingName: item.buildingName,
-        telephone: item.telephone
-        }"
-      ></myOverlay>
+    <myOverlay
+      v-for="(item, index) in unitInfos"
+      :key="index"
+      :position="{ lng: item.location.lng, lat: item.location.lat }"
+      :status="item.status"
+      :unitInfo="{ unitName: item.unitName,
+      presetTimeAlarmCount: item.presetTimeAlarmCount,
+      presetTimeHiddenCount: item.presetTimeHiddenCount,
+      alarmlogs: item.alarmlogs,
+      hiddenlogs: item.hiddenlogs
+      }"
+    ></myOverlay>
     </baidu-map>
   </div>
 </template>
@@ -32,7 +33,7 @@ export default {
       center: { lng: 0, lat: 0 },
       zoom: 15,
       active: false,
-      citys: [],
+      unitInfos: [],
       mapStyle: {
         styleJson: [
           {
@@ -186,16 +187,22 @@ export default {
   },
   methods: {
     handler({ BMap, map }) {
-      this.center.lng = 116.404
-      this.center.lat = 39.915
+      this.center.lng = 118.619
+      this.center.lat = 28.714
+      // this.center.lng = 116.400经度
+      // this.center.lat = 39.915纬度
       this.zoom = 15
     },
     getCitysData() {
-      this.$http.get('/api/citys')
+      this.$http.get('/api/unitInfo')
         .then(res => {
           console.log(res.data.data)
-          this.citys = res.data.data
+          this.unitInfos = res.data.data
+          console.log('单位名称：' + this.unitInfos[0].unitName)
         })
+        // 从服务器请求数据
+      var now = Date.parse(new Date())
+      console.log('now=' + now)
     }
   },
   components: {

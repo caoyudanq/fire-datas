@@ -3,7 +3,8 @@ import axios from 'axios'
 // import http from './http'
 
 // 设置axios的基础地址方便后续编码
-axios.defaults.baseURL = 'http://localhost:8080'
+// axios.defaults.baseURL = 'http://localhost:8080'
+axios.defaults.baseURL = 'http://127.0.0.1:8080'
 // 允许axios跨域携带cookie 默认是不携带
 axios.defaults.withCredentials = true
 

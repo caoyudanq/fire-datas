@@ -20,6 +20,7 @@ const PORT = process.env.PORT && Number(process.env.PORT)
   var user = appData.user
   var goods = appData.goods
   var citys = appData.citys
+  var unitInfo = appData.unitInfo
   var tableData1 = appData.tableData1
   var tableData2 = appData.tableData2
   var tableData3 = appData.tableData3
@@ -68,6 +69,12 @@ const devWebpackConfig = merge(baseWebpackConfig, {
             errno: 0,
             data: appData
           }) //接口返回json数据，上面配置的数据appData就赋值给data请求后调用
+        }),
+        app.get('/api/unitInfo', (req, res) => {
+          res.json({
+            errno: 0,
+            data: unitInfo
+          })
         }),
         app.get('/api/section1', (req, res) => {
           res.json({

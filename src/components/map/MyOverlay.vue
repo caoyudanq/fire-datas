@@ -9,9 +9,7 @@
     :active="active"
     @click.native="click"
   >
-    <div
-      class="imgContainer"
-    >
+    <div class="imgContainer">
       <img :src="iconUrl" :id="imgSize" />
     </div>
     <bm-info-window
@@ -25,20 +23,20 @@
       </p>
       <div class="infoContent">
         <p>
-          {{ infoWindow.sectionName }}
-          {{ sectionInfo.sectionName }}
+          {{ infoWindow.unitName }}
+          {{ unitInfo.unitName }}
         </p>
         <p>
-          {{ infoWindow.sectionLoction }}
-          {{ sectionInfo.sectionLoction }}
+          {{ infoWindow.presetTimeAlarmCount }}
+          {{ unitInfo.presetTimeAlarmCount }}
         </p>
         <p>
-          {{ infoWindow.buildingName }}
-          {{ sectionInfo.buildingName }}
+          {{ infoWindow.presetTimeHiddenCount }}
+          {{ unitInfo.presetTimeHiddenCount }}
         </p>
         <p>
-          {{ infoWindow.telephone }}
-          {{ sectionInfo.telephone }}
+          {{ infoWindow.alarmlogs }}
+          {{ unitInfo.presetTimeHiddenCount }}
         </p>
       </div>
     </bm-info-window>
@@ -53,15 +51,19 @@ export default {
       infoWindow: {
         show: false,
         infoTitle: '单位信息',
-        sectionName: '单位名称：',
-        buildingName: '建筑物名称：',
-        sectionLoction: '单位地址：',
-        telephone: '电话：'
+        unitName: '单位名称：',
+        presetTimeAlarmCount: '30分钟内报警：',
+        presetTimeHiddenCount: '30分钟内隐患：',
+        alarmlogs: '最新报警记录：',
+        hiddenlogs: '最新隐患记录：'
       }
     }
   },
-  props: ['position', 'status', 'sectionInfo'],
+  props: ['position', 'status', 'unitInfo'],
   components: {},
+  created() {
+    console.log('图标创建')
+  },
   computed: {
     iconUrl: function() {
       if (this.status === 1) {
@@ -97,14 +99,6 @@ export default {
       el.style.left = pixel.x - 64 + 'px'
       el.style.top = pixel.y + 'px'
     },
-    // handleMouseOver() {
-    //   this.infoWindow.show = true
-    //   this.active = true
-    // },
-    // handleMouseLeave() {
-    //   this.infoWindow.show = false
-    //   this.active = false
-    // },
     infoWindowClose(e) {
       this.infoWindow.show = false
       this.active = false

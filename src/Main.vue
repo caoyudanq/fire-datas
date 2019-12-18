@@ -92,9 +92,24 @@ export default {
     changeUserInfo() {
     },
     exit() {
+      this.$http.post('logout/do_logout')
+        .then(res => {
+          console.log(res)
+          if (res.data.code === 2000) {
+            window.localStorage['token'] = ''
+            this.$store.commit('addUserName', '')
+            this.$store.commit('addPassword', '')
+            this.$router.push('/login')
+          } else {
+            this.$Message.error(res.data.msg)
+          }
+        }).catch(err => {
+          console.log('退出失败')
+          console.log(err)
+        })
       this.$store.commit('addUserName', '')
       this.$store.commit('addPassword', '')
-      this.$router.push('/Login')
+      this.$router.push('/login')
     }
   }
 }

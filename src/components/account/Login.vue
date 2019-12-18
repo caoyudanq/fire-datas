@@ -9,17 +9,17 @@
     class="demo-ruleForm login-container"
   >
     <h3 class="title">系统登录</h3>
-    <el-form-item prop="account">
+    <el-form-item prop="username">
       <el-input
         type="text"
-        v-model="ruleForm.account"
+        v-model="ruleForm.username"
         placeholder="账号"
       ></el-input>
     </el-form-item>
-    <el-form-item prop="checkPass">
+    <el-form-item prop="password">
       <el-input
         type="password"
-        v-model="ruleForm.checkPass"
+        v-model="ruleForm.password"
         placeholder="密码"
       ></el-input>
     </el-form-item>
@@ -40,21 +40,24 @@
 
 <script>
 import { mapMutations } from 'vuex'
+// import { Message } from 'element-ui'
 export default {
   data() {
     return {
       logining: false,
-      token: 'user_cyd',
+      token: 'cyd_123',
       ruleForm: {
-        account: 'admin',
-        checkPass: '123456'
+        username: 'admin',
+        password: '123456'
       },
       rules: {
-        account: [
-          { required: true, message: '请输入账号', trigger: 'blur' }
+        username: [
+          { required: true, message: '请输入账号', trigger: 'blur' },
+          { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
         ],
-        checkPass: [
-          { required: true, message: '请输入密码', trigger: 'blur' }
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
+          { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
         ]
       },
       checked: true
@@ -70,33 +73,48 @@ export default {
   methods: {
     ...mapMutations(['addUserName', 'addPassword']),
     login() {
-      // console.log(this.ruleForm)
-      window.sessionStorage.setItem('token', this.token)
+      console.log(this.ruleForm)
       // this.$http.post('login', this.ruleForm)
-      // .then(res => {
-      //       if (res.data.errno === 0) {
-      //         this.$Message.success('登陆成功');
-      //         this.$router.push('roomInfo');
-      //         //全局存储token
-      //         window.localStorage["token"] = JSON.stringify(res.data.data.token);
-      //       } else {
-      //         this.$Message.error('登录失败');
-      //         this.forgetPassword = true;
-      //       }
-      //     }).catch(err => {
-      //     console.log("登录失败");
+      //   .then(res => {
+      //     console.log(res)
+      //     if (res.data.errno === 0) {
+      //       this.$Message.success('登陆成功')
+      //       this.$router.push('roomInfo')
+      //       // 全局存储token
+      //       window.localStorage['token'] = JSON.stringify(res.data.data.token)
+      //     } else {
+      //       this.$Message.error('登录失败')
+      //       this.forgetPassword = true
+      //     }
+      //   }).catch(err => {
+      //     console.log('登录失败')
+      //     console.log(err)
       //   })
-      this.$store.commit('addUserName', this.ruleForm.account)
-      this.$store.commit('addPassword', this.ruleForm.checkPass)
-      // this.$http.get('/api/user').then((result) => {
-      //   console.log('result=' + result.body)
-      //   if (result) {
-      //     this.tableData = result
-      //   }
-      // }).catch((err) => {
-      //   alert(err)
-      // })
+      // 采用
+      // this.$http.post('login', this.ruleForm)
+      //   .then(res => {
+      //     console.log(res)
+      //     if (res.data.code === 2000) {
+      //       // 全局存储token
+      //       // window.localStorage['token'] = JSON.stringify(res.data.msg)
+      //       window.localStorage['token'] = res.data.msg
+      //       this.$store.commit('addUserName', this.ruleForm.username)
+      //       this.$store.commit('addPassword', this.ruleForm.password)
+      //       this.$router.push('/main')
+      //     } else {
+      //       Message.error('登录失败')
+      //       this.forgetPassword = true
+      //     }
+      //   }).catch(err => {
+      //     console.log('登录失败')
+      //     console.log(err)
+      //   })
+      // 待删除
+      window.sessionStorage.setItem('token', this.token)
+      this.$store.commit('addUserName', this.ruleForm.username)
+      this.$store.commit('addPassword', this.ruleForm.password)
       this.$router.push('/main')
+      //  ...
     }
   }
 }
