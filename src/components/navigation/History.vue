@@ -15,13 +15,15 @@
     <history-data :pageIndex="this.pageIndex"
     :dataType="this.dataType"
     :section="this.input"
-    @changeView="changeView">
+    @changeView="changeView"
+    @getTotal="getTotal">
     </history-data>
     <div id="pageIndex" class="block">
       <el-pagination layout="prev, pager, next"
       :total="total"
       :current-page="this.pageIndex"
-      @current-change="HandleCurrentPage"></el-pagination>
+      @current-change="HandleCurrentPage">
+      </el-pagination>
     </div>
   </div>
 </template>
@@ -49,13 +51,11 @@ export default {
     HandleCurrentPage(val) {
       this.pageIndex = val
     },
-    getCross() {
-      this.$http.get('https://dss1.bdstatic.com/kvoZeXSm1A5BphGlnYG/newmusic/2000nian.png?v=md5')
-        .then(res => {
-          console.log(res.data)
-        })
-    },
     search() {
+      if (this.result !== null) {
+        this.result = null
+      }
+      console.log('点击search')
       this.HandleCurrentPage(1)
       if (this.input !== '') {
         this.dataType = 'firedatasBySection'
@@ -66,6 +66,9 @@ export default {
     changeView() {
       console.log('changeView执行了')
       this.result = '没有查到数据'
+    },
+    getTotal(val) {
+      this.total = val
     }
   }
 }

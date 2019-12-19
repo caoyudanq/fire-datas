@@ -47,7 +47,29 @@
               "deviceName": "万隆度假村压力表",
               "failType": "故障",
               "resetStatus": "未复位",
-              "resetTime": 0,
+              "resetTime": 1556342380,
+              "unit": "江山万隆度假村"
+          },
+          {
+              "alarmFrequency": 20,
+              "alarmTime": 1556342380,
+              "classifyResult": "",
+              "confirmResult": "未确认",
+              "deviceName": "万隆度假村压力表",
+              "failType": "故障",
+              "resetStatus": "未复位",
+              "resetTime": 1556342380,
+              "unit": "江山万隆度假村"
+          },
+          {
+              "alarmFrequency": 2,
+              "alarmTime": 1556342380,
+              "classifyResult": "",
+              "confirmResult": "未确认",
+              "deviceName": "万隆度假村压力表",
+              "failType": "故障",
+              "resetStatus": "未复位",
+              "resetTime": 1556342380,
               "unit": "江山万隆度假村"
           }
       ],
@@ -216,87 +238,6 @@
   ],
   
   "tableData1": [
-    {
-      "device": "1住院楼地下室清洗室6H31D",
-      "section": "江山贝林医院",
-      "type": "火警",
-      "date": "2016-05-02",
-      "status": "未复位",
-      "address": "上海市普陀区金沙江路 1518 弄"
-    },
-    {
-      "device": "住院楼地下室清洗室6H31D",
-      "section": "江山贝林医院",
-      "type": "火警",
-      "date": "2016-05-02",
-      "status": "未复位",
-      "address": "上海市普陀区金沙江路 1518 弄"
-    },
-
-    {
-      "device": "住院楼地下室清洗室6H31D",
-      "section": "江山贝林医院",
-      "type": "火警",
-      "date": "2016-05-02",
-      "status": "未复位",
-      "address": "上海市普陀区金沙江路 1518 弄"
-    },
-    {
-      "device": "住院楼地下室清洗室6H31D",
-      "section": "江山贝林医院",
-      "type": "火警",
-      "date": "2016-05-02",
-      "status": "未复位",
-      "address": "上海市普陀区金沙江路 1518 弄"
-    },
-    {
-      "device": "住院楼地下室清洗室6H31D",
-      "section": "江山贝林医院",
-      "type": "火警",
-      "date": "2016-05-02",
-      "status": "未复位",
-      "address": "上海市普陀区金沙江路 1518 弄"
-    },
-    {
-      "device": "住院楼地下室清洗室6H31D",
-      "section": "江山贝林医院",
-      "type": "火警",
-      "date": "2016-05-02",
-      "status": "未复位",
-      "address": "上海市普陀区金沙江路 1518 弄"
-    },
-    {
-      "device": "住院楼地下室清洗室6H31D",
-      "section": "江山贝林医院",
-      "type": "火警",
-      "date": "2016-05-02",
-      "status": "未复位",
-      "address": "上海市普陀区金沙江路 1518 弄"
-    },
-    {
-      "device": "住院楼地下室清洗室6H31D",
-      "section": "江山贝林医院",
-      "type": "火警",
-      "date": "2016-05-02",
-      "status": "未复位",
-      "address": "上海市普陀区金沙江路 1518 弄"
-    },
-    {
-      "device": "住院楼地下室清洗室6H31D",
-      "section": "江山贝林医院",
-      "type": "火警",
-      "date": "2016-05-02",
-      "status": "未复位",
-      "address": "上海市普陀区金沙江路 1518 弄"
-    },
-    {
-      "device": "住院楼地下室清洗室6H31D",
-      "section": "江山贝林医院",
-      "type": "火警",
-      "date": "2016-05-02",
-      "status": "未复位",
-      "address": "上海市普陀区金沙江路 1518 弄"
-    },
     {
       "device": "1住院楼地下室清洗室6H31D",
       "section": "江山贝林医院",

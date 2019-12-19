@@ -91,7 +91,7 @@ export default {
       //     console.log(err)
       //   })
       // 采用
-      // this.$http.post('login', this.ruleForm)
+      // this.$http.get('/login/do_login?username=' + this.ruleForm.username +'&password=' + this.ruleForm.password)
       //   .then(res => {
       //     console.log(res)
       //     if (res.data.code === 2000) {

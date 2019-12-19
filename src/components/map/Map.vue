@@ -17,8 +17,8 @@
       :unitInfo="{ unitName: item.unitName,
       presetTimeAlarmCount: item.presetTimeAlarmCount,
       presetTimeHiddenCount: item.presetTimeHiddenCount,
-      alarmlogs: item.alarmlogs,
-      hiddenlogs: item.hiddenlogs
+      alarmLogs: item.alarmLogs,
+      hiddenLogs: item.hiddenLogs
       }"
     ></myOverlay>
     </baidu-map>
@@ -34,6 +34,7 @@ export default {
       zoom: 15,
       active: false,
       unitInfos: [],
+      now: 0,
       mapStyle: {
         styleJson: [
           {
@@ -184,25 +185,38 @@ export default {
   created() {
     console.log('Map.vue被创建了')
     this.getCitysData()
+    this.now = Date.parse(new Date())
+    console.log('now=' + this.now)
   },
   methods: {
     handler({ BMap, map }) {
       this.center.lng = 118.619
       this.center.lat = 28.714
-      // this.center.lng = 116.400经度
-      // this.center.lat = 39.915纬度
-      this.zoom = 15
+      this.zoom = 13
     },
     getCitysData() {
       this.$http.get('/api/unitInfo')
         .then(res => {
           console.log(res.data.data)
           this.unitInfos = res.data.data
-          console.log('单位名称：' + this.unitInfos[0].unitName)
         })
         // 从服务器请求数据
       var now = Date.parse(new Date())
       console.log('now=' + now)
+    },
+    getCitysData1() {
+      this.$http.get('/main?now=' + this.now)
+        .then(res => {
+          console.log(res)
+          if (res.data.code === 2000) {
+            this.unitInfo = res.data.msg
+          } else {
+            this.$message.error('获取单位信息失败')
+          }
+        }).catch(err => {
+          console.log('获取单位信息失败')
+          console.log(err)
+        })
     }
   },
   components: {

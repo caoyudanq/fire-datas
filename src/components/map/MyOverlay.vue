@@ -12,6 +12,7 @@
     <div class="imgContainer">
       <img :src="iconUrl" :id="imgSize" />
     </div>
+    <p id="unitName">{{ unitInfo.unitName }}</p>
     <bm-info-window
       :position="{ lng: this.position.lng, lat: this.position.lat }"
       :show="infoWindow.show"
@@ -34,12 +35,44 @@
           {{ infoWindow.presetTimeHiddenCount }}
           {{ unitInfo.presetTimeHiddenCount }}
         </p>
-        <p>
-          {{ infoWindow.alarmlogs }}
-          {{ unitInfo.presetTimeHiddenCount }}
-        </p>
+        <div>
+          <p>
+            {{ infoWindow.alarmlogs }}
+            <el-button type="text" @click="alarmlogsDetail" >详情</el-button>
+          </p>
+        </div>
+        <div>
+          <p>
+            {{ infoWindow.hiddenlogs }}
+              <el-button type="text" @click="hiddenlogsDetail" >详情</el-button>
+          </p>
+        </div>
       </div>
     </bm-info-window>
+    <div id="alarmlogsDetailContains">
+      <el-dialog title="最新报警记录" :visible.sync="dialogTableVisibleAlarm">
+        <el-table :data="alarmLogs">
+          <el-table-column property="alarmTime" label="报警时间" width="150"></el-table-column>
+          <el-table-column property="buildingName" label="探测器名称" width="200"></el-table-column>
+          <el-table-column property="result" label="现场确认结果" width=""> </el-table-column>
+          <el-table-column property="classifyResult" label="识别结果" width=""> </el-table-column>
+        </el-table>
+      </el-dialog>
+    </div>
+    <div id="alarmlogsDetailContains">
+      <el-dialog title="最新隐患记录" :visible.sync="dialogTableVisibleHidden">
+        <el-table :data="hiddenLogs">
+          <el-table-column property="alarmTime" label="隐患报警时间" width="150"></el-table-column>
+          <el-table-column property="deviceName" label="探测器名称" width="150"></el-table-column>
+          <el-table-column property="alarmFrequency" label="报警次数" width="100"> </el-table-column>
+          <el-table-column property="failType" label="故障类型" width="80"> </el-table-column>
+          <el-table-column property="resetStatus" label="复位状态" width="100"></el-table-column>
+          <el-table-column property="resetTime" label="复位时间" width="150"></el-table-column>
+          <el-table-column property="confirmResult" label="现场确认结果" width="100"> </el-table-column>
+          <el-table-column property="classifyResult" label="识别结果" width="100"> </el-table-column>
+        </el-table>
+      </el-dialog>
+    </div>
   </bm-overlay>
 </template>
 
@@ -56,13 +89,52 @@ export default {
         presetTimeHiddenCount: '30分钟内隐患：',
         alarmlogs: '最新报警记录：',
         hiddenlogs: '最新隐患记录：'
-      }
+      },
+      alarmLogs: [],
+      hiddenLogs: [],
+      dialogTableVisibleAlarm: false,
+      dialogTableVisibleHidden: false,
+      dialogFormVisible: false
     }
   },
   props: ['position', 'status', 'unitInfo'],
   components: {},
   created() {
-    console.log('图标创建')
+    console.log('unitInfo=')
+    console.log(this.unitInfo)
+    this.unitInfo.alarmLogs.forEach(function(item) {
+      var dt = new Date(item.alarmTime)
+      // 获取年月日
+      var y = dt.getFullYear()
+      var m = (dt.getMonth() + 1).toString().padStart(2, '0')
+      var d = dt.getDate().toString().padStart(2, '0')
+      var hh = dt.getHours().toString().padStart(2, '0')
+      var mm = dt.getMinutes().toString().padStart(2, '0')
+      var ss = dt.getSeconds().toString().padStart(2, '0')
+      item.alarmTime = `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+    })
+    this.alarmLogs = this.unitInfo.alarmLogs
+    this.unitInfo.hiddenLogs.forEach(function(item) {
+      var dt = new Date(item.alarmTime)
+      var y = dt.getFullYear()
+      var m = (dt.getMonth() + 1).toString().padStart(2, '0')
+      var d = dt.getDate().toString().padStart(2, '0')
+      var hh = dt.getHours().toString().padStart(2, '0')
+      var mm = dt.getMinutes().toString().padStart(2, '0')
+      var ss = dt.getSeconds().toString().padStart(2, '0')
+      item.alarmTime = `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+    })
+    this.unitInfo.hiddenLogs.forEach(function(item) {
+      var dt = new Date(item.resetTime)
+      var y = dt.getFullYear()
+      var m = (dt.getMonth() + 1).toString().padStart(2, '0')
+      var d = dt.getDate().toString().padStart(2, '0')
+      var hh = dt.getHours().toString().padStart(2, '0')
+      var mm = dt.getMinutes().toString().padStart(2, '0')
+      var ss = dt.getSeconds().toString().padStart(2, '0')
+      item.resetTime = `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+    })
+    this.hiddenLogs = this.unitInfo.hiddenLogs
   },
   computed: {
     iconUrl: function() {
@@ -110,12 +182,26 @@ export default {
       console.log('点击标志物')
       this.infoWindow.show = true
       this.active = true
+    },
+    hiddenlogsDetail() {
+      this.dialogTableVisibleHidden = true
+      console.log('隐患日志')
+    },
+    alarmlogsDetail() {
+      this.dialogTableVisibleAlarm = true
+      console.log('报警日志')
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+#unitName {
+  background-color: antiquewhite;
+  font-size: 12px;
+  margin: 0 0 0 20px;
+  width: 120px;
+}
 .infoTitle {
   font-size: 20px;
   font-weight: bold;
@@ -123,6 +209,9 @@ export default {
 .infoContent {
   font-size: 12px;
   font-weight: 400;
+  #detail {
+    margin: 0 0 0 10px;
+  }
 }
 .sample {
   height: 64px;
