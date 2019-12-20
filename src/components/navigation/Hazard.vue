@@ -1,13 +1,16 @@
 <template>
   <div id="history">
     <div id="search">
-      <span>设备编号：</span>
-      <span>
+      <span>单位名称：</span>
       <el-input
-        type="text"
-        placeholder="编号"
-      ></el-input>
-      </span>
+        placeholder="请输入内容"
+        v-model="input"
+        clearable
+        style="width:300px"
+        @keyup.enter.native="search">
+        </el-input>
+        <el-button @click="search">搜索</el-button>
+        <span>{{ this.result }}</span>
     </div>
     <history-data :pageIndex="this.pageIndex"></history-data>
     <div id="pageIndex" class="block">

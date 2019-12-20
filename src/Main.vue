@@ -92,7 +92,7 @@ export default {
     changeUserInfo() {
     },
     exit() {
-      this.$http.post('logout/do_logout')
+      this.$http.get('/logout/do_logout')
         .then(res => {
           console.log(res)
           if (res.data.code === 2000) {
@@ -101,7 +101,7 @@ export default {
             this.$store.commit('addPassword', '')
             this.$router.push('/login')
           } else {
-            this.$Message.error(res.data.msg)
+            this.$Message(res.data.msg)
           }
         }).catch(err => {
           console.log('退出失败')

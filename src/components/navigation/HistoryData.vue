@@ -30,46 +30,48 @@ export default {
   },
   props: ['pageIndex', 'dataType', 'section'],
   methods: {
-    getHistoryData() {
-      this.$http.get('/api/tableData' + this.pageIndex)
-        .then(res => {
-          if (res.data.errno === 0) {
-            console.log('获取历史日志')
-            console.log(res.data)
-            this.tableData = res.data.data
-          } else {
-            console.log('获取历史日志失败')
-            // this.$emit('changeView')
-          }
-        })
-    },
-    getHistoryDataBySection() {
-      this.$http.get('/api/' + this.section + this.pageIndex)
-        .then(res => {
-          console.log('按单位获取历史日志')
-          console.log(res.data)
-          if (res.data.error === 0) {
-            this.tableData = res.data.data
-          } else {
-            console.log('按单位获取历史日志失败')
-            this.$emit('changeView')
-          }
-        })
-    },
-    getHistoryData1() {
-      this.$http.post('queryAlarmLog', {
-        curPage: this.pageIndex,
-        pageSize: this.pageSize
+    // getHistoryData() {
+    //   this.$http.get('/api/tableData' + this.pageIndex)
+    //     .then(res => {
+    //       if (res.data.errno === 0) {
+    //         console.log('获取历史日志')
+    //         console.log(res.data)
+    //         this.tableData = res.data.data
+    //       } else {
+    //         console.log('获取历史日志失败')
+    //         // this.$emit('changeView')
+    //       }
+    //     })
+    // },
+    // getHistoryDataBySection() {
+    //   this.$http.get('/api/' + this.section + this.pageIndex)
+    //     .then(res => {
+    //       console.log('按单位获取历史日志')
+    //       console.log(res.data)
+    //       if (res.data.error === 0) {
+    //         this.tableData = res.data.data
+    //       } else {
+    //         console.log('按单位获取历史日志失败')
+    //         this.$emit('changeView')
+    //       }
+    //     })
+    // },
+    getHistoryData1() { // TO-DO时间戳转换
+      this.$http.post('/queryAlarmLog', {
+        curPage: 1,
+        pageSize: 10
       })
         .then(res => {
           console.log(res)
-          if (res.data.code === 2000) {
-            this.tableData = res.data.msg
-            this.total = res.data.msg.pageNum
-          } else {
-            this.$Message.error('查询失败')
-            // this.$emit('changeView')
-          }
+          this.tableData = res.data.alarmLogVos
+          this.total = res.data.pageNum
+          // if (res.data.code === 2000) {
+          //   this.tableData = res.data.msg
+          //   this.total = res.data.msg.pageNum
+          // } else {
+          //   this.$message.error('查询失败')
+          //   // this.$emit('changeView')
+          // }
         }).catch(err => {
           console.log('查询失败')
           console.log(err)
@@ -100,10 +102,10 @@ export default {
     console.log('historyData被创建了')
     console.log('pageIndex=' + this.pageIndex)
     if (this.dataType === 'firedatas') {
-      this.getHistoryData()
+      this.getHistoryData1()
       this.$emit(this.total)
     } else {
-      this.getHistoryDataBySection()
+      this.getHistoryDataBySection1()
       this.$emit(this.total)
     }
   },
@@ -112,18 +114,18 @@ export default {
       console.log('new:' + newVal)
       console.log('old:' + oldVal)
       if (this.dataType === 'firedatas') {
-        this.getHistoryData()
+        this.getHistoryData1()
       } else {
-        this.getHistoryDataBySection()
+        this.getHistoryDataBySection1()
       }
     },
     dataType: function(newVal1, oldVal1) {
       console.log('new:' + newVal1)
       console.log('old:' + oldVal1)
       if (this.dataType === 'firedatas') {
-        this.getHistoryData()
+        this.getHistoryData1()
       } else {
-        this.getHistoryDataBySection()
+        this.getHistoryDataBySection1()
       }
     }
   },

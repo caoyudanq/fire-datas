@@ -184,7 +184,7 @@ export default {
   },
   created() {
     console.log('Map.vue被创建了')
-    this.getCitysData()
+    this.getCitysData1()// ////////////////////////////////////////////////////////////
     this.now = Date.parse(new Date())
     console.log('now=' + this.now)
   },
@@ -194,28 +194,32 @@ export default {
       this.center.lat = 28.714
       this.zoom = 13
     },
-    getCitysData() {
-      this.$http.get('/api/unitInfo')
-        .then(res => {
-          console.log(res.data.data)
-          this.unitInfos = res.data.data
-        })
-        // 从服务器请求数据
-      var now = Date.parse(new Date())
-      console.log('now=' + now)
-    },
+    // getCitysData() {
+    //   this.$http.get('/api/unitInfo')
+    //     .then(res => {
+    //       console.log(res.data.data)
+    //       this.unitInfos = res.data.data
+    //     })
+    //     // 从服务器请求数据
+    //   var now = Date.parse(new Date())
+    //   console.log('now=' + now)
+    // },
     getCitysData1() {
-      this.$http.get('/main?now=' + this.now)
+      console.log(window.sessionStorage.getItem('token'))
+      this.$http.post('/main', {
+        now: 1556344384
+      })
         .then(res => {
           console.log(res)
-          if (res.data.code === 2000) {
-            this.unitInfo = res.data.msg
-          } else {
-            this.$message.error('获取单位信息失败')
-          }
-        }).catch(err => {
-          console.log('获取单位信息失败')
-          console.log(err)
+          this.unitInfos = res.data
+        //   if (res.data.code === 2000) {
+        //     this.unitInfo = res.data.msg
+        //   } else {
+        //     this.$message.error('获取单位信息失败')
+        //   }
+        // }).catch(err => {
+        //   console.log('获取单位信息失败')
+        //   console.log(err)
         })
     }
   },

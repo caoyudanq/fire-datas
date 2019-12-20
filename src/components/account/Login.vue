@@ -48,7 +48,7 @@ export default {
       token: 'cyd_123',
       ruleForm: {
         username: 'admin',
-        password: '123456'
+        password: '111'
       },
       rules: {
         username: [
@@ -91,30 +91,26 @@ export default {
       //     console.log(err)
       //   })
       // 采用
-      // this.$http.get('/login/do_login?username=' + this.ruleForm.username +'&password=' + this.ruleForm.password)
-      //   .then(res => {
-      //     console.log(res)
-      //     if (res.data.code === 2000) {
-      //       // 全局存储token
-      //       // window.localStorage['token'] = JSON.stringify(res.data.msg)
-      //       window.localStorage['token'] = res.data.msg
-      //       this.$store.commit('addUserName', this.ruleForm.username)
-      //       this.$store.commit('addPassword', this.ruleForm.password)
-      //       this.$router.push('/main')
-      //     } else {
-      //       Message.error('登录失败')
-      //       this.forgetPassword = true
-      //     }
-      //   }).catch(err => {
-      //     console.log('登录失败')
-      //     console.log(err)
-      //   })
-      // 待删除
-      window.sessionStorage.setItem('token', this.token)
-      this.$store.commit('addUserName', this.ruleForm.username)
-      this.$store.commit('addPassword', this.ruleForm.password)
-      this.$router.push('/main')
-      //  ...
+      this.$http.get('/login/do_login?username=' + this.ruleForm.username + '&password=' + this.ruleForm.password)
+        .then(res => {
+          console.log('111111111')
+          console.log(res.data)
+          if (res.data.code === 2000) {
+            console.log('111111112')
+            // 全局存储token
+            // window.localStorage['token'] = JSON.stringify(res.data.msg)
+            window.sessionStorage.setItem('token', res.data.msg)
+            this.$store.commit('addUserName', this.ruleForm.username)
+            this.$store.commit('addPassword', this.ruleForm.password)
+            this.$router.push('/main')
+          } else {
+            this.$message.error('登录失败')
+            this.forgetPassword = true
+          }
+        }).catch(err => {
+          console.log('登录失败')
+          console.log(err)
+        })
     }
   }
 }

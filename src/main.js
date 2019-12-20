@@ -25,6 +25,7 @@ new Vue({
   store,
   components: { Home },
   template: '<Home/>'
+  // withCredentials: true
 })
 // 定义一个全局过滤器
 
