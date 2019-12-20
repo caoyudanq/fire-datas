@@ -19,3 +19,13 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+
+第一次测试后：
+1.跨域问题
+2.路由导航改了
+3.常量 魔法数
+4.几个地方的时间戳还没有转换
+5.请求相应格式
+6.cookie中带token
+7.隐患日志未完善
