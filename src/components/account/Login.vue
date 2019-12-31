@@ -40,6 +40,7 @@
 
 <script>
 import { mapMutations } from 'vuex'
+import global_ from '../../util/Global'
 // import { Message } from 'element-ui'
 export default {
   data() {
@@ -91,21 +92,19 @@ export default {
       //     console.log(err)
       //   })
       // 采用
-      this.$http.get('/login/do_login?username=' + this.ruleForm.username + '&password=' + this.ruleForm.password)
+      this.$http.get('/api/login/do_login?username=' + this.ruleForm.username + '&password=' + this.ruleForm.password)
         .then(res => {
           console.log('111111111')
           console.log(res.data)
-          if (res.data.code === 2000) {
+          if (res.data.code === global_.SUCCESS) {
             console.log('111111112')
             // 全局存储token
-            // window.localStorage['token'] = JSON.stringify(res.data.msg)
             window.sessionStorage.setItem('token', res.data.msg)
             this.$store.commit('addUserName', this.ruleForm.username)
             this.$store.commit('addPassword', this.ruleForm.password)
             this.$router.push('/main')
           } else {
             this.$message.error('登录失败')
-            this.forgetPassword = true
           }
         }).catch(err => {
           console.log('登录失败')

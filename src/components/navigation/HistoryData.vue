@@ -30,41 +30,41 @@ export default {
   },
   props: ['pageIndex', 'dataType', 'section'],
   methods: {
-    // getHistoryData() {
-    //   this.$http.get('/api/tableData' + this.pageIndex)
-    //     .then(res => {
-    //       if (res.data.errno === 0) {
-    //         console.log('获取历史日志')
-    //         console.log(res.data)
-    //         this.tableData = res.data.data
-    //       } else {
-    //         console.log('获取历史日志失败')
-    //         // this.$emit('changeView')
-    //       }
-    //     })
-    // },
-    // getHistoryDataBySection() {
-    //   this.$http.get('/api/' + this.section + this.pageIndex)
-    //     .then(res => {
-    //       console.log('按单位获取历史日志')
-    //       console.log(res.data)
-    //       if (res.data.error === 0) {
-    //         this.tableData = res.data.data
-    //       } else {
-    //         console.log('按单位获取历史日志失败')
-    //         this.$emit('changeView')
-    //       }
-    //     })
-    // },
+    getHistoryData() {
+      this.$http.get('/api/tableData' + this.pageIndex)
+        .then(res => {
+          if (res.data.errno === 0) {
+            console.log('获取历史日志')
+            console.log(res.data)
+            this.tableData = res.data.data
+          } else {
+            console.log('获取历史日志失败')
+            // this.$emit('changeView')
+          }
+        })
+    },
+    getHistoryDataBySection() {
+      this.$http.get('/api/' + this.section + this.pageIndex)
+        .then(res => {
+          console.log('按单位获取历史日志')
+          console.log(res.data)
+          if (res.data.error === 0) {
+            this.tableData = res.data.data
+          } else {
+            console.log('按单位获取历史日志失败')
+            this.$emit('changeView')
+          }
+        })
+    },
     getHistoryData1() { // TO-DO时间戳转换
       this.$http.post('/queryAlarmLog', {
-        curPage: 1,
+        curPage: this.pageIndex,
         pageSize: 10
       })
         .then(res => {
           console.log(res)
-          this.tableData = res.data.alarmLogVos
-          this.total = res.data.pageNum
+          this.tableData = res.data.data.alarmLogVos
+          this.total = res.data.data.pageNum
           // if (res.data.code === 2000) {
           //   this.tableData = res.data.msg
           //   this.total = res.data.msg.pageNum
@@ -105,7 +105,7 @@ export default {
       this.getHistoryData1()
       this.$emit(this.total)
     } else {
-      this.getHistoryDataBySection1()
+      this.getHistoryDataBySection()
       this.$emit(this.total)
     }
   },
@@ -116,7 +116,7 @@ export default {
       if (this.dataType === 'firedatas') {
         this.getHistoryData1()
       } else {
-        this.getHistoryDataBySection1()
+        this.getHistoryDataBySection()
       }
     },
     dataType: function(newVal1, oldVal1) {
@@ -125,7 +125,7 @@ export default {
       if (this.dataType === 'firedatas') {
         this.getHistoryData1()
       } else {
-        this.getHistoryDataBySection1()
+        this.getHistoryDataBySection()
       }
     }
   },

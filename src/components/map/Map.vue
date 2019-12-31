@@ -184,7 +184,7 @@ export default {
   },
   created() {
     console.log('Map.vue被创建了')
-    this.getCitysData1()// ////////////////////////////////////////////////////////////
+    this.getCitysData()// ////////////////////////////////////////////////////////////
     this.now = Date.parse(new Date())
     console.log('now=' + this.now)
   },
@@ -194,16 +194,14 @@ export default {
       this.center.lat = 28.714
       this.zoom = 13
     },
-    // getCitysData() {
-    //   this.$http.get('/api/unitInfo')
-    //     .then(res => {
-    //       console.log(res.data.data)
-    //       this.unitInfos = res.data.data
-    //     })
-    //     // 从服务器请求数据
-    //   var now = Date.parse(new Date())
-    //   console.log('now=' + now)
-    // },
+    getCitysData() {
+      this.$http.get('/unitInfo')
+        .then(res => {
+          console.log(res.data.data)
+          this.unitInfos = res.data.data
+        })
+        // 从服务器请求数据
+    },
     getCitysData1() {
       console.log(window.sessionStorage.getItem('token'))
       this.$http.post('/main', {
