@@ -4,7 +4,6 @@
     pane="labelPane"
     :class="{ sample: true, active }"
     :status="this.status"
-    :sectionInfo="this.sectionInfo"
     @draw="draw"
     :active="active"
     @click.native="click"
@@ -19,9 +18,7 @@
       @close="infoWindowClose"
       @open="infoWindowOpen"
     >
-      <p class="infoTitle">
-        {{ infoWindow.infoTitle }}
-      </p>
+      <p class="infoTitle">{{ infoWindow.infoTitle }}</p>
       <div class="infoContent">
         <p>
           {{ infoWindow.unitName }}
@@ -38,38 +35,38 @@
         <div>
           <p>
             {{ infoWindow.alarmlogs }}
-            <el-button type="text" @click="alarmlogsDetail" >详情</el-button>
+            <el-button type="text" @click="alarmlogsDetail">详情</el-button>
           </p>
         </div>
         <div>
           <p>
             {{ infoWindow.hiddenlogs }}
-              <el-button type="text" @click="hiddenlogsDetail" >详情</el-button>
+            <el-button type="text" @click="hiddenlogsDetail">详情</el-button>
           </p>
         </div>
       </div>
     </bm-info-window>
     <div id="alarmlogsDetailContains">
-      <el-dialog title="最新报警记录" :visible.sync="dialogTableVisibleAlarm">
+      <el-dialog title="最新报警记录" :visible="dialogTableVisibleAlarm">
         <el-table :data="alarmLogs">
           <el-table-column property="alarmTime" label="报警时间" width="150"></el-table-column>
           <el-table-column property="buildingName" label="探测器名称" width="200"></el-table-column>
-          <el-table-column property="result" label="现场确认结果" width=""> </el-table-column>
-          <el-table-column property="classifyResult" label="识别结果" width=""> </el-table-column>
+          <el-table-column property="result" label="现场确认结果" width></el-table-column>
+          <el-table-column property="classifyResult" label="识别结果" width></el-table-column>
         </el-table>
       </el-dialog>
     </div>
     <div id="alarmlogsDetailContains">
-      <el-dialog title="最新隐患记录" :visible.sync="dialogTableVisibleHidden">
+      <el-dialog title="最新隐患记录" :visible="dialogTableVisibleHidden">
         <el-table :data="hiddenLogs">
           <el-table-column property="alarmTime" label="隐患报警时间" width="150"></el-table-column>
           <el-table-column property="deviceName" label="探测器名称" width="150"></el-table-column>
-          <el-table-column property="alarmFrequency" label="报警次数" width="100"> </el-table-column>
-          <el-table-column property="failType" label="故障类型" width="80"> </el-table-column>
+          <el-table-column property="alarmFrequency" label="报警次数" width="100"></el-table-column>
+          <el-table-column property="failType" label="故障类型" width="80"></el-table-column>
           <el-table-column property="resetStatus" label="复位状态" width="100"></el-table-column>
           <el-table-column property="resetTime" label="复位时间" width="150"></el-table-column>
-          <el-table-column property="confirmResult" label="现场确认结果" width="100"> </el-table-column>
-          <el-table-column property="classifyResult" label="识别结果" width="100"> </el-table-column>
+          <el-table-column property="confirmResult" label="现场确认结果" width="100"></el-table-column>
+          <el-table-column property="classifyResult" label="识别结果" width="100"></el-table-column>
         </el-table>
       </el-dialog>
     </div>
@@ -107,10 +104,22 @@ export default {
       // 获取年月日
       var y = dt.getFullYear()
       var m = (dt.getMonth() + 1).toString().padStart(2, '0')
-      var d = dt.getDate().toString().padStart(2, '0')
-      var hh = dt.getHours().toString().padStart(2, '0')
-      var mm = dt.getMinutes().toString().padStart(2, '0')
-      var ss = dt.getSeconds().toString().padStart(2, '0')
+      var d = dt
+        .getDate()
+        .toString()
+        .padStart(2, '0')
+      var hh = dt
+        .getHours()
+        .toString()
+        .padStart(2, '0')
+      var mm = dt
+        .getMinutes()
+        .toString()
+        .padStart(2, '0')
+      var ss = dt
+        .getSeconds()
+        .toString()
+        .padStart(2, '0')
       item.alarmTime = `${y}-${m}-${d} ${hh}:${mm}:${ss}`
     })
     this.alarmLogs = this.unitInfo.alarmLogs
@@ -118,20 +127,44 @@ export default {
       var dt = new Date(item.alarmTime)
       var y = dt.getFullYear()
       var m = (dt.getMonth() + 1).toString().padStart(2, '0')
-      var d = dt.getDate().toString().padStart(2, '0')
-      var hh = dt.getHours().toString().padStart(2, '0')
-      var mm = dt.getMinutes().toString().padStart(2, '0')
-      var ss = dt.getSeconds().toString().padStart(2, '0')
+      var d = dt
+        .getDate()
+        .toString()
+        .padStart(2, '0')
+      var hh = dt
+        .getHours()
+        .toString()
+        .padStart(2, '0')
+      var mm = dt
+        .getMinutes()
+        .toString()
+        .padStart(2, '0')
+      var ss = dt
+        .getSeconds()
+        .toString()
+        .padStart(2, '0')
       item.alarmTime = `${y}-${m}-${d} ${hh}:${mm}:${ss}`
     })
     this.unitInfo.hiddenLogs.forEach(function(item) {
       var dt = new Date(item.resetTime)
       var y = dt.getFullYear()
       var m = (dt.getMonth() + 1).toString().padStart(2, '0')
-      var d = dt.getDate().toString().padStart(2, '0')
-      var hh = dt.getHours().toString().padStart(2, '0')
-      var mm = dt.getMinutes().toString().padStart(2, '0')
-      var ss = dt.getSeconds().toString().padStart(2, '0')
+      var d = dt
+        .getDate()
+        .toString()
+        .padStart(2, '0')
+      var hh = dt
+        .getHours()
+        .toString()
+        .padStart(2, '0')
+      var mm = dt
+        .getMinutes()
+        .toString()
+        .padStart(2, '0')
+      var ss = dt
+        .getSeconds()
+        .toString()
+        .padStart(2, '0')
       item.resetTime = `${y}-${m}-${d} ${hh}:${mm}:${ss}`
     })
     this.hiddenLogs = this.unitInfo.hiddenLogs
