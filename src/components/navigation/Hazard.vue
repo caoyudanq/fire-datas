@@ -12,7 +12,9 @@
         <el-button @click="search">搜索</el-button>
         <span>{{ this.result }}</span>
     </div>
-    <history-data :pageIndex="this.pageIndex"></history-data>
+    <hazard-data :pageIndex="this.pageIndex"
+    @changeTotal="changeTotal">
+    </hazard-data>
     <div id="pageIndex" class="block">
       <el-pagination layout="prev, pager, next"
       :total="total"
@@ -22,7 +24,7 @@
 </template>
 
 <script>
-import historyData from '@/components/navigation/HazardData.vue'
+import hazardData from '@/components/navigation/HazardData.vue'
 export default {
   name: '',
   data() {
@@ -33,7 +35,7 @@ export default {
   },
   props: {},
   components: {
-    historyData
+    hazardData
   },
   created: {
   },
@@ -41,6 +43,10 @@ export default {
     HandleCurrentPage(val) {
       this.pageIndex = val
       console.log('点击后pageIndex：' + this.pageIndex)
+    },
+    changeTotal(val) {
+      console.log('隐患日志total更新,val = ' + val)
+      this.total = val
     }
   }
 }

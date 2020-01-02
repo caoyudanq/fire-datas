@@ -19,9 +19,9 @@ const PORT = process.env.PORT && Number(process.env.PORT)
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   var appData = require('../data.json')//加载本地数据文件
-  var seller = appData.seller
+  var queryHiddenLog = appData.queryHiddenLog
   var user = appData.user
-  var goods = appData.goods
+  var queryHiddenLog1 = appData.queryHiddenLog1
   var citys = appData.citys
   var unitInfo = appData.unitInfo
   var tableData1 = appData.tableData1
@@ -71,6 +71,12 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       poll: config.dev.poll,
     },
     before(app) {
+      app.post('/api/queryHiddenLog', (req, res) => {
+        res.json({
+          errno: 0,
+          data: queryHiddenLog
+        }) 
+      })
       app.post('/api/queryAlarmLog', (req, res) => {
         req.on('data',function(data){
           console.log(data)
@@ -111,7 +117,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
             data: appData
           }) // 接口返回json数据，上面配置的数据appData就赋值给data请求后调用
         }),
-        app.get('/api/unitInfo', (req, res) => {
+        app.post('/api/main', (req, res) => {
           res.json({
             errno: 0,
             data: unitInfo

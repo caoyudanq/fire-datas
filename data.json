@@ -427,6 +427,357 @@
     "pageNum": 317,
     "pageSize": 30
   },
+  "queryHiddenLog": {
+    "curPage": 2,
+    "hiddenLogVos": [
+        {
+            "alarmFrequency": 1946,
+            "alarmTime": 1556342013,
+            "classifyResult": "",
+            "confirmResult": "未确认",
+            "deviceName": "虎山精品馆2号消火栓",
+            "failType": "故障",
+            "resetStatus": "未复位",
+            "resetTime": 0,
+            "unit": "虎山精品建材馆"
+        },
+        {
+            "alarmFrequency": 1,
+            "alarmTime": 1556341961,
+            "classifyResult": "",
+            "confirmResult": "已确认",
+            "deviceName": "地下一层Ｂ区车道烟感2H69D",
+            "failType": "故障",
+            "resetStatus": "已复位",
+            "resetTime": 1556342172,
+            "unit": "国强香樟花苑"
+        },
+        {
+            "alarmFrequency": 1,
+            "alarmTime": 1556341918,
+            "classifyResult": "",
+            "confirmResult": "未确认",
+            "deviceName": "3期地下室非人防烟感6H174D",
+            "failType": "故障",
+            "resetStatus": "未复位",
+            "resetTime": 0,
+            "unit": "博瑞明珠城"
+        },
+        {
+            "alarmFrequency": 1,
+            "alarmTime": 1556341906,
+            "classifyResult": "",
+            "confirmResult": "已确认",
+            "deviceName": "地下室水泵房烟感1H17D",
+            "failType": "故障",
+            "resetStatus": "已复位",
+            "resetTime": 1556342013,
+            "unit": "蔡家山公租房"
+        },
+        {
+            "alarmFrequency": 151,
+            "alarmTime": 1556341853,
+            "classifyResult": "",
+            "confirmResult": "未确认",
+            "deviceName": "1号压力表",
+            "failType": "故障",
+            "resetStatus": "未复位",
+            "resetTime": 0,
+            "unit": "浙江江山农商银行"
+        },
+        {
+            "alarmFrequency": 4226,
+            "alarmTime": 1556341852,
+            "classifyResult": "",
+            "confirmResult": "未确认",
+            "deviceName": "学府水压表1号",
+            "failType": "故障",
+            "resetStatus": "未复位",
+            "resetTime": 0,
+            "unit": "学府大酒店"
+        },
+        {
+            "alarmFrequency": 1,
+            "alarmTime": 1556341845,
+            "classifyResult": "",
+            "confirmResult": "已确认",
+            "deviceName": "205幢地下二层通道烟感3H47D",
+            "failType": "故障",
+            "resetStatus": "已复位",
+            "resetTime": 1556341956,
+            "unit": "国强香樟花苑"
+        },
+        {
+            "alarmFrequency": 200,
+            "alarmTime": 1556341758,
+            "classifyResult": "",
+            "confirmResult": "未确认",
+            "deviceName": "蔡家山消防泵",
+            "failType": "故障",
+            "resetStatus": "未复位",
+            "resetTime": 0,
+            "unit": "蔡家山公租房"
+        },
+        {
+            "alarmFrequency": 200,
+            "alarmTime": 1556341682,
+            "classifyResult": "",
+            "confirmResult": "未确认",
+            "deviceName": "蔡家山喷淋泵",
+            "failType": "故障",
+            "resetStatus": "未复位",
+            "resetTime": 0,
+            "unit": "蔡家山公租房"
+        },
+        {
+            "alarmFrequency": 1,
+            "alarmTime": 1556341622,
+            "classifyResult": "",
+            "confirmResult": "已确认",
+            "deviceName": "地下二层水泵房烟感3H60D",
+            "failType": "故障",
+            "resetStatus": "已复位",
+            "resetTime": 1556341655,
+            "unit": "国强香樟花苑"
+        }
+    ],
+    "pageNum": 65546,
+    "pageSize": 10
+},
+"queryHiddenLog1": {
+  "curPage": 2,
+  "hiddenLogVos": [
+      {
+          "alarmFrequency": 1946,
+          "alarmTime": 1556342013,
+          "classifyResult": "",
+          "confirmResult": "未确认",
+          "deviceName": "虎山精品馆2号消火栓",
+          "failType": "故障1111111111",
+          "resetStatus": "未复位",
+          "resetTime": 0,
+          "unit": "虎山精品建材馆"
+      },
+      {
+          "alarmFrequency": 1,
+          "alarmTime": 1556341961,
+          "classifyResult": "",
+          "confirmResult": "已确认",
+          "deviceName": "地下一层Ｂ区车道烟感2H69D",
+          "failType": "故障",
+          "resetStatus": "已复位",
+          "resetTime": 1556342172,
+          "unit": "国强香樟花苑"
+      },
+      {
+          "alarmFrequency": 1,
+          "alarmTime": 1556341918,
+          "classifyResult": "",
+          "confirmResult": "未确认",
+          "deviceName": "3期地下室非人防烟感6H174D",
+          "failType": "故障",
+          "resetStatus": "未复位",
+          "resetTime": 0,
+          "unit": "博瑞明珠城"
+      },
+      {
+          "alarmFrequency": 1,
+          "alarmTime": 1556341906,
+          "classifyResult": "",
+          "confirmResult": "已确认",
+          "deviceName": "地下室水泵房烟感1H17D",
+          "failType": "故障",
+          "resetStatus": "已复位",
+          "resetTime": 1556342013,
+          "unit": "蔡家山公租房"
+      },
+      {
+          "alarmFrequency": 151,
+          "alarmTime": 1556341853,
+          "classifyResult": "",
+          "confirmResult": "未确认",
+          "deviceName": "1号压力表",
+          "failType": "故障",
+          "resetStatus": "未复位",
+          "resetTime": 0,
+          "unit": "浙江江山农商银行"
+      },
+      {
+          "alarmFrequency": 4226,
+          "alarmTime": 1556341852,
+          "classifyResult": "",
+          "confirmResult": "未确认",
+          "deviceName": "学府水压表1号",
+          "failType": "故障",
+          "resetStatus": "未复位",
+          "resetTime": 0,
+          "unit": "学府大酒店"
+      },
+      {
+          "alarmFrequency": 1,
+          "alarmTime": 1556341845,
+          "classifyResult": "",
+          "confirmResult": "已确认",
+          "deviceName": "205幢地下二层通道烟感3H47D",
+          "failType": "故障",
+          "resetStatus": "已复位",
+          "resetTime": 1556341956,
+          "unit": "国强香樟花苑"
+      },
+      {
+          "alarmFrequency": 200,
+          "alarmTime": 1556341758,
+          "classifyResult": "",
+          "confirmResult": "未确认",
+          "deviceName": "蔡家山消防泵",
+          "failType": "故障",
+          "resetStatus": "未复位",
+          "resetTime": 0,
+          "unit": "蔡家山公租房"
+      },
+      {
+          "alarmFrequency": 200,
+          "alarmTime": 1556341682,
+          "classifyResult": "",
+          "confirmResult": "未确认",
+          "deviceName": "蔡家山喷淋泵",
+          "failType": "故障",
+          "resetStatus": "未复位",
+          "resetTime": 0,
+          "unit": "蔡家山公租房"
+      },
+      {
+          "alarmFrequency": 1,
+          "alarmTime": 1556341622,
+          "classifyResult": "",
+          "confirmResult": "已确认",
+          "deviceName": "地下二层水泵房烟感3H60D",
+          "failType": "故障",
+          "resetStatus": "已复位",
+          "resetTime": 1556341655,
+          "unit": "国强香樟花苑"
+      }
+  ],
+  "pageNum": 65546,
+  "pageSize": 10
+},
+"queryHiddenLog2": {
+  "curPage": 2,
+  "hiddenLogVos": [
+      {
+          "alarmFrequency": 1946,
+          "alarmTime": 1556342013,
+          "classifyResult": "",
+          "confirmResult": "未确认",
+          "deviceName": "虎山精品馆2号消火栓",
+          "failType": "故障",
+          "resetStatus": "未复位3222222222222",
+          "resetTime": 0,
+          "unit": "虎山精品建材馆"
+      },
+      {
+          "alarmFrequency": 1,
+          "alarmTime": 1556341961,
+          "classifyResult": "",
+          "confirmResult": "已确认",
+          "deviceName": "地下一层Ｂ区车道烟感2H69D",
+          "failType": "故障",
+          "resetStatus": "已复位",
+          "resetTime": 1556342172,
+          "unit": "国强香樟花苑"
+      },
+      {
+          "alarmFrequency": 1,
+          "alarmTime": 1556341918,
+          "classifyResult": "",
+          "confirmResult": "未确认",
+          "deviceName": "3期地下室非人防烟感6H174D",
+          "failType": "故障",
+          "resetStatus": "未复位",
+          "resetTime": 0,
+          "unit": "博瑞明珠城"
+      },
+      {
+          "alarmFrequency": 1,
+          "alarmTime": 1556341906,
+          "classifyResult": "",
+          "confirmResult": "已确认",
+          "deviceName": "地下室水泵房烟感1H17D",
+          "failType": "故障",
+          "resetStatus": "已复位",
+          "resetTime": 1556342013,
+          "unit": "蔡家山公租房"
+      },
+      {
+          "alarmFrequency": 151,
+          "alarmTime": 1556341853,
+          "classifyResult": "",
+          "confirmResult": "未确认",
+          "deviceName": "1号压力表",
+          "failType": "故障",
+          "resetStatus": "未复位",
+          "resetTime": 0,
+          "unit": "浙江江山农商银行"
+      },
+      {
+          "alarmFrequency": 4226,
+          "alarmTime": 1556341852,
+          "classifyResult": "",
+          "confirmResult": "未确认",
+          "deviceName": "学府水压表1号",
+          "failType": "故障",
+          "resetStatus": "未复位",
+          "resetTime": 0,
+          "unit": "学府大酒店"
+      },
+      {
+          "alarmFrequency": 1,
+          "alarmTime": 1556341845,
+          "classifyResult": "",
+          "confirmResult": "已确认",
+          "deviceName": "205幢地下二层通道烟感3H47D",
+          "failType": "故障",
+          "resetStatus": "已复位",
+          "resetTime": 1556341956,
+          "unit": "国强香樟花苑"
+      },
+      {
+          "alarmFrequency": 200,
+          "alarmTime": 1556341758,
+          "classifyResult": "",
+          "confirmResult": "未确认",
+          "deviceName": "蔡家山消防泵",
+          "failType": "故障",
+          "resetStatus": "未复位",
+          "resetTime": 0,
+          "unit": "蔡家山公租房"
+      },
+      {
+          "alarmFrequency": 200,
+          "alarmTime": 1556341682,
+          "classifyResult": "",
+          "confirmResult": "未确认",
+          "deviceName": "蔡家山喷淋泵",
+          "failType": "故障",
+          "resetStatus": "未复位",
+          "resetTime": 0,
+          "unit": "蔡家山公租房"
+      },
+      {
+          "alarmFrequency": 1,
+          "alarmTime": 1556341622,
+          "classifyResult": "",
+          "confirmResult": "已确认",
+          "deviceName": "地下二层水泵房烟感3H60D",
+          "failType": "故障",
+          "resetStatus": "已复位",
+          "resetTime": 1556341655,
+          "unit": "国强香樟花苑"
+      }
+  ],
+  "pageNum": 65546,
+  "pageSize": 10
+},
 
   "unitInfo": [
     {

@@ -47,7 +47,7 @@
       </div>
     </bm-info-window>
     <div id="alarmlogsDetailContains">
-      <el-dialog title="最新报警记录" :visible="dialogTableVisibleAlarm">
+      <el-dialog title="最新报警记录" :visible.sync="dialogTableVisibleAlarm" :modal-append-to-body="false">
         <el-table :data="alarmLogs">
           <el-table-column property="alarmTime" label="报警时间" width="150"></el-table-column>
           <el-table-column property="buildingName" label="探测器名称" width="200"></el-table-column>
@@ -57,7 +57,7 @@
       </el-dialog>
     </div>
     <div id="alarmlogsDetailContains">
-      <el-dialog title="最新隐患记录" :visible="dialogTableVisibleHidden">
+      <el-dialog title="最新隐患记录" :visible.sync="dialogTableVisibleHidden" :modal-append-to-body="false">
         <el-table :data="hiddenLogs">
           <el-table-column property="alarmTime" label="隐患报警时间" width="150"></el-table-column>
           <el-table-column property="deviceName" label="探测器名称" width="150"></el-table-column>
@@ -219,9 +219,11 @@ export default {
     hiddenlogsDetail() {
       this.dialogTableVisibleHidden = true
       console.log('隐患日志')
+      this.infoWindow.show = false
     },
     alarmlogsDetail() {
       this.dialogTableVisibleAlarm = true
+      this.infoWindow.show = false
       console.log('报警日志')
     }
   }

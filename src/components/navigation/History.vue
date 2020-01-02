@@ -12,16 +12,20 @@
         <el-button @click="search">搜索</el-button>
         <span>{{ this.result }}</span>
     </div>
-    <history-data :pageIndex="this.pageIndex"
+    <history-data
+    :pageIndex="this.pageIndex"
     :dataType="this.dataType"
     :section="this.input"
+    @changeTotal="changeTotal"
     @changeView="changeView"
     @getTotal="getTotal">
     </history-data>
+
     <div id="pageIndex" class="block">
       <el-pagination layout="prev, pager, next"
       :total="total"
       :current-page="this.pageIndex"
+      :page-size="10"
       @current-change="HandleCurrentPage">
       </el-pagination>
     </div>
@@ -50,6 +54,7 @@ export default {
   methods: {
     HandleCurrentPage(val) {
       this.pageIndex = val
+      console.log('pageIndex=' + this.pageIndex)
     },
     search() {
       if (this.result !== null) {
@@ -68,6 +73,10 @@ export default {
       this.result = '没有查到数据'
     },
     getTotal(val) {
+      this.total = val
+    },
+    changeTotal(val) {
+      console.log('total更新,val = ' + val)
       this.total = val
     }
   }

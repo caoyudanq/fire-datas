@@ -6,17 +6,21 @@
     style="width: 100%, max-height:600px"
     id="table"
   >
-    <el-table-column prop="device" label="设备名称" :width=width>
+    <el-table-column prop="unit" label="单位名称" :width=width>
     </el-table-column>
-    <el-table-column prop="section" label="所属单位" :width=width>
+    <el-table-column prop="deviceName" label="探测器名称" :width=width>
     </el-table-column>
-    <el-table-column prop="address" label="报警地址" :width=width>
+    <el-table-column prop="failType" label="故障类型" :width=width>
     </el-table-column>
-    <el-table-column prop="date" label="报警时间" :width=width>
+    <el-table-column prop="alarmTime" label="报警时间" :width=width>
     </el-table-column>
-    <el-table-column prop="type" label="报警类型" :width=width>
+    <el-table-column prop="resetStatus" label="是否复位" :width=width>
     </el-table-column>
-    <el-table-column prop="status" label="复位状态" :width=width>
+    <el-table-column prop="resetTime" label="复位时间" :width=width>
+    </el-table-column>
+    <el-table-column prop="confirmResult" label="是否确认" :width=width>
+    </el-table-column>
+    <el-table-column prop="classifyResult" label="识别结果" :width=width>
     </el-table-column>
   </el-table>
 </template>
@@ -32,16 +36,68 @@ export default {
   data() {
     return {
       width: 200,
-      tableData: []
+      tableData: [],
+      hiddenData: []
     }
   },
-  props: ['pageIndex'],
+  props: ['pageIndex', 'dataType', 'section', 'total'],
   methods: {
     getHistoryData() {
-      this.$http.get('/api/tableData' + this.myPageIndex)
+      this.$http.post('/queryHiddenLog', {
+        curPage: this.pageIndex,
+        pageSize: 10
+      })
         .then(res => {
-          console.log(res.data.data)
-          this.tableData = res.data.data
+          this.hiddenData = res.data.data.hiddenLogVos
+          this.hiddenData.forEach(function(item) {
+            var dt = new Date(item.alarmTime)
+            var y = dt.getFullYear()
+            var m = (dt.getMonth() + 1).toString().padStart(2, '0')
+            var d = dt
+              .getDate()
+              .toString()
+              .padStart(2, '0')
+            var hh = dt
+              .getHours()
+              .toString()
+              .padStart(2, '0')
+            var mm = dt
+              .getMinutes()
+              .toString()
+              .padStart(2, '0')
+            var ss = dt
+              .getSeconds()
+              .toString()
+              .padStart(2, '0')
+            item.alarmTime = `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+            var dt1 = new Date(item.resetTime)
+            // 获取年月日
+            var y1 = dt1.getFullYear()
+            var m1 = (dt1.getMonth() + 1).toString().padStart(2, '0')
+            var d1 = dt1
+              .getDate()
+              .toString()
+              .padStart(2, '0')
+            var hh1 = dt1
+              .getHours()
+              .toString()
+              .padStart(2, '0')
+            var mm1 = dt1
+              .getMinutes()
+              .toString()
+              .padStart(2, '0')
+            var ss1 = dt1
+              .getSeconds()
+              .toString()
+              .padStart(2, '0')
+            item.resetTime = `${y1}-${m1}-${d1} ${hh1}:${mm1}:${ss1}`
+          })
+          this.tableData = this.hiddenData
+          var pageNum = res.data.data.pageNum
+          if (this.total !== pageNum) {
+            console.log('总页数改变, total = ' + pageNum)
+            this.$emit('changeTotal', pageNum)
+          }
           console.log(this.tableData)
         })
     }
