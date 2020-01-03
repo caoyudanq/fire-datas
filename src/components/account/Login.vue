@@ -41,7 +41,6 @@
 <script>
 import { mapMutations } from 'vuex'
 import global_ from '../../util/Global'
-// import { Message } from 'element-ui'
 export default {
   data() {
     return {
@@ -68,9 +67,6 @@ export default {
   components: {},
 
   computed: {},
-
-  mounted: {},
-
   methods: {
     ...mapMutations(['addUserName', 'addPassword']),
     login() {
@@ -92,19 +88,30 @@ export default {
       //     console.log(err)
       //   })
       // 采用
-      this.$http.get('/api/login/do_login?username=' + this.ruleForm.username + '&password=' + this.ruleForm.password)
+      this.$http.get('/login/do_login?username=' + this.ruleForm.username + '&password=' + this.ruleForm.password)
         .then(res => {
-          console.log('111111111')
+          var code = res.data.code.toString()
+          var token = res.data.msg
+          console.log('login.res.data=======')
           console.log(res.data)
-          if (res.data.code === global_.SUCCESS) {
-            console.log('111111112')
+          console.log('code=======' + code)
+          console.log('token======' + token)
+          if (code === global_.SUCCESS) {
             // 全局存储token
-            window.sessionStorage.setItem('token', res.data.msg)
+            window.localStorage.setItem('token', token)
+            // this.$cookies.set('token', token)
             this.$store.commit('addUserName', this.ruleForm.username)
             this.$store.commit('addPassword', this.ruleForm.password)
             this.$router.push('/main')
+          } else if (code === global_.NOUSER) {
+            this.$message.error('用户信息不存在')
+          } else if (code === global_.NOUSERNAME) {
+            this.$message.error('用户名不存在')
+          } else if (code === global_.PASSWRONG) {
+            this.$message.error('密码错误')
           } else {
             this.$message.error('登录失败')
+            console.log('登陆失败')
           }
         }).catch(err => {
           console.log('登录失败')

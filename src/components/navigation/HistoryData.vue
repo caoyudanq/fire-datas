@@ -43,14 +43,14 @@ export default {
           }
         })
     },
-    getHistoryData() { // TO-DO时间戳转换
+    getHistoryData() {
       this.$http.post('/queryAlarmLog', {
         curPage: this.pageIndex,
         pageSize: 10
       })
         .then(res => {
           console.log(res)
-          this.historyData = res.data.data.alarmLogVos
+          this.historyData = res.data.alarmLogVos
           this.historyData.forEach(function(item) {
             var dt = new Date(item.alarmTime)
             // 获取年月日
@@ -75,8 +75,8 @@ export default {
             item.alarmTime = `${y}-${m}-${d} ${hh}:${mm}:${ss}`
           })
           this.tableData = this.historyData
-          this.pageSize = res.data.data.pageSize
-          var pageNum = res.data.data.pageNum
+          this.pageSize = res.data.pageSize
+          var pageNum = res.data.pageNum
           if (this.total !== pageNum) {
             console.log('总页数改变, total = ' + pageNum)
             this.$emit('changeTotal', pageNum)

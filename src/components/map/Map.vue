@@ -184,9 +184,10 @@ export default {
   },
   created() {
     console.log('Map.vue被创建了')
-    this.getCitysData()
-    this.now = Date.parse(new Date())
+    this.now = Date.parse(new Date()) / 1000
+    console.log(typeof (this.now))
     console.log('now=' + this.now)
+    this.getCitysData()
   },
   methods: {
     handler({ BMap, map }) {
@@ -195,13 +196,12 @@ export default {
       this.zoom = 13
     },
     getCitysData() {
-      console.log(window.sessionStorage.getItem('token'))
       this.$http.post('/main', {
-        now: 1556344384
+        now: this.now
       })
         .then(res => {
           console.log(res)
-          this.unitInfos = res.data.data
+          this.unitInfos = res.data
         }).catch(err => {
           this.$message.error('获取单位信息失败')
           console.log('获取单位信息失败')

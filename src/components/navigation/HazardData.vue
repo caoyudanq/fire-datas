@@ -48,7 +48,7 @@ export default {
         pageSize: 10
       })
         .then(res => {
-          this.hiddenData = res.data.data.hiddenLogVos
+          this.hiddenData = res.data.hiddenLogVos
           this.hiddenData.forEach(function(item) {
             var dt = new Date(item.alarmTime)
             var y = dt.getFullYear()
@@ -93,7 +93,7 @@ export default {
             item.resetTime = `${y1}-${m1}-${d1} ${hh1}:${mm1}:${ss1}`
           })
           this.tableData = this.hiddenData
-          var pageNum = res.data.data.pageNum
+          var pageNum = res.data.pageNum
           if (this.total !== pageNum) {
             console.log('总页数改变, total = ' + pageNum)
             this.$emit('changeTotal', pageNum)

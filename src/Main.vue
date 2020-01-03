@@ -77,7 +77,7 @@
 
 <script>
 import myMap from '@/components/map/Map'
-
+import global_ from './util/Global'
 export default {
   data() {
     const item = {}
@@ -94,22 +94,29 @@ export default {
     exit() {
       this.$http.get('/logout/do_logout')
         .then(res => {
-          console.log(res)
-          if (res.data.code === 2000) {
-            window.localStorage['token'] = ''
+          var code = res.data.code.toString()
+          var token = res.data.token
+          console.log('logout.res.data=======')
+          console.log(res.data)
+          console.log('code=======' + code)
+          console.log('token======' + token)
+          if (code === global_.SUCCESS) {
+            // 全局存储token
+            window.localStorage.clear()
+            this.$cookies.remove('token')
             this.$store.commit('addUserName', '')
             this.$store.commit('addPassword', '')
             this.$router.push('/login')
           } else {
-            this.$Message(res.data.msg)
+            this.$message.error('退出登录失败')
           }
         }).catch(err => {
-          console.log('退出失败')
+          console.log('退出登录失败')
           console.log(err)
         })
-      this.$store.commit('addUserName', '')
-      this.$store.commit('addPassword', '')
-      this.$router.push('/login')
+      // this.$store.commit('addUserName', '')
+      // this.$store.commit('addPassword', '')
+      // this.$router.push('/login')
     }
   }
 }

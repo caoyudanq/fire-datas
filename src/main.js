@@ -9,6 +9,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import store from './store/store'
 // 导入抽取的axios
 import axios from './axios/index'
+import VueCookie from 'vue-cookies'
 Vue.use(axios)
 
 Vue.use(ElementUI, { size: 'small', zIndex: 3000 })
@@ -18,6 +19,8 @@ Vue.use(BMap, {
   ak: 'BM7qTEGCkviuX0inNOVIUg1dLyIrnE2p'
 })
 
+Vue.use(VueCookie)
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -25,7 +28,6 @@ new Vue({
   store,
   components: { Home },
   template: '<Home/>'
-  // withCredentials: true
 })
 // 定义一个全局过滤器
 
