@@ -114,9 +114,6 @@ export default {
           console.log('退出登录失败')
           console.log(err)
         })
-      // this.$store.commit('addUserName', '')
-      // this.$store.commit('addPassword', '')
-      // this.$router.push('/login')
     }
   }
 }

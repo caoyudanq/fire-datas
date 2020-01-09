@@ -4,16 +4,14 @@
     :data="tableData"
     stripe=true
     id="table"
+    max-height="700"
   >
-    <el-table-column prop="unit" label="单位名称" :width=width>
-    </el-table-column>
-    <el-table-column prop="buildingName" label="探测器名称" :width=width>
-    </el-table-column>
-    <el-table-column prop="result" label="现场确认结果" :width=width>
-    </el-table-column>
-    <el-table-column prop="alarmTime" label="报警时间" :width=width>
-    </el-table-column>
-    <el-table-column prop="classifyResult" label="识别结果" :width=width>
+    <el-table-column
+      v-for="{ prop, label} in dataHeaders"
+      :prop="prop"
+      :label="label"
+      :key="prop"
+      :width=width>
     </el-table-column>
   </el-table>
   </div>
@@ -24,6 +22,23 @@ export default {
   data() {
     return {
       width: 200,
+      dataHeaders: [
+        {
+          prop: 'unit', label: '单位名称'
+        },
+        {
+          prop: 'buildingName', label: '探测器名称'
+        },
+        {
+          prop: 'result', label: '现场确认结果'
+        },
+        {
+          prop: 'alarmTime', label: '报警时间'
+        },
+        {
+          prop: 'classifyResult', label: '识别结果'
+        }
+      ],
       tableData: [],
       historyData: []
     }
@@ -50,7 +65,7 @@ export default {
       })
         .then(res => {
           console.log(res)
-          this.historyData = res.data.alarmLogVos
+          this.historyData = res.data.data.alarmLogVos
           this.historyData.forEach(function(item) {
             var dt = new Date(item.alarmTime)
             // 获取年月日
@@ -75,8 +90,8 @@ export default {
             item.alarmTime = `${y}-${m}-${d} ${hh}:${mm}:${ss}`
           })
           this.tableData = this.historyData
-          this.pageSize = res.data.pageSize
-          var pageNum = res.data.pageNum
+          this.pageSize = res.data.data.pageSize
+          var pageNum = res.data.data.pageNum
           if (this.total !== pageNum) {
             console.log('总页数改变, total = ' + pageNum)
             this.$emit('changeTotal', pageNum)

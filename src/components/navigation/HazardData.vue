@@ -6,21 +6,12 @@
     style="width: 100%, max-height:600px"
     id="table"
   >
-    <el-table-column prop="unit" label="单位名称" :width=width>
-    </el-table-column>
-    <el-table-column prop="deviceName" label="探测器名称" :width=width>
-    </el-table-column>
-    <el-table-column prop="failType" label="故障类型" :width=width>
-    </el-table-column>
-    <el-table-column prop="alarmTime" label="报警时间" :width=width>
-    </el-table-column>
-    <el-table-column prop="resetStatus" label="是否复位" :width=width>
-    </el-table-column>
-    <el-table-column prop="resetTime" label="复位时间" :width=width>
-    </el-table-column>
-    <el-table-column prop="confirmResult" label="是否确认" :width=width>
-    </el-table-column>
-    <el-table-column prop="classifyResult" label="识别结果" :width=width>
+    <el-table-column
+       v-for="{ prop, label} in dataHeaders"
+      :prop="prop"
+      :label="label"
+      :key="prop"
+      :width=width>
     </el-table-column>
   </el-table>
 </template>
@@ -36,6 +27,32 @@ export default {
   data() {
     return {
       width: 200,
+      dataHeaders: [
+        {
+          prop: 'unit', label: '单位名称'
+        },
+        {
+          prop: 'deviceName', label: '探测器名称'
+        },
+        {
+          prop: 'failType', label: '故障类型'
+        },
+        {
+          prop: 'alarmTime', label: '报警时间'
+        },
+        {
+          prop: 'resetStatus', label: '是否复位'
+        },
+        {
+          prop: 'resetTime', label: '复位时间'
+        },
+        {
+          prop: 'confirmResult', label: '是否确认'
+        },
+        {
+          prop: 'classifyResult', label: '识别结果'
+        }
+      ],
       tableData: [],
       hiddenData: []
     }
@@ -48,7 +65,7 @@ export default {
         pageSize: 10
       })
         .then(res => {
-          this.hiddenData = res.data.hiddenLogVos
+          this.hiddenData = res.data.data.hiddenLogVos
           this.hiddenData.forEach(function(item) {
             var dt = new Date(item.alarmTime)
             var y = dt.getFullYear()
@@ -93,7 +110,7 @@ export default {
             item.resetTime = `${y1}-${m1}-${d1} ${hh1}:${mm1}:${ss1}`
           })
           this.tableData = this.hiddenData
-          var pageNum = res.data.pageNum
+          var pageNum = res.data.data.pageNum
           if (this.total !== pageNum) {
             console.log('总页数改变, total = ' + pageNum)
             this.$emit('changeTotal', pageNum)

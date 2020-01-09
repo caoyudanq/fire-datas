@@ -48,6 +48,10 @@ const router = new Router({
 // from:从哪个页面路径跳转而来的
 // next:放行函数
 router.beforeEach((to, from, next) => {
+  if (to.path === '/') { // 用户要访问登录页，不需要设置权限
+    next({ path: '/login' })
+  }
+
   if (to.path === '/login') { // 用户要访问登录页，不需要设置权限
     next()
   }

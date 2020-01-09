@@ -12,14 +12,16 @@
         <el-button @click="search">搜索</el-button>
         <span>{{ this.result }}</span>
     </div>
-    <history-data
-    :pageIndex="this.pageIndex"
-    :dataType="this.dataType"
-    :section="this.input"
-    @changeTotal="changeTotal"
-    @changeView="changeView"
-    @getTotal="getTotal">
-    </history-data>
+    <div id="data">
+      <history-data
+      :pageIndex="this.pageIndex"
+      :dataType="this.dataType"
+      :section="this.input"
+      @changeTotal="changeTotal"
+      @changeView="changeView"
+      @getTotal="getTotal">
+      </history-data>
+    </div>
 
     <div id="pageIndex" class="block">
       <el-pagination layout="prev, pager, next"
@@ -95,7 +97,7 @@ export default {
     height: 100px;
   }
   #pageIndex {
-    height: 60px;
+    padding-left: 0;
   }
 }
 </style>

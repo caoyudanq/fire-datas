@@ -7,17 +7,23 @@ import global_ from '../util/Global.vue'
 axios.defaults.baseURL = global_.URL
 // 允许axios跨域携带cookie 默认是不携带
 axios.defaults.withCredentials = false
+
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+// axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
+axios.defaults.headers.post['Accept'] = 'text/html;charset=UTF-8'
+
 axios.interceptors.request.use(
   config => {
-    const token = window.localStorage.getItem('token')
+    if (window.localStorage.getItem('token') !== undefined) {
+      const token = window.localStorage.getItem('token')
+      if (token) {
+        config.headers.Authorization = token
+        console.log('interceptors config=', config)
+      }
+    }
     // 每次发送请求之前判断vuex中是否存在token
     // 如果存在，则统一在http请求的header都加上token，这样后台根据token判断你的登录情况
     // 即使本地存在token，也有可能token是过期的，所以在响应拦截器中要对返回状态进行判断
-    if (token) {
-      config.headers.Authorization = token
-      console.log('interceptors config=', config)
-    }
     if (config.method === 'post') {
       config.data = qs.stringify(config.data)
     }

@@ -64,36 +64,16 @@ export default {
     }
   },
 
-  components: {},
-
-  computed: {},
   methods: {
     ...mapMutations(['addUserName', 'addPassword']),
     login() {
       console.log(this.ruleForm)
-      // this.$http.post('login', this.ruleForm)
-      //   .then(res => {
-      //     console.log(res)
-      //     if (res.data.errno === 0) {
-      //       this.$Message.success('登陆成功')
-      //       this.$router.push('roomInfo')
-      //       // 全局存储token
-      //       window.localStorage['token'] = JSON.stringify(res.data.data.token)
-      //     } else {
-      //       this.$Message.error('登录失败')
-      //       this.forgetPassword = true
-      //     }
-      //   }).catch(err => {
-      //     console.log('登录失败')
-      //     console.log(err)
-      //   })
-      // 采用
       this.$http.get('/login/do_login?username=' + this.ruleForm.username + '&password=' + this.ruleForm.password)
         .then(res => {
-          var code = res.data.code.toString()
-          var token = res.data.msg
+          var code = res.data.data.code.toString()
+          var token = res.data.data.msg
           console.log('login.res.data=======')
-          console.log(res.data)
+          console.log(res.data.data)
           console.log('code=======' + code)
           console.log('token======' + token)
           if (code === global_.SUCCESS) {
