@@ -30,14 +30,14 @@ export default {
   data() {
     return {
       total: 100,
-      pageIndex: 1
+      pageIndex: 1,
+      dataType: 'firedatas',
+      input: '',
+      result: ''
     }
   },
-  props: {},
   components: {
     hazardData
-  },
-  created: {
   },
   methods: {
     HandleCurrentPage(val) {
@@ -47,6 +47,18 @@ export default {
     changeTotal(val) {
       console.log('隐患日志total更新,val = ' + val)
       this.total = val
+    },
+    search() {
+      if (this.result !== null) {
+        this.result = null
+      }
+      console.log('点击search')
+      this.HandleCurrentPage(1)
+      if (this.input !== '') {
+        this.dataType = 'firedatasBySection'
+      } else {
+        this.dataType = 'firedatas'
+      }
     }
   }
 }

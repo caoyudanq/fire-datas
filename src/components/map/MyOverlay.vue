@@ -8,10 +8,19 @@
     :active="active"
     @click.native="click"
   >
-    <div class="imgContainer">
+  <div id="unitImage">
+    <div id="imgContainer">
       <img :src="iconUrl" :id="imgSize" />
     </div>
-    <p id="unitName">{{ unitInfo.unitName }}</p>
+    <el-tag
+      :type="info"
+      color="#08304A"
+      size="mini"
+      hit="false"
+      :effect="light">
+      {{ unitInfo.unitName }}
+    </el-tag>
+  </div>
     <bm-info-window
       :position="{ lng: this.position.lng, lat: this.position.lat }"
       :show="infoWindow.show"
@@ -49,24 +58,26 @@
     <div id="alarmlogsDetailContains">
       <el-dialog title="最新报警记录" :visible.sync="dialogTableVisibleAlarm" :modal-append-to-body="false">
         <el-table :data="alarmLogs">
-          <el-table-column property="alarmTime" label="报警时间" width="150"></el-table-column>
-          <el-table-column property="buildingName" label="探测器名称" width="200"></el-table-column>
-          <el-table-column property="result" label="现场确认结果" width></el-table-column>
-          <el-table-column property="classifyResult" label="识别结果" width></el-table-column>
+          <el-table-column
+          v-for="{ property, label, width} in infoAlarmLogs"
+          :key="property"
+          :property="property"
+          :label="label"
+          :width="width">
+          </el-table-column>
         </el-table>
       </el-dialog>
     </div>
     <div id="alarmlogsDetailContains">
       <el-dialog title="最新隐患记录" :visible.sync="dialogTableVisibleHidden" :modal-append-to-body="false">
         <el-table :data="hiddenLogs">
-          <el-table-column property="alarmTime" label="隐患报警时间" width="150"></el-table-column>
-          <el-table-column property="deviceName" label="探测器名称" width="150"></el-table-column>
-          <el-table-column property="alarmFrequency" label="报警次数" width="100"></el-table-column>
-          <el-table-column property="failType" label="故障类型" width="80"></el-table-column>
-          <el-table-column property="resetStatus" label="复位状态" width="100"></el-table-column>
-          <el-table-column property="resetTime" label="复位时间" width="150"></el-table-column>
-          <el-table-column property="confirmResult" label="现场确认结果" width="100"></el-table-column>
-          <el-table-column property="classifyResult" label="识别结果" width="100"></el-table-column>
+          <el-table-column
+          :key="property"
+          v-for="{property, label, width} in infoHiddenLogs"
+          :property="property"
+          :label="label"
+          :width="width">
+          </el-table-column>
         </el-table>
       </el-dialog>
     </div>
@@ -87,6 +98,70 @@ export default {
         alarmlogs: '最新报警记录：',
         hiddenlogs: '最新隐患记录：'
       },
+      infoAlarmLogs: [
+        {
+          property: 'alarmTime',
+          label: '报警时间',
+          width: '150'
+        },
+        {
+          property: 'buildingName',
+          label: '探测器名称',
+          width: '200'
+        },
+        {
+          property: 'result',
+          label: '现场确认结果',
+          width: '100'
+        },
+        {
+          property: 'classifyResult',
+          label: '识别结果',
+          width: '100'
+        }
+      ],
+      infoHiddenLogs: [
+        {
+          property: 'alarmTime',
+          label: '隐患报警时间',
+          width: '150'
+        },
+        {
+          property: 'deviceName',
+          label: '探测器名称',
+          width: '150'
+        },
+        {
+          property: 'alarmFrequency',
+          label: '报警次数',
+          width: '100'
+        },
+        {
+          property: 'failType',
+          label: '故障类型',
+          width: '80'
+        },
+        {
+          property: 'resetStatus',
+          label: '复位状态',
+          width: '100'
+        },
+        {
+          property: 'resetTime',
+          label: '复位时间',
+          width: '150'
+        },
+        {
+          property: 'confirmResult',
+          label: '现场确认结果',
+          width: '100'
+        },
+        {
+          property: 'classifyResult',
+          label: '识别结果',
+          width: '100'
+        }
+      ],
       alarmLogs: [],
       hiddenLogs: [],
       dialogTableVisibleAlarm: false,
@@ -95,78 +170,17 @@ export default {
     }
   },
   props: ['position', 'status', 'unitInfo'],
-  components: {},
   created() {
     console.log('unitInfo=')
     console.log(this.unitInfo)
     this.unitInfo.alarmLogs.forEach(function(item) {
-      var dt = new Date(item.alarmTime)
-      // 获取年月日
-      var y = dt.getFullYear()
-      var m = (dt.getMonth() + 1).toString().padStart(2, '0')
-      var d = dt
-        .getDate()
-        .toString()
-        .padStart(2, '0')
-      var hh = dt
-        .getHours()
-        .toString()
-        .padStart(2, '0')
-      var mm = dt
-        .getMinutes()
-        .toString()
-        .padStart(2, '0')
-      var ss = dt
-        .getSeconds()
-        .toString()
-        .padStart(2, '0')
-      item.alarmTime = `${y}-${m}-${d} ${hh}:${mm}:${ss}`
-    })
+      item.alarmTime = this.COMMON.getTime(item.alarmTime)
+    }, this)
     this.alarmLogs = this.unitInfo.alarmLogs
     this.unitInfo.hiddenLogs.forEach(function(item) {
-      var dt = new Date(item.alarmTime)
-      var y = dt.getFullYear()
-      var m = (dt.getMonth() + 1).toString().padStart(2, '0')
-      var d = dt
-        .getDate()
-        .toString()
-        .padStart(2, '0')
-      var hh = dt
-        .getHours()
-        .toString()
-        .padStart(2, '0')
-      var mm = dt
-        .getMinutes()
-        .toString()
-        .padStart(2, '0')
-      var ss = dt
-        .getSeconds()
-        .toString()
-        .padStart(2, '0')
-      item.alarmTime = `${y}-${m}-${d} ${hh}:${mm}:${ss}`
-    })
-    this.unitInfo.hiddenLogs.forEach(function(item) {
-      var dt = new Date(item.resetTime)
-      var y = dt.getFullYear()
-      var m = (dt.getMonth() + 1).toString().padStart(2, '0')
-      var d = dt
-        .getDate()
-        .toString()
-        .padStart(2, '0')
-      var hh = dt
-        .getHours()
-        .toString()
-        .padStart(2, '0')
-      var mm = dt
-        .getMinutes()
-        .toString()
-        .padStart(2, '0')
-      var ss = dt
-        .getSeconds()
-        .toString()
-        .padStart(2, '0')
-      item.resetTime = `${y}-${m}-${d} ${hh}:${mm}:${ss}`
-    })
+      item.alarmTime = this.COMMON.getTime(item.alarmTime)
+      item.resetTime = this.COMMON.getTime(item.resetTime)
+    }, this)
     this.hiddenLogs = this.unitInfo.hiddenLogs
   },
   computed: {
@@ -231,31 +245,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#unitName {
-  background-color: antiquewhite;
-  font-size: 12px;
-  margin: 0 0 0 20px;
-  width: 120px;
-}
+
 .infoTitle {
   font-size: 20px;
   font-weight: bold;
 }
-.infoContent {
+.infoContent,
+#alarmlogsDetailContains
+{
   font-size: 12px;
   font-weight: 400;
-  #detail {
-    margin: 0 0 0 10px;
-  }
+  padding: 0;
 }
 .sample {
   height: 64px;
   width: 64px;
   position: absolute;
 }
-.imgContainer {
-  height: 64px;
-  width: 64px;
+#unitImage {
+  #imgContainer {
+    height: 64px;
+    width: 64px;
+    margin: 0, auto;
+    // #unitName {
+    // color: rgb(11, 14, 17);
+    // font-size: 12px;
+    // }
+  }
 }
 #littleImg {
   margin: 16px 8px 0px 8px;

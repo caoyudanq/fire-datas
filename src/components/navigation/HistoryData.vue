@@ -2,18 +2,16 @@
   <div id="container">
     <el-table
     :data="tableData"
-    stripe=true
-    id="table"
     max-height="700"
-  >
-    <el-table-column
-      v-for="{ prop, label} in dataHeaders"
-      :prop="prop"
-      :label="label"
-      :key="prop"
-      :width=width>
-    </el-table-column>
-  </el-table>
+    >
+      <el-table-column
+        v-for="{prop, label} in dataHeaders"
+        :prop="prop"
+        :label="label"
+        :key="prop"
+        :width=width>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -67,28 +65,8 @@ export default {
           console.log(res)
           this.historyData = res.data.data.alarmLogVos
           this.historyData.forEach(function(item) {
-            var dt = new Date(item.alarmTime)
-            // 获取年月日
-            var y = dt.getFullYear()
-            var m = (dt.getMonth() + 1).toString().padStart(2, '0')
-            var d = dt
-              .getDate()
-              .toString()
-              .padStart(2, '0')
-            var hh = dt
-              .getHours()
-              .toString()
-              .padStart(2, '0')
-            var mm = dt
-              .getMinutes()
-              .toString()
-              .padStart(2, '0')
-            var ss = dt
-              .getSeconds()
-              .toString()
-              .padStart(2, '0')
-            item.alarmTime = `${y}-${m}-${d} ${hh}:${mm}:${ss}`
-          })
+            item.alarmTime = this.COMMON.getTime(item.alarmTime)
+          }, this)
           this.tableData = this.historyData
           this.pageSize = res.data.data.pageSize
           var pageNum = res.data.data.pageNum
@@ -102,7 +80,7 @@ export default {
         })
     },
     getHistoryDataBySection1() {
-      this.$http.post('queryAlarmLog', {
+      this.$http.post('/queryAlarmLog', {
         curPage: this.pageIndex,
         pageSize: this.pageSize,
         unit: this.section
@@ -113,7 +91,7 @@ export default {
             this.tableData = res.data.msg
             this.total = res.data.msg.pageNum
           } else {
-            this.$Message.error('按单位查询失败')
+            this.$message.error('按单位查询失败')
             this.$emit('changeView')
           }
         }).catch(err => {
@@ -123,20 +101,18 @@ export default {
     }
   },
   created() {
-    console.log('historyData被创建了')
-    console.log('pageIndex=' + this.pageIndex)
+    // console.log('historyData被创建了')
+    // console.log('pageIndex=' + this.pageIndex)
     if (this.dataType === 'firedatas') {
       this.getHistoryData()
-      this.$emit(this.total)
     } else {
       this.getHistoryDataBySection()
-      this.$emit(this.total)
     }
   },
   watch: {
     pageIndex: function(newVal, oldVal) {
-      console.log('new:' + newVal + 'old:' + oldVal)
-      console.log('请求的数据类型为：' + this.dataType)
+      // console.log('new:' + newVal + 'old:' + oldVal)
+      // console.log('请求的数据类型为：' + this.dataType)
       if (this.dataType === 'firedatas') {
         console.log('最新请求的数据是第' + this.pageIndex + '页')
         this.getHistoryData()
@@ -153,16 +129,9 @@ export default {
         this.getHistoryDataBySection()
       }
     }
-  },
-  computed: {
   }
 }
 </script>
 
 <style lang="scss" scoped>
-#table {
-  justify-content: space-between;
-  height: 100%;
-  width: 100%;
-}
 </style>

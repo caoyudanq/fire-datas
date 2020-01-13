@@ -2,9 +2,7 @@
   <el-table
     :data="tableData"
     height="600px"
-    stripe=true
     style="width: 100%, max-height:600px"
-    id="table"
   >
     <el-table-column
        v-for="{ prop, label} in dataHeaders"
@@ -15,12 +13,6 @@
     </el-table-column>
   </el-table>
 </template>
-
-<style lang="scss" scoped>
-#table {
-  justify-content: space-between
-}
-</style>
 
 <script>
 export default {
@@ -67,48 +59,9 @@ export default {
         .then(res => {
           this.hiddenData = res.data.data.hiddenLogVos
           this.hiddenData.forEach(function(item) {
-            var dt = new Date(item.alarmTime)
-            var y = dt.getFullYear()
-            var m = (dt.getMonth() + 1).toString().padStart(2, '0')
-            var d = dt
-              .getDate()
-              .toString()
-              .padStart(2, '0')
-            var hh = dt
-              .getHours()
-              .toString()
-              .padStart(2, '0')
-            var mm = dt
-              .getMinutes()
-              .toString()
-              .padStart(2, '0')
-            var ss = dt
-              .getSeconds()
-              .toString()
-              .padStart(2, '0')
-            item.alarmTime = `${y}-${m}-${d} ${hh}:${mm}:${ss}`
-            var dt1 = new Date(item.resetTime)
-            // 获取年月日
-            var y1 = dt1.getFullYear()
-            var m1 = (dt1.getMonth() + 1).toString().padStart(2, '0')
-            var d1 = dt1
-              .getDate()
-              .toString()
-              .padStart(2, '0')
-            var hh1 = dt1
-              .getHours()
-              .toString()
-              .padStart(2, '0')
-            var mm1 = dt1
-              .getMinutes()
-              .toString()
-              .padStart(2, '0')
-            var ss1 = dt1
-              .getSeconds()
-              .toString()
-              .padStart(2, '0')
-            item.resetTime = `${y1}-${m1}-${d1} ${hh1}:${mm1}:${ss1}`
-          })
+            item.resetTime = this.COMMON.getTime(item.resetTime)
+            item.alarmTime = this.COMMON.getTime(item.alarmTime)
+          }, this)
           this.tableData = this.hiddenData
           var pageNum = res.data.data.pageNum
           if (this.total !== pageNum) {
@@ -120,15 +73,15 @@ export default {
     }
   },
   created() {
-    console.log('historyData被创建了')
-    console.log('pageIndex=' + this.pageIndex)
-    console.log('myPageIndex=' + this.myPageIndex)
+    // console.log('historyData被创建了')
+    // console.log('pageIndex=' + this.pageIndex)
+    // console.log('myPageIndex=' + this.myPageIndex)
     this.getHistoryData()
   },
   watch: {
     pageIndex: function(newVal, oldVal) {
-      console.log('new:' + newVal)
-      console.log('old:' + oldVal)
+      // console.log('new:' + newVal)
+      // console.log('old:' + oldVal)
       this.myPageIndex = newVal
       this.getHistoryData()
     }
@@ -140,3 +93,6 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+</style>

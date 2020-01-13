@@ -1,5 +1,5 @@
 <template>
-  <div id="app1">
+  <div id="app">
     <el-container id="container">
       <el-header>
         <div class="header">
@@ -33,17 +33,16 @@
           </el-row>
         </div>
       </el-header>
+
       <el-container>
         <el-aside width="200px">
           <el-menu
             :default-active="$route.path"
             class="el-menu-vertical-demo"
-            @open="handleOpen"
-            @close="handleClose"
-            text-color="#fff"
+            text-color = "#fff"
             active-text-color="#ffd04b"
             background-color="#0f334b"
-            router="true"
+            :router = "true"
           >
             <el-menu-item index="/main">
               <i class="el-icon-s-platform"></i>
@@ -72,35 +71,32 @@
         </el-main>
       </el-container>
     </el-container>
+
+    <el-footer>Footer</el-footer>
+
   </div>
 </template>
 
 <script>
 import myMap from '@/components/map/Map'
-import global_ from './util/Global'
 export default {
-  data() {
-    const item = {}
-    return {
-      tableData: Array(20).fill(item)
-    }
-  },
   components: {
     myMap
   },
   methods: {
     changeUserInfo() {
+
     },
     exit() {
       this.$http.get('/logout/do_logout')
         .then(res => {
-          var code = res.data.code.toString()
-          var token = res.data.token
+          var code = res.data.data.code.toString()
+          var token = res.data.data.token
           console.log('logout.res.data=======')
           console.log(res.data)
           console.log('code=======' + code)
           console.log('token======' + token)
-          if (code === global_.SUCCESS) {
+          if (code === this.COMMON.SUCCESS) {
             // 全局存储token
             window.localStorage.clear()
             this.$cookies.remove('token')
@@ -111,6 +107,7 @@ export default {
             this.$message.error('退出登录失败')
           }
         }).catch(err => {
+          this.$message.error('退出登录失败')
           console.log('退出登录失败')
           console.log(err)
         })
@@ -120,7 +117,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.el-header {
+.el-header,
+.el-footer {
   background-color: #0f334b;
   text-align: center;
   color: #fff;
@@ -185,7 +183,7 @@ body > .el-container {
   font-size: 12px;
   color: #909399;
 }
-#app1 {
+#app {
   height: 100%;
   width: 100%;
   #container {

@@ -1,7 +1,8 @@
 // 导入axios
 import axios from 'axios'
 import qs from 'qs'
-import global_ from '../util/Global.vue'
+// import global_ from '../util/Global.vue'
+import global_ from '../util/common'
 // 设置axios的基础地址方便后续编码
 // axios.defaults.baseURL = 'http://b9780b1f.ngrok.io'
 axios.defaults.baseURL = global_.URL
@@ -14,7 +15,7 @@ axios.defaults.headers.post['Accept'] = 'text/html;charset=UTF-8'
 
 axios.interceptors.request.use(
   config => {
-    if (window.localStorage.getItem('token') !== undefined) {
+    if (window.localStorage.getItem('token') !== 'undefined') {
       const token = window.localStorage.getItem('token')
       if (token) {
         config.headers.Authorization = token

@@ -40,7 +40,6 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import global_ from '../../util/Global'
 export default {
   data() {
     return {
@@ -76,18 +75,18 @@ export default {
           console.log(res.data.data)
           console.log('code=======' + code)
           console.log('token======' + token)
-          if (code === global_.SUCCESS) {
+          if (code === this.COMMON.SUCCESS) {
             // 全局存储token
             window.localStorage.setItem('token', token)
             // this.$cookies.set('token', token)
             this.$store.commit('addUserName', this.ruleForm.username)
             this.$store.commit('addPassword', this.ruleForm.password)
             this.$router.push('/main')
-          } else if (code === global_.NOUSER) {
+          } else if (code === this.COMMON.NOUSER) {
             this.$message.error('用户信息不存在')
-          } else if (code === global_.NOUSERNAME) {
+          } else if (code === this.COMMON.NOUSERNAME) {
             this.$message.error('用户名不存在')
-          } else if (code === global_.PASSWRONG) {
+          } else if (code === this.COMMON.PASSWRONG) {
             this.$message.error('密码错误')
           } else {
             this.$message.error('登录失败')

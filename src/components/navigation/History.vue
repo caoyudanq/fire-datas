@@ -37,7 +37,6 @@
 <script>
 import historyData from '@/components/navigation/HistoryData.vue'
 export default {
-  name: '',
   data() {
     return {
       total: 100,
@@ -47,11 +46,8 @@ export default {
       result: ''
     }
   },
-  props: {},
   components: {
     historyData
-  },
-  created: {
   },
   methods: {
     HandleCurrentPage(val) {
@@ -89,6 +85,7 @@ export default {
 #history {
   padding: 0 10px 10px 0;
   height: 100%;
+  position: relative;
   #search {
     line-height: 100px;
     color: aliceblue;
@@ -98,6 +95,9 @@ export default {
   }
   #pageIndex {
     padding-left: 0;
+    position: absolute;
+    right: 0;
+    bottom: 0;
   }
 }
 </style>
