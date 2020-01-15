@@ -25,9 +25,10 @@
 
     <div id="pageIndex" class="block">
       <el-pagination layout="prev, pager, next"
-      :total="total"
+      :total="this.total"
+      :pageSize="this.pageSize"
       :current-page="this.pageIndex"
-      :page-size="10"
+      :page-size="this.pageSize"
       @current-change="HandleCurrentPage">
       </el-pagination>
     </div>
@@ -40,6 +41,7 @@ export default {
   data() {
     return {
       total: 100,
+      pageSize: 10,
       pageIndex: 1,
       dataType: 'firedatas',
       input: '',
@@ -73,9 +75,10 @@ export default {
     getTotal(val) {
       this.total = val
     },
-    changeTotal(val) {
-      console.log('total更新,val = ' + val)
-      this.total = val
+    changeTotal(total, pageSize) {
+      console.log('total更新,total = ' + total + 'pageSize=' + pageSize)
+      this.total = total
+      this.pageSize = pageSize
     }
   }
 }
@@ -83,9 +86,7 @@ export default {
 
 <style lang="scss" scoped>
 #history {
-  padding: 0 10px 10px 0;
-  height: 100%;
-  position: relative;
+  padding: 0 10px 0px 0;
   #search {
     line-height: 100px;
     color: aliceblue;
@@ -93,11 +94,12 @@ export default {
     width: 100%;
     height: 100px;
   }
+  #data {
+    width: 100%;
+  }
   #pageIndex {
-    padding-left: 0;
-    position: absolute;
-    right: 0;
-    bottom: 0;
+    height: 32px;
+    width: 100%
   }
 }
 </style>

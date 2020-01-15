@@ -2,14 +2,14 @@
   <div id="container">
     <el-table
     :data="tableData"
-    max-height="700"
+    max-height="600"
     >
       <el-table-column
         v-for="{prop, label} in dataHeaders"
         :prop="prop"
         :label="label"
         :key="prop"
-        :width=width>
+        :width="width">
       </el-table-column>
     </el-table>
   </div>
@@ -41,7 +41,7 @@ export default {
       historyData: []
     }
   },
-  props: ['pageIndex', 'dataType', 'section', 'total'],
+  props: ['pageIndex', 'dataType', 'section', 'total', 'pageSize'],
   methods: {
     getHistoryDataBySection() {
       this.$http.get('/api/' + this.section + this.pageIndex)
@@ -68,11 +68,12 @@ export default {
             item.alarmTime = this.COMMON.getTime(item.alarmTime)
           }, this)
           this.tableData = this.historyData
-          this.pageSize = res.data.data.pageSize
+          var pageSize = res.data.data.pageSize
           var pageNum = res.data.data.pageNum
-          if (this.total !== pageNum) {
-            console.log('总页数改变, total = ' + pageNum)
-            this.$emit('changeTotal', pageNum)
+          var pageTotals = pageNum * pageSize
+          if (this.total !== pageTotals || this.pageSize !== pageSize) {
+            console.log('总页数改变, total = ' + pageTotals)
+            this.$emit('changeTotal', pageTotals, pageSize)
           }
         }).catch(err => {
           console.log('报警日志查询失败')

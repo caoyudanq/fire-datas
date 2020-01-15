@@ -18,7 +18,9 @@
     <div id="pageIndex" class="block">
       <el-pagination layout="prev, pager, next"
       :total="total"
-      @current-change="HandleCurrentPage"></el-pagination>
+      :pageSize="pageSize"
+      @current-change="HandleCurrentPage">
+      </el-pagination>
     </div>
   </div>
 </template>
@@ -30,6 +32,7 @@ export default {
   data() {
     return {
       total: 100,
+      pageSize: 10,
       pageIndex: 1,
       dataType: 'firedatas',
       input: '',
@@ -44,9 +47,10 @@ export default {
       this.pageIndex = val
       console.log('点击后pageIndex：' + this.pageIndex)
     },
-    changeTotal(val) {
-      console.log('隐患日志total更新,val = ' + val)
-      this.total = val
+    changeTotal(total, pageSize) {
+      console.log('隐患日杂total更新,total = ' + total + 'pageSize=' + pageSize)
+      this.total = total
+      this.pageSize = pageSize
     },
     search() {
       if (this.result !== null) {

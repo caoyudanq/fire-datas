@@ -49,7 +49,7 @@ export default {
       hiddenData: []
     }
   },
-  props: ['pageIndex', 'dataType', 'section', 'total'],
+  props: ['pageIndex', 'dataType', 'section', 'total', 'pageSize'],
   methods: {
     getHistoryData() {
       this.$http.post('/queryHiddenLog', {
@@ -64,9 +64,10 @@ export default {
           }, this)
           this.tableData = this.hiddenData
           var pageNum = res.data.data.pageNum
-          if (this.total !== pageNum) {
+          var pageSize = res.data.data.pageSize
+          if (this.total !== pageNum || this.pageSize !== pageSize) {
             console.log('总页数改变, total = ' + pageNum)
-            this.$emit('changeTotal', pageNum)
+            this.$emit('changeTotal', pageNum, pageSize)
           }
           console.log(this.tableData)
         })
