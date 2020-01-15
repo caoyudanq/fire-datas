@@ -12,7 +12,7 @@ function getTime(timeStamp) {
   var millisecond = 1000 * timeStamp
   var dt = new Date(millisecond)
   var year = dt.getFullYear()
-  var month = dt.getMonth().toString().padStart(2, '0')
+  var month = (dt.getMonth() + 1).toString().padStart(2, '0')
   var day = dt.getDate().toString().padStart(2, '0')
   var hour = dt.getHours().toString().padStart(2, '0')
   var minute = dt.getMinutes().toString().padStart(2, '0')
