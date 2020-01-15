@@ -8,6 +8,7 @@
       :mapStyle="mapStyle"
       :scroll-wheel-zoom="true"
       :mapClick="false"
+      style=""
       @ready="handler"
     >
       <myOverlay
@@ -179,10 +180,10 @@ export default {
   height: 100%;
   padding: 0;
 }
-.BMap_cpyCtrl {
-display: none;
-}
-.anchorBL {
-display: none;
-}
+// /deep/.BMap_cpyCtrl {
+// display: none !important;
+// }
+// /deep/.anchorBL {
+// display: none !important;
+// }
 </style>

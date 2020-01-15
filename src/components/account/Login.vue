@@ -78,7 +78,6 @@ export default {
           if (code === this.COMMON.SUCCESS) {
             // 全局存储token
             window.localStorage.setItem('token', token)
-            // this.$cookies.set('token', token)
             this.$store.commit('addUserName', this.ruleForm.username)
             this.$store.commit('addPassword', this.ruleForm.password)
             this.$router.push('/main')

@@ -60,7 +60,7 @@
     </bm-info-window>
     <div id="alarmLogsDetailContains">
       <el-dialog title="最新报警记录"
-      center="true"
+      :center="true"
       :visible.sync="dialogTableVisibleAlarm"
       :modal-append-to-body="false"
       width="50%">

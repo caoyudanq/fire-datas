@@ -64,7 +64,7 @@
           <router-view></router-view>
         </el-main>
       </el-container>
-    <el-footer>Footer</el-footer>
+    <el-footer height="40px"></el-footer>
     </el-container>
   </div>
 </template>
@@ -140,6 +140,9 @@ export default {
         border-color: #0d2636;
       }
   }
+}
+.el-footer {
+  background-image: radial-gradient(circle, rgb(34, 77, 62), #1a3844);
 }
 .el-aside {
   background-color: #1a3844;
