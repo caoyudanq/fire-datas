@@ -9,7 +9,7 @@
         :prop="prop"
         :label="label"
         :key="prop"
-        :width="width">
+        style="width: 100%">
       </el-table-column>
     </el-table>
   </div>
@@ -19,7 +19,6 @@
 export default {
   data() {
     return {
-      width: 200,
       dataHeaders: [
         {
           prop: 'unit', label: '单位名称'
