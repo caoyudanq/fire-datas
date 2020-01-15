@@ -7,20 +7,22 @@
       :dragging="true"
       :mapStyle="mapStyle"
       :scroll-wheel-zoom="true"
+      :mapClick="false"
       @ready="handler"
     >
-    <myOverlay
-      v-for="(item, index) in unitInfos"
-      :key="index"
-      :position="{ lng: item.location.lng, lat: item.location.lat }"
-      :status="item.status"
-      :unitInfo="{ unitName: item.unitName,
-      presetTimeAlarmCount: item.presetTimeAlarmCount,
-      presetTimeHiddenCount: item.presetTimeHiddenCount,
-      alarmLogs: item.alarmLogs,
-      hiddenLogs: item.hiddenLogs
-      }"
-    ></myOverlay>
+      <myOverlay
+        v-for="(item, index) in unitInfos"
+        :key="index"
+        :position="{ lng: item.location.lng, lat: item.location.lat }"
+        :status="item.status"
+        :unitInfo="{
+          unitName: item.unitName,
+          presetTimeAlarmCount: item.presetTimeAlarmCount,
+          presetTimeHiddenCount: item.presetTimeHiddenCount,
+          alarmLogs: item.alarmLogs,
+          hiddenLogs: item.hiddenLogs
+        }"
+      ></myOverlay>
     </baidu-map>
   </div>
 </template>
@@ -38,144 +40,97 @@ export default {
       mapStyle: {
         styleJson: [
           {
-            featureType: 'water',
-            elementType: 'all',
-            stylers: {
-              color: '#021019'
-            }
-          },
-          {
-            featureType: 'highway',
-            elementType: 'geometry.fill',
-            stylers: {
-              color: '#000000'
-            }
-          },
-          {
-            featureType: 'highway',
-            elementType: 'geometry.stroke',
-            stylers: {
-              color: '#147a92'
-            }
-          },
-          {
-            featureType: 'arterial',
-            elementType: 'geometry.fill',
-            stylers: {
-              color: '#000000'
-            }
-          },
-          {
-            featureType: 'arterial',
-            elementType: 'geometry.stroke',
-            stylers: {
-              color: '#0b3d51'
-            }
-          },
-          {
-            featureType: 'local',
-            elementType: 'geometry',
-            stylers: {
-              color: '#000000'
-            }
-          },
-          {
             featureType: 'land',
+            elementType: 'geometry',
+            stylers: {
+              color: '#0e2833ff'
+            }
+          },
+          {
+            featureType: 'building',
+            elementType: 'geometry',
+            stylers: {
+              color: '#263641ff'
+            }
+          },
+          {
+            featureType: 'highway',
             elementType: 'all',
             stylers: {
-              color: '#08304b'
+              lightness: -42,
+              saturation: -91
             }
           },
           {
-            featureType: 'railway',
-            elementType: 'geometry.fill',
-            stylers: {
-              color: '#000000'
-            }
-          },
-          {
-            featureType: 'railway',
-            elementType: 'geometry.stroke',
-            stylers: {
-              color: '#08304b'
-            }
-          },
-          {
-            featureType: 'subway',
+            featureType: 'arterial',
             elementType: 'geometry',
             stylers: {
-              lightness: -70
-            }
-          },
-          {
-            featureType: 'building',
-            elementType: 'geometry.fill',
-            stylers: {
-              color: '#000000'
-            }
-          },
-          {
-            featureType: 'all',
-            elementType: 'labels.text.fill',
-            stylers: {
-              color: '#857f7f'
-            }
-          },
-          {
-            featureType: 'all',
-            elementType: 'labels.text.stroke',
-            stylers: {
-              color: '#000000'
-            }
-          },
-          {
-            featureType: 'building',
-            elementType: 'geometry',
-            stylers: {
-              color: '#022338'
+              lightness: -77,
+              saturation: -94
             }
           },
           {
             featureType: 'green',
             elementType: 'geometry',
             stylers: {
-              color: '#062032'
+              color: '#313d45cf'
             }
           },
           {
-            featureType: 'boundary',
-            elementType: 'all',
-            stylers: {
-              color: '#1e1c1c'
-            }
-          },
-          {
-            featureType: 'manmade',
+            featureType: 'water',
             elementType: 'geometry',
             stylers: {
-              color: '#022338'
+              color: '#18313cff'
             }
           },
           {
-            featureType: 'poi',
-            elementType: 'all',
+            featureType: 'subway',
+            elementType: 'geometry.stroke',
             stylers: {
-              visibility: 'off'
+              color: '#181818'
+            }
+          },
+          {
+            featureType: 'railway',
+            elementType: 'geometry',
+            stylers: {
+              lightness: -52
             }
           },
           {
             featureType: 'all',
-            elementType: 'labels.icon',
+            elementType: 'labels.text.stroke',
             stylers: {
-              visibility: 'off'
+              color: '#313131'
             }
           },
           {
             featureType: 'all',
             elementType: 'labels.text.fill',
             stylers: {
-              color: '#2da0c6',
-              visibility: 'on'
+              color: '#8b8787'
+            }
+          },
+          {
+            featureType: 'local',
+            elementType: 'geometry',
+            stylers: {
+              lightness: -75,
+              saturation: -91
+            }
+          },
+          {
+            featureType: 'subway',
+            elementType: 'geometry',
+            stylers: {
+              lightness: -65
+            }
+          },
+          {
+            featureType: 'all',
+            elementType: 'labels.icon',
+            stylers: {
+              lightness: -40
             }
           }
         ]
@@ -185,7 +140,7 @@ export default {
   created() {
     console.log('Map.vue被创建了')
     this.now = Date.parse(new Date()) / 1000
-    console.log(typeof (this.now))
+    console.log(typeof this.now)
     console.log('now=' + this.now)
     this.getCitysData()
   },
@@ -196,13 +151,15 @@ export default {
       this.zoom = 13
     },
     getCitysData() {
-      this.$http.post('/main', {
-        now: this.now
-      })
+      this.$http
+        .post('/main', {
+          now: this.now
+        })
         .then(res => {
           console.log(res)
           this.unitInfos = res.data.data
-        }).catch(err => {
+        })
+        .catch(err => {
           this.$message.error('获取单位信息失败')
           console.log('获取单位信息失败')
           console.log(err)
@@ -221,5 +178,11 @@ export default {
   width: 100%;
   height: 100%;
   padding: 0;
+}
+.BMap_cpyCtrl {
+display: none;
+}
+.anchorBL {
+display: none;
 }
 </style>

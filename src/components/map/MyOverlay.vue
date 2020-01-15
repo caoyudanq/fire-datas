@@ -13,12 +13,15 @@
       <img :src="iconUrl" :id="imgSize" />
     </div>
     <el-tag
-      :type="info"
+      type="info"
       color="#08304A"
       size="mini"
-      hit="false"
-      :effect="light">
-      {{ unitInfo.unitName }}
+      :hit="true"
+      effect="dark"
+      style="color=">
+      <span>
+        {{ unitInfo.unitName }}
+      </span>
     </el-tag>
   </div>
     <bm-info-window
@@ -27,8 +30,8 @@
       @close="infoWindowClose"
       @open="infoWindowOpen"
     >
-      <p class="infoTitle">{{ infoWindow.infoTitle }}</p>
-      <div class="infoContent">
+      <p id="infoTitle">{{ infoWindow.infoTitle }}</p>
+      <div id="infoContent">
         <p>
           {{ infoWindow.unitName }}
           {{ unitInfo.unitName }}
@@ -55,28 +58,34 @@
         </div>
       </div>
     </bm-info-window>
-    <div id="alarmlogsDetailContains">
-      <el-dialog title="最新报警记录" :visible.sync="dialogTableVisibleAlarm" :modal-append-to-body="false">
-        <el-table :data="alarmLogs">
+    <div id="alarmLogsDetailContains">
+      <el-dialog title="最新报警记录"
+      center="true"
+      :visible.sync="dialogTableVisibleAlarm"
+      :modal-append-to-body="false"
+      width="50%">
+        <el-table :data="alarmLogs" style="width: 100%">
           <el-table-column
-          v-for="{ property, label, width} in infoAlarmLogs"
+          v-for="{ property, label} in infoAlarmLogs"
           :key="property"
           :property="property"
-          :label="label"
-          :width="width">
+          :label="label">
           </el-table-column>
         </el-table>
       </el-dialog>
     </div>
-    <div id="alarmlogsDetailContains">
-      <el-dialog title="最新隐患记录" :visible.sync="dialogTableVisibleHidden" :modal-append-to-body="false">
-        <el-table :data="hiddenLogs">
+    <div id="hiddenLogsDetailContains">
+      <el-dialog title="最新隐患记录"
+      center="true"
+      :visible.sync="dialogTableVisibleHidden"
+      :modal-append-to-body="false"
+      width="70%">
+        <el-table :data="hiddenLogs" style="width: 100%">
           <el-table-column
           :key="property"
-          v-for="{property, label, width} in infoHiddenLogs"
+          v-for="{property, label} in infoHiddenLogs"
           :property="property"
-          :label="label"
-          :width="width">
+          :label="label">
           </el-table-column>
         </el-table>
       </el-dialog>
@@ -101,65 +110,53 @@ export default {
       infoAlarmLogs: [
         {
           property: 'alarmTime',
-          label: '报警时间',
-          width: '150'
+          label: '报警时间'
         },
         {
           property: 'buildingName',
-          label: '探测器名称',
-          width: '200'
+          label: '探测器名称'
         },
         {
           property: 'result',
-          label: '现场确认结果',
-          width: '100'
+          label: '现场确认结果'
         },
         {
           property: 'classifyResult',
-          label: '识别结果',
-          width: '100'
+          label: '识别结果'
         }
       ],
       infoHiddenLogs: [
         {
           property: 'alarmTime',
-          label: '隐患报警时间',
-          width: '150'
+          label: '隐患报警时间'
         },
         {
           property: 'deviceName',
-          label: '探测器名称',
-          width: '150'
+          label: '探测器名称'
         },
         {
           property: 'alarmFrequency',
-          label: '报警次数',
-          width: '100'
+          label: '报警次数'
         },
         {
           property: 'failType',
-          label: '故障类型',
-          width: '80'
+          label: '故障类型'
         },
         {
           property: 'resetStatus',
-          label: '复位状态',
-          width: '100'
+          label: '复位状态'
         },
         {
           property: 'resetTime',
-          label: '复位时间',
-          width: '150'
+          label: '复位时间'
         },
         {
           property: 'confirmResult',
-          label: '现场确认结果',
-          width: '100'
+          label: '现场确认结果'
         },
         {
           property: 'classifyResult',
-          label: '识别结果',
-          width: '100'
+          label: '识别结果'
         }
       ],
       alarmLogs: [],
@@ -172,7 +169,7 @@ export default {
   props: ['position', 'status', 'unitInfo'],
   created() {
     console.log('unitInfo=')
-    console.log(this.unitInfo)
+    // console.log(this.unitInfo)
     this.unitInfo.alarmLogs.forEach(function(item) {
       item.alarmTime = this.COMMON.getTime(item.alarmTime)
     }, this)
@@ -246,16 +243,16 @@ export default {
 
 <style lang="scss" scoped>
 
-.infoTitle {
+#infoTitle {
   font-size: 20px;
   font-weight: bold;
 }
-.infoContent,
-#alarmlogsDetailContains
+#infoContent,
+#alarmLogsDetailContains,
+#hiddenLogsDetailContains
 {
   font-size: 12px;
   font-weight: 400;
-  padding: 0;
 }
 .sample {
   height: 64px;
@@ -267,10 +264,6 @@ export default {
     height: 64px;
     width: 64px;
     margin: 0, auto;
-    // #unitName {
-    // color: rgb(11, 14, 17);
-    // font-size: 12px;
-    // }
   }
 }
 #littleImg {
