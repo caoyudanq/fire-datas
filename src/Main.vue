@@ -1,39 +1,33 @@
 <template>
   <div id="app">
     <el-container id="container">
-      <el-header>
-        <div class="header">
+      <el-header
+      height="80px">
+        <div id="header">
           <el-row :gutter="20">
-            <el-col :span="4">
-              <div class="grid-content bg-purple" id="logo">
-                logo
+            <el-col :span="6">
+              <div class="grid-content bg-purple, time">
+                <my-time></my-time>
               </div>
             </el-col>
-            <el-col :span="16">
+            <el-col :span="12">
               <div class="grid-content bg-purple" id="title">
-                火警物联网
+                火警大数据平台
               </div>
             </el-col>
-            <el-col :span="4">
-              <div class="grid-content bg-purple" id="user">
-                <el-dropdown>
-                  <span class="el-dropdown-link">
-                    <i class="el-icon-user-solid"></i>
-                  </span>
-                  <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item @click="changeUserInfo">查看用户信息</el-dropdown-item>
-                    <el-dropdown-item>修改用户信息</el-dropdown-item>
-                  </el-dropdown-menu>
-                </el-dropdown>
-                <div id="exit">
+            <el-col :span="5">
+              <div class="grid-content bg-purple, time">
+                <my-sec-time></my-sec-time>
+              </div>
+            </el-col>
+            <el-col :span="1">
+              <div class="grid-content bg-purple, time">
                   <el-button size="mini" @click="exit">退出</el-button>
-                </div>
               </div>
             </el-col>
           </el-row>
         </div>
       </el-header>
-
       <el-container>
         <el-aside width="200px">
           <el-menu
@@ -41,7 +35,7 @@
             class="el-menu-vertical-demo"
             text-color = "#fff"
             active-text-color="#ffd04b"
-            background-color="#0f334b"
+            background-color="#1a3844"
             :router = "true"
           >
             <el-menu-item index="/main">
@@ -70,22 +64,26 @@
           <router-view></router-view>
         </el-main>
       </el-container>
-    </el-container>
-
     <el-footer>Footer</el-footer>
-
+    </el-container>
   </div>
 </template>
 
 <script>
-import myMap from '@/components/map/Map'
+import myTime from '@/components/time/Time'
+import mySecTime from '@/components/time/secondTime'
 export default {
+  data() {
+    return {
+      yearTime: 0
+    }
+  },
   components: {
-    myMap
+    myTime,
+    mySecTime
   },
   methods: {
     changeUserInfo() {
-
     },
     exit() {
       this.$http.get('/logout/do_logout')
@@ -117,74 +115,43 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.el-header,
-.el-footer {
-  background-color: #0f334b;
+.el-header {
+  background-image: radial-gradient(circle, rgb(34, 77, 62), #1a3844);
   text-align: center;
   color: #fff;
-  #title,
-  #logo {
-    line-height: 60px;
-  }
-  #user {
-    padding: 0 0 0 50px;
-    line-height: 60px;
-    #userIcon {
-      margin-top: 24px;
+  #header {
+    #title {
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      color:rgb(238, 245, 245);
+      font-size: 24px;
+      line-height: 80px;
     }
-    #exit {
-      display: inline;
-      color: #606266;
-      font-size: 12px;
-      margin-left: 10px;
-      .el-button {
+    .time {
+      padding-top: 50px;
+    }
+     .el-button {
         color: rgb(165, 165, 165);
-        background-color: #0f334b;
+        background-color: #093235;
         border-color: #0f334b;
       }
       .el-button:hover {
         color: rgb(196, 195, 195);
-        background-color: #0f334b;
-        border-color: #0f334b;
+        background-color: #122a33;
+        border-color: #0d2636;
       }
-    }
   }
 }
 .el-aside {
-  background-color: #0f334b;
+  background-color: #1a3844;
 }
 .el-main {
   background-color: #021019;
   padding: 10px 0px 0px 10px;
 }
-body > .el-container {
-  margin-bottom: 40px;
-}
-.el-container:nth-child(5) .el-aside,
-.el-container:nth-child(6) .el-aside {
-  line-height: 260px;
-}
-.el-container:nth-child(7) .el-aside {
-  line-height: 320px;
-}
 .el-menu {
-  list-style: none;
-  position: relative;
-  color: #fff;
-  margin: 0;
-  padding-left: 0;
   border: 0px;
 }
-.el-menu-vertical-demo .el-menu {
-  background-color: #0f334b !important;
-}
-.el-menu-item-group__title {
-  line-height: normal;
-  font-size: 12px;
-  color: #909399;
-}
 #app {
-  height: 100%;
   width: 100%;
   #container {
     height: 100%;

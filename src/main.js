@@ -5,7 +5,7 @@ import Home from './Home.vue'
 import router from './router'
 import BMap from 'vue-baidu-map'
 import ElementUI from './assets/js/element'
-// import '../theme/index.css'
+import '../theme/index.css'
 // import 'element-ui/lib/theme-chalk/index.css'
 import store from './store/store'
 import common from './util/common'
@@ -14,7 +14,6 @@ import axios from './axios/index'
 import VueCookie from 'vue-cookies'
 Vue.use(axios)
 Vue.use(VueCookie)
-// Vue.use(ElementUI)
 
 Vue.use(ElementUI, { size: 'small', zIndex: 3000 })
 Vue.config.productionTip = false
