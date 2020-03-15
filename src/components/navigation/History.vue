@@ -7,30 +7,33 @@
         v-model="input"
         clearable
         style="width:300px"
-        @keyup.enter.native="search">
-        </el-input>
-        <el-button @click="search">搜索</el-button>
-        <span>{{ this.result }}</span>
+        @keyup.enter.native="search"
+        size="small"
+      ></el-input>
+      <el-button @click="search" size="small">搜索</el-button>
+      <span>{{ this.result }}</span>
     </div>
     <div id="data">
       <history-data
-      :pageIndex="this.pageIndex"
-      :dataType="this.dataType"
-      :section="this.input"
-      @changeTotal="changeTotal"
-      @changeView="changeView"
-      @getTotal="getTotal">
-      </history-data>
+        :pageIndex="this.pageIndex"
+        :dataType="this.dataType"
+        :section="this.input"
+        @changeTotal="changeTotal"
+        @changeView="changeView"
+        @getTotal="getTotal"
+      ></history-data>
     </div>
 
     <div id="pageIndex" class="block">
-      <el-pagination layout="prev, pager, next"
-      :total="this.total"
-      :pageSize="this.pageSize"
-      :current-page="this.pageIndex"
-      :page-size="this.pageSize"
-      @current-change="HandleCurrentPage">
-      </el-pagination>
+      <el-pagination
+        layout="prev, pager, next"
+        :total="this.total"
+        :pageSize="this.pageSize"
+        :current-page="this.pageIndex"
+        :page-size="this.pageSize"
+        @current-change="HandleCurrentPage"
+        style="padding-left: 0"
+      ></el-pagination>
     </div>
   </div>
 </template>
@@ -88,18 +91,18 @@ export default {
 #history {
   padding: 0 10px 0px 0;
   #search {
-    line-height: 100px;
+    line-height: 60px;
     color: aliceblue;
     background-color: rgb(30, 34, 34);
     width: 100%;
-    height: 100px;
+    height: 60px;
   }
   #data {
     width: 100%;
   }
   #pageIndex {
     height: 32px;
-    width: 100%
+    width: 100%;
   }
 }
 </style>

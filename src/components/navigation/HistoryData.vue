@@ -1,16 +1,13 @@
 <template>
   <div id="container">
-    <el-table
-    :data="tableData"
-    max-height="600"
-    >
+    <el-table :data="tableData" max-height="400">
       <el-table-column
-        v-for="{prop, label} in dataHeaders"
+        v-for="{ prop, label } in dataHeaders"
         :prop="prop"
         :label="label"
         :key="prop"
-        style="width: 100%">
-      </el-table-column>
+        :show-overflow-tooltip="true"
+      ></el-table-column>
     </el-table>
   </div>
 </template>
@@ -19,21 +16,27 @@
 export default {
   data() {
     return {
+      height: '',
       dataHeaders: [
         {
-          prop: 'unit', label: '单位名称'
+          prop: 'unit',
+          label: '单位名称'
         },
         {
-          prop: 'buildingName', label: '探测器名称'
+          prop: 'buildingName',
+          label: '探测器名称'
         },
         {
-          prop: 'result', label: '现场确认结果'
+          prop: 'result',
+          label: '现场确认结果'
         },
         {
-          prop: 'alarmTime', label: '报警时间'
+          prop: 'alarmTime',
+          label: '报警时间'
         },
         {
-          prop: 'classifyResult', label: '识别结果'
+          prop: 'classifyResult',
+          label: '识别结果'
         }
       ],
       tableData: [],
@@ -43,48 +46,50 @@ export default {
   props: ['pageIndex', 'dataType', 'section', 'total', 'pageSize'],
   methods: {
     getHistoryDataBySection() {
-      this.$http.get('/api/' + this.section + this.pageIndex)
-        .then(res => {
-          console.log('按单位获取历史日志')
-          console.log(res.data)
-          if (res.data.error === 0) {
-            this.tableData = res.data.data
-          } else {
-            console.log('按单位获取历史日志失败')
-            this.$emit('changeView')
-          }
-        })
+      this.$http.get('/api/' + this.section + this.pageIndex).then(res => {
+        console.log('按单位获取历史日志')
+        console.log(res.data)
+        if (res.data.error === 0) {
+          this.tableData = res.data
+        } else {
+          console.log('按单位获取历史日志失败')
+          this.$emit('changeView')
+        }
+      })
     },
     getHistoryData() {
-      this.$http.post('/queryAlarmLog', {
-        curPage: this.pageIndex,
-        pageSize: 10
-      })
+      this.$http
+        .post('/queryAlarmLog', {
+          curPage: this.pageIndex,
+          pageSize: 10
+        })
         .then(res => {
           console.log(res)
-          this.historyData = res.data.data.alarmLogVos
+          this.historyData = res.data.alarmLogVos
           this.historyData.forEach(function(item) {
             item.alarmTime = this.COMMON.getTime(item.alarmTime)
           }, this)
           this.tableData = this.historyData
-          var pageSize = res.data.data.pageSize
-          var pageNum = res.data.data.pageNum
+          var pageSize = res.data.pageSize
+          var pageNum = res.data.pageNum
           var pageTotals = pageNum * pageSize
           if (this.total !== pageTotals || this.pageSize !== pageSize) {
             console.log('总页数改变, total = ' + pageTotals)
             this.$emit('changeTotal', pageTotals, pageSize)
           }
-        }).catch(err => {
+        })
+        .catch(err => {
           console.log('报警日志查询失败')
           console.log(err)
         })
     },
     getHistoryDataBySection1() {
-      this.$http.post('/queryAlarmLog', {
-        curPage: this.pageIndex,
-        pageSize: this.pageSize,
-        unit: this.section
-      })
+      this.$http
+        .post('/queryAlarmLog', {
+          curPage: this.pageIndex,
+          pageSize: this.pageSize,
+          unit: this.section
+        })
         .then(res => {
           console.log(res)
           if (res.data.code === 2000) {
@@ -94,7 +99,8 @@ export default {
             this.$message.error('按单位查询失败')
             this.$emit('changeView')
           }
-        }).catch(err => {
+        })
+        .catch(err => {
           console.log('按单位查询失败')
           console.log(err)
         })
@@ -133,5 +139,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

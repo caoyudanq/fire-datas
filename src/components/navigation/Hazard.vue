@@ -7,20 +7,21 @@
         v-model="input"
         clearable
         style="width:300px"
-        @keyup.enter.native="search">
-        </el-input>
-        <el-button @click="search">搜索</el-button>
-        <span>{{ this.result }}</span>
+        @keyup.enter.native="search"
+        size="small"
+      ></el-input>
+      <el-button @click="search" size="small">搜索</el-button>
+      <span>{{ this.result }}</span>
     </div>
-    <hazard-data :pageIndex="this.pageIndex"
-    @changeTotal="changeTotal">
-    </hazard-data>
+    <hazard-data :pageIndex="this.pageIndex" @changeTotal="changeTotal"></hazard-data>
     <div id="pageIndex" class="block">
-      <el-pagination layout="prev, pager, next"
-      :total="total"
-      :pageSize="pageSize"
-      @current-change="HandleCurrentPage">
-      </el-pagination>
+      <el-pagination
+        layout="prev, pager, next"
+        :total="total"
+        :pageSize="pageSize"
+        @current-change="HandleCurrentPage"
+        style="padding-left: 0"
+      ></el-pagination>
     </div>
   </div>
 </template>
@@ -70,16 +71,14 @@ export default {
 
 <style lang="scss" scoped>
 #history {
-  padding: 0 10px 10px 0;
+  padding: 0 10px 0 0;
   #search {
-    line-height: 100px;
+    line-height: 60px;
     color: aliceblue;
+    color: aliceblue;
+    background-color: rgb(30, 34, 34);
+    width: 100%;
+    height: 60px;
   }
-}
-#search {
-  color: aliceblue;
-  background-color: rgb(30, 34, 34);
-  width: 100%;
-  height: 100px;
 }
 </style>

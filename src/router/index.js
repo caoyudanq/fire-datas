@@ -5,8 +5,9 @@ import Map from '@/components/map/Map'
 import Login from '../components/account/Login'
 import History from '../components/navigation/History.vue'
 import Hazard from '../components/navigation/Hazard.vue'
-import Analysis from '../components/navigation/Analysis.vue'
-
+import AnaHistory from '../components/navigation/dataAnalysis/AnaHistory.vue'
+import AnaHazard from '../components/navigation/dataAnalysis/AnaHazard.vue'
+import Account from '../components/account/Account'
 Vue.use(Router)
 
 const router = new Router({
@@ -32,12 +33,20 @@ const router = new Router({
           component: History
         },
         {
-          path: 'analysis',
-          component: Analysis
+          path: 'analysis/history',
+          component: AnaHistory
+        },
+        {
+          path: 'analysis/hazard',
+          component: AnaHazard
         },
         {
           path: 'hazard',
           component: Hazard
+        },
+        {
+          path: 'account/change',
+          component: Account
         }
       ]
     }

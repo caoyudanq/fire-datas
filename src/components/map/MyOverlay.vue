@@ -8,22 +8,14 @@
     :active="active"
     @click.native="click"
   >
-  <div id="unitImage">
-    <div id="imgContainer">
-      <img :src="iconUrl" :id="imgSize" />
+    <div id="unitImage">
+      <div id="imgContainer">
+        <img :src="iconUrl" :id="imgSize" />
+      </div>
+      <el-tag type="info" color="#08304A" size="mini" :hit="true" effect="dark" style="color=">
+        <span>{{ unitInfo.unitName }}</span>
+      </el-tag>
     </div>
-    <el-tag
-      type="info"
-      color="#08304A"
-      size="mini"
-      :hit="true"
-      effect="dark"
-      style="color=">
-      <span>
-        {{ unitInfo.unitName }}
-      </span>
-    </el-tag>
-  </div>
     <bm-info-window
       :position="{ lng: this.position.lng, lat: this.position.lat }"
       :show="infoWindow.show"
@@ -59,34 +51,38 @@
       </div>
     </bm-info-window>
     <div id="alarmLogsDetailContains">
-      <el-dialog title="最新报警记录"
-      :center="true"
-      :visible.sync="dialogTableVisibleAlarm"
-      :modal-append-to-body="false"
-      width="50%">
+      <el-dialog
+        title="最新报警记录"
+        :center="true"
+        :visible.sync="dialogTableVisibleAlarm"
+        :modal-append-to-body="false"
+        width="50%"
+      >
         <el-table :data="alarmLogs" style="width: 100%">
           <el-table-column
-          v-for="{ property, label} in infoAlarmLogs"
-          :key="property"
-          :property="property"
-          :label="label">
-          </el-table-column>
+            v-for="{ property, label} in infoAlarmLogs"
+            :key="property"
+            :property="property"
+            :label="label"
+          ></el-table-column>
         </el-table>
       </el-dialog>
     </div>
     <div id="hiddenLogsDetailContains">
-      <el-dialog title="最新隐患记录"
-      center="true"
-      :visible.sync="dialogTableVisibleHidden"
-      :modal-append-to-body="false"
-      width="70%">
+      <el-dialog
+        title="最新隐患记录"
+        :center="true"
+        :visible.sync="dialogTableVisibleHidden"
+        :modal-append-to-body="false"
+        width="70%"
+      >
         <el-table :data="hiddenLogs" style="width: 100%">
           <el-table-column
-          :key="property"
-          v-for="{property, label} in infoHiddenLogs"
-          :property="property"
-          :label="label">
-          </el-table-column>
+            :key="property"
+            v-for="{property, label} in infoHiddenLogs"
+            :property="property"
+            :label="label"
+          ></el-table-column>
         </el-table>
       </el-dialog>
     </div>
@@ -242,15 +238,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 #infoTitle {
   font-size: 20px;
   font-weight: bold;
 }
 #infoContent,
 #alarmLogsDetailContains,
-#hiddenLogsDetailContains
-{
+#hiddenLogsDetailContains {
   font-size: 12px;
   font-weight: 400;
 }

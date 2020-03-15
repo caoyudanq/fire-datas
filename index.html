@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <!-- <meta name="viewport" content="width=device-width,initial-scale=1.0"> -->
-    <link rel="stylesheet" href="./static/css/reset.css">
+    <link rel="stylesheet" href="./static/css/reset.css" />
     <title>fire-datas</title>
     <style>
-      html,body,#app {
+      html,
+      body,
+      #app {
         height: 100%;
       }
     </style>
+    <script type="text/javascript">
+      ;(function() {
+        var myWidth = document.documentElement.clientWidth
+        var myHeight = document.documentElement.clientHeight
+        var myHtml = document.getElementsByTagName('html')[0]
+        myHtml.setAttribute('height', myHeight)
+      })()
+    </script>
   </head>
   <body>
     <div id="app"></div>

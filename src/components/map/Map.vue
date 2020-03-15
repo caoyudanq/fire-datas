@@ -158,7 +158,7 @@ export default {
         })
         .then(res => {
           console.log(res)
-          this.unitInfos = res.data.data
+          this.unitInfos = res.data
         })
         .catch(err => {
           this.$message.error('获取单位信息失败')

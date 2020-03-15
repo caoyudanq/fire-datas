@@ -22,7 +22,10 @@ import
   Col,
   Dialog,
   Message,
-  Tag
+  Tag,
+  Select,
+  Option,
+  Divider
 } from 'element-ui'
 
 export default {
@@ -51,6 +54,9 @@ export default {
     Vue.use(Submenu)
     Vue.use(MenuItem)
     Vue.use(Tag)
+    Vue.use(Select)
+    Vue.use(Option)
+    Vue.use(Divider)
     Vue.prototype.$message = Message
   }
 }
