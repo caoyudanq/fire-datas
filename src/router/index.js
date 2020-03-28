@@ -8,6 +8,7 @@ import Hazard from '../components/navigation/Hazard.vue'
 import AnaHistory from '../components/navigation/dataAnalysis/AnaHistory.vue'
 import AnaHazard from '../components/navigation/dataAnalysis/AnaHazard.vue'
 import Account from '../components/account/Account'
+import SignUp from '../components/account/SignUp'
 Vue.use(Router)
 
 const router = new Router({
@@ -17,7 +18,12 @@ const router = new Router({
       rediirect: Login
     },
     {
-      path: '/login',
+      path: '/signUp',
+      component: SignUp
+
+    },
+    {
+      path: '/login/:username?',
       component: Login
     },
     {
@@ -67,7 +73,9 @@ router.beforeEach((to, from, next) => {
   // 如果要访问的不是登录页，要判断sessionStory里面是否已经存储了token，只有存储了的用户才能访问其他页面
   // let user = JSON.parse(sessionStorage.getItem('user'))
   const tokenStr = window.localStorage.getItem('token')
-  if (to.path !== '/login' && !tokenStr) {
+  if (to.path === '/signUp') {
+    next()
+  } else if (to.path !== '/login' && !tokenStr) {
     // 强制跳转到登录页
     return next({ path: '/login' })
   }

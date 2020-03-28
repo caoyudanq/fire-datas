@@ -18,7 +18,7 @@
               :value="item.code"
             ></el-option>
           </el-select>报警次数：
-          <span id="count">{{ count }}</span>
+          <span id="count">{{ pieDistinguishResultTotal }}</span>
         </div>
         <div class="grid-content bg-purple" ref="pieDistinguishResult" id="chart"></div>
       </el-col>
@@ -38,7 +38,7 @@
               :value="item.code"
             ></el-option>
           </el-select>报警次数：
-          <span id="count">{{ count }}</span>
+          <span id="count">{{ barAlarmCountResultTotal }}</span>
         </div>
         <div class="grid-content bg-purple" ref="barAlarmCountResult" id="chart1"></div>
       </el-col>
@@ -58,7 +58,7 @@
               :value="item.code"
             ></el-option>
           </el-select>报警次数：
-          <span id="count">{{ count }}</span>
+          <span id="count">{{ barAlarmCountByUnitResultTotal }}</span>
         </div>
         <div class="grid-content bg-purple" ref="barAlarmCountByUnitResult" id="chart2"></div>
       </el-col>
@@ -77,6 +77,9 @@ export default {
       pieDistinguishResult: [],
       barAlarmCountResult: [],
       barAlarmCountByUnitResult: [],
+      pieDistinguishResultTotal: '',
+      barAlarmCountResultTotal: '',
+      barAlarmCountByUnitResultTotal: '',
       time: [
         {
           range: '近一年',
@@ -107,15 +110,23 @@ export default {
         })
         .then(res => {
           if (res.data) {
+            let total = 0
+            Object.values(res.data).forEach(val => {
+              total = total + val
+            })
+            this.pieDistinguishResultTotal = total
             this.pieDistinguishResult = []
-
             this.pieDistinguishResult.push({
-              name: '识别正确',
-              value: res.data.corNum
+              name: '真实报警',
+              value: res.data.realAlarmCount
             })
             this.pieDistinguishResult.push({
-              name: '识别错误',
-              value: res.data.errNum
+              name: '误报',
+              value: res.data.falseAlarmCount
+            })
+            this.pieDistinguishResult.push({
+              name: '自测',
+              value: res.data.selfTestCount
             })
             var option = {
               title: {
@@ -132,7 +143,7 @@ export default {
                 right: 10,
                 top: 40,
                 bottom: 20,
-                data: ['识别正确', '识别错误']
+                data: ['真实报警', '误报', '自测']
               },
               series: [
                 {
@@ -159,38 +170,6 @@ export default {
         })
     },
     drawBarAlarmCount() {
-      // if (
-      //   this.barAlarmCountResultData === '' ||
-      //   this.barAlarmCountResultData === '1'
-      // ) {
-      //   this.barAlarmCountResultData = '1'
-      //   console.log('barAlarmCountResultData')
-      //   console.log(this.barAlarmCountResultData)
-      // }
-      // var dt = new Date()
-      // var month = parseInt((dt.getMonth() + 1).toString())
-      // console.log('month')
-      // console.log(month)
-      // console.log(this.barAlarmCountResultData)
-      // if (this.barAlarmCountResultData === '1') {
-      //   this.x_Zhou = this.x_year
-      //     .splice(0, month - 1)
-      //     .concat(this.x_year.splice(month, 11))
-      //   console.log('month1')
-      //   console.log(this.x_Zhou)
-      // } else if (this.barAlarmCountResultData === '2') {
-      //   if (month <= '6') {
-      //     this.x_Zhou = this.x_year
-      //       .splice(0, month - 1)
-      //       .concat(this.x_year.splice(11 - month - 1, 11))
-      //     console.log('month1')
-      //     console.log(this.x_Zhou)
-      //   } else {
-      //     this.x_Zhou = this.x_year.splice(month - 7, month - 1)
-      //   }
-      // } else {
-      //   console.log('0000000000000000')
-      // }
       var myChart = this.$echarts.init(this.$refs.barAlarmCountResult)
       myChart.showLoading()
       if (
@@ -213,7 +192,11 @@ export default {
         .then(res => {
           if (res.data) {
             this.barAlarmCountResult = res.data
-
+            var total = 0
+            this.barAlarmCountResult.forEach(function(val, index, array) {
+              total += val
+            })
+            this.barAlarmCountResultTotal = total
             var option = {
               title: {
                 text: '报警次数统计图',
@@ -256,10 +239,17 @@ export default {
         .then(res => {
           if (res.data) {
             var result = res.data
-            for (var i = 0; i < result.length; i++) {
-              this.xAxis_unit.push(result[i].unitName)
-              this.barAlarmCountByUnitResult.push(result[i].count)
-            }
+            console.log(this.result)
+            this.barAlarmCountByUnitResult = Object.values(result)
+            let total = 0
+            this.barAlarmCountByUnitResult.forEach(val => {
+              total = total + val
+            })
+            this.barAlarmCountByUnitResultTotal = total
+            this.xAxis_unit = Object.keys(result)
+            this.barAlarmCountByUnitResult = Object.values(result)
+            console.log(this.xAxis_unit)
+            console.log(this.barAlarmCountByUnitResultData)
             var option = {
               title: {
                 text: '单位报警次数统计图',

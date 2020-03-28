@@ -180,10 +180,4 @@ export default {
   height: 100%;
   padding: 0;
 }
-// /deep/.BMap_cpyCtrl {
-// display: none !important;
-// }
-// /deep/.anchorBL {
-// display: none !important;
-// }
 </style>

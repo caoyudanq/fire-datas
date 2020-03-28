@@ -1,7 +1,7 @@
 <!-- 账户管理 -->
 <template>
   <div id="wrap">
-    <div id="user">管理员： {{user}}</div>
+    <!-- <div id="user">管理员： {{user}}</div> -->
     <!-- <el-divider></el-divider> -->
     <div id="account">
       <el-form
@@ -11,6 +11,7 @@
         ref="ruleForm"
         label-width="100px"
         class="demo-ruleForm"
+        style="positon: relative"
       >
         <el-form-item label="设置密码" prop="pass">
           <el-input type="password" v-model="ruleForm.pass" autocomplete="off" size="mini"></el-input>
@@ -22,8 +23,17 @@
         <el-input v-model.number="ruleForm.age" size="mini"></el-input>
         </el-form-item>-->
         <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')" size="mini">提交</el-button>
-          <el-button @click="resetForm('ruleForm')" size="mini">重置</el-button>
+          <el-button
+            type="primary"
+            @click="submitForm('ruleForm')"
+            size="mini"
+            style="position: absolute; left:0px"
+          >提交</el-button>
+          <el-button
+            @click="resetForm('ruleForm')"
+            size="mini"
+            style="position: absolute; right:0px"
+          >重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -74,23 +84,21 @@ export default {
           alert('submit!')
           this.$http
             .post('/changePass', {
-              newPassWorld: this.pass
+              newPassWord: this.pass
             })
             .then(res => {
               var code = res.data.code.toString()
-              var token = res.data.msg
+              // var token = res.data.msg
               if (code === this.COMMON.SUCCESS) {
                 // 全局存储token
-                window.localStorage.setItem('token', token)
-                // this.$store.commit('addUserName', this.ruleForm.username)
-                this.$store.commit('addPassword', this.ruleForm.pass)
+                // window.localStorage.setItem('token', token)
+                // this.$store.commit('addPassword', this.ruleForm.pass)
+                window.localStorage.clear()
+                this.$cookies.remove('token')
+                this.$store.commit('addUserName', '')
+                this.$store.commit('addPassword', '')
+                this.$message('密码修改成功，跳转至登录界面！')
                 this.$router.push('/login')
-              } else if (code === this.COMMON.NOUSER) {
-                this.$message.error('用户信息不存在')
-              } else if (code === this.COMMON.NOUSERNAME) {
-                this.$message.error('用户名不存在')
-              } else if (code === this.COMMON.PASSWRONG) {
-                this.$message.error('密码错误')
               } else {
                 this.$message.error('登录失败')
                 console.log('修改密码失败')
@@ -116,6 +124,7 @@ export default {
   height: 100%;
   padding-left: 35%;
   padding-right: 35%;
+  padding-top: 10%;
   #user {
     padding: 20px 0 10px 10px;
     font-size: 16px;

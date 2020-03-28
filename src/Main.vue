@@ -97,11 +97,12 @@
               <ul class="f_left">
                 <li v-for="(item, index) in gridData" :key="index">
                   <h3>
-                    <span>{{item.title}}</span>
+                    <span>设备报警</span>
                     <el-button
                       type="text"
                       size="small"
                       style="padding: 0;margin-left: 0 10px 0 5px;float: right"
+                      @click="getImage(index)"
                     >
                       <i
                         class="el-icon-s-platform"
@@ -110,7 +111,10 @@
                     </el-button>
                   </h3>
                   <div class="fire-content">
-                    <p>{{item.content}}</p>
+                    <p id="textContent">
+                      {{item.address + item.deviceName }}设备发生
+                      <b>{{ item.warnType }}</b>报警, 规定时间内消防员未处理，请及时通知负责人。
+                    </p>
                   </div>
                 </li>
               </ul>
@@ -135,7 +139,8 @@ export default {
       yearTime: 0,
       gridData: [],
       dialogTableVisible: false,
-      formLabelWidth: '120px'
+      formLabelWidth: '120px',
+      imgUrl: ''
     }
   },
   components: {
@@ -159,7 +164,7 @@ export default {
             this.$cookies.remove('token')
             this.$store.commit('addUserName', '')
             this.$store.commit('addPassword', '')
-            this.$router.push('/login')
+            this.$router.push('/login/')
           } else {
             this.$message.error('退出登录失败')
           }
@@ -173,6 +178,9 @@ export default {
     closeMsg() {
       this.close = true
     }
+    // getImage(index) {
+    //   console.log(index)
+    // }
   },
   created() {
     var _this = this
@@ -200,7 +208,7 @@ export default {
             console.log('服务器数据异常')
           }
         })
-    }, 500000)
+    }, 1000000)
   },
   beforeDestroy: function() {
     if (this.timer) {
@@ -261,6 +269,9 @@ export default {
     z-index: 9000;
     #fire-bottom {
       margin-top: 5px;
+      .f_left {
+        float: left;
+      }
     }
   }
   #fire-msg {
@@ -273,9 +284,7 @@ export default {
     padding: 0 10px;
     box-sizing: border-box;
   }
-  .f_left {
-    float: left;
-  }
+
   li {
     background-color: #f0f0f0;
     width: 100%;

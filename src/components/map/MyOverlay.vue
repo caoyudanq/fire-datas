@@ -56,7 +56,7 @@
         :center="true"
         :visible.sync="dialogTableVisibleAlarm"
         :modal-append-to-body="false"
-        width="50%"
+        width="80%"
       >
         <el-table :data="alarmLogs" style="width: 100%">
           <el-table-column
@@ -74,7 +74,7 @@
         :center="true"
         :visible.sync="dialogTableVisibleHidden"
         :modal-append-to-body="false"
-        width="70%"
+        width="80%"
       >
         <el-table :data="hiddenLogs" style="width: 100%">
           <el-table-column

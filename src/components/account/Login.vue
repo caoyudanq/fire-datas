@@ -15,15 +15,18 @@
     <el-form-item prop="password">
       <el-input type="password" v-model="ruleForm.password" placeholder="密码"></el-input>
     </el-form-item>
-    <el-checkbox v-model="checked" class="remember">记住密码</el-checkbox>
     <el-form-item style="width:100%;">
       <el-button
         type="primary"
         style="width:100%;"
-        @click.native.prevent="login"
+        @click.native.prevent="login('ruleFormRef')"
         :loading="logining"
       >登录</el-button>
     </el-form-item>
+    <div id="footer" style="position:relative">
+      <el-checkbox v-model="checked" class="remember">记住密码</el-checkbox>
+      <el-button type="text" style="position:absolute;right:0;padding:0" @click="signUp">注册</el-button>
+    </div>
   </el-form>
 </template>
 
@@ -35,8 +38,8 @@ export default {
       logining: false,
       token: 'cyd_123',
       ruleForm: {
-        username: 'admin',
-        password: '111'
+        username: '',
+        password: ''
       },
       rules: {
         username: [
@@ -51,46 +54,68 @@ export default {
       checked: true
     }
   },
-
+  created() {
+    if (typeof this.$route.params.username !== 'undefined') {
+      console.log(this.$router.params)
+      this.ruleForm.username = this.$router.params.username
+    }
+    console.log('wwwwwww')
+    console.log(this.$route.params)
+    console.log(this.$route)
+  },
   methods: {
     ...mapMutations(['addUserName', 'addPassword']),
-    login() {
-      console.log(this.ruleForm)
-      this.$http
-        .get(
-          '/login/do_login?username=' +
-            this.ruleForm.username +
-            '&password=' +
-            this.ruleForm.password
-        )
-        .then(res => {
-          var code = res.data.code.toString()
-          var token = res.data.msg
-          // console.log('login.res.data=======')
-          // console.log(res.data)
-          // console.log('code=======' + code)
-          // console.log('token======' + token)
-          if (code === this.COMMON.SUCCESS) {
-            // 全局存储token
-            window.localStorage.setItem('token', token)
-            this.$store.commit('addUserName', this.ruleForm.username)
-            this.$store.commit('addPassword', this.ruleForm.password)
-            this.$router.push('/main')
-          } else if (code === this.COMMON.NOUSER) {
-            this.$message.error('用户信息不存在')
-          } else if (code === this.COMMON.NOUSERNAME) {
-            this.$message.error('用户名不存在')
-          } else if (code === this.COMMON.PASSWRONG) {
-            this.$message.error('密码错误')
-          } else {
-            this.$message.error('登录失败')
-            console.log('登陆失败')
-          }
-        })
-        .catch(err => {
-          console.log('登录失败')
-          console.log(err)
-        })
+    resetForm(formName) {
+      this.$refs[formName].resetFields()
+    },
+    login(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          console.log(this.ruleForm)
+          this.$http
+            .get(
+              '/login/do_login?username=' +
+                this.ruleForm.username +
+                '&password=' +
+                this.ruleForm.password
+            )
+            .then(res => {
+              var code = res.data.code.toString()
+              var token = res.data.message
+              // console.log('login.res.data=======')
+              // console.log(res.data)
+              // console.log('code=======' + code)
+              // console.log('token======' + token)
+              if (code === this.COMMON.SUCCESS) {
+                // 全局存储token
+                window.localStorage.setItem('token', token)
+                this.$store.commit('addUserName', this.ruleForm.username)
+                this.$store.commit('addPassword', this.ruleForm.password)
+                this.$router.push('/main')
+              } else if (code === this.COMMON.NOUSER) {
+                this.$message.error('用户信息不存在')
+              } else if (code === this.COMMON.NOUSERNAME) {
+                this.$message.error('用户名不存在')
+              } else if (code === this.COMMON.PASSWRONG) {
+                this.$message.error('密码错误')
+              } else {
+                this.$message.error('登录失败')
+                console.log('登陆失败')
+              }
+            })
+            .catch(err => {
+              console.log('登录失败')
+              console.log(err)
+            })
+        } else {
+          this.$message.error('登录失败')
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    signUp() {
+      this.$router.push('/signUp')
     }
   }
 }

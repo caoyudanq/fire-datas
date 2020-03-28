@@ -6,6 +6,7 @@ const NOUSERNAME = '4002'
 const PASSWRONG = '4003'
 const ALERT = '2000'
 const NOALERT = '4001'
+const USEREXIST = '4001'
 function getTime(timeStamp) {
   if (timeStamp === 0) {
     return 0
@@ -75,6 +76,7 @@ export default {
   PASSWRONG,
   ALERT,
   NOALERT,
+  USEREXIST,
   getTime,
   get12MonthArray,
   get6MonthArray,

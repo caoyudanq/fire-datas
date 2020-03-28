@@ -1,5 +1,6 @@
 // 导入axios
 import axios from 'axios'
+import router from '../router/index'
 import qs from 'qs'
 // import global_ from '../util/Global.vue'
 import global_ from '../util/common'
@@ -38,12 +39,12 @@ axios.interceptors.response.use(
   response => {
     console.log('response====')
     console.log(response)
+    // return response
+    if (response.data.code === 999) {
+      router.replace('/login')
+      console.log('token过期')
+    }
     return response
-    // if (response.data.code === 999) {
-    //   router.replace('/');
-    //   console.log("token过期");
-    // }
-    // return response;
   },
   error => {
     console.log('服务器错误')

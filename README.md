@@ -2,33 +2,64 @@
 
 > A Vue.js project
 
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+# 火警大数据平台
+
+## 项目介绍
+
+本项目基于 vue 框架，完成某市符合国家消防规定单位的火警信息，以及火警信息的历史记录、实时报警记录展示功能。
+
 ## Build Setup
 
-``` bash
-# install dependencies
+```bash
 npm install
-
-# serve with hot reload at localhost:8080
 npm run dev
-
-# build for production with minification
 npm run build
-
-# build for production and view the bundle analyzer report
 npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+PS: 默认 8080 端口
 
+## 项目技术栈
 
-第一次测试后：
-1.跨域问题
-2.路由导航改了
-3.常量 魔法数
-4.几个地方的时间戳还没有转换
-5.请求相应格式
-6.cookie中带token
-7.隐患日志未完善
+- vue-cli
+- vue
+- vue-axios
+- vue-router
+- webpack
+- Vuex
+- Element UI
+- Echarts
+- express
 
-8.页数有问题
-9.时间戳转换
+## 功能展示
+
+- 登录
+  ![login](images/Login.jpg)
+
+- 注册
+  ![signup](images/SignUp.jpg)
+
+- 主界面
+  ![main](images/main.jpg)
+
+- 单位信息
+  ![unitInfo](images/UnitInfo.jpg)
+
+- 报警日志
+  ![alarmLog](images/AlarmLog.jpg)
+
+- 隐患日志
+  ![hazardLog](images/HazardLog.jpg)
+
+- 修改用户信息
+  ![changeInfo](images/ChangeInfo)
+
+- 实时报警弹窗
+  ![alarmAlert](images/AlarmAlert)
+
+## 日志
+
+第一次测试后： 1.跨域问题 2.路由导航改了 3.常量 魔法数 4.几个地方的时间戳还没有转换 5.请求相应格式
+6.cookie 中带 token 7.隐患日志未完善 8.页数有问题 9.时间戳转换
