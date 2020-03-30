@@ -6,7 +6,7 @@
         <div id="select">
           <el-select
             v-model="pieDistinguishResultData"
-            @change="drawPieDistinguishResult"
+            @change="drawAnaPieDistinguishResult"
             placeholder="近一年"
             size="mini"
             style="width: 30%"
@@ -17,16 +17,15 @@
               :label="item.range"
               :value="item.code"
             ></el-option>
-          </el-select>报警次数：
-          <span id="count">{{ pieDistinguishResultTotal }}</span>
+          </el-select>
         </div>
-        <div class="grid-content bg-purple" ref="pieDistinguishResult" id="chart"></div>
+        <div class="grid-content bg-purple" ref="anaPieDistinguishResult" id="chart"></div>
       </el-col>
       <el-col :span="8">
         <div id="select">
           <el-select
             v-model="barAlarmCountResultData"
-            @change="drawBarAlarmCount"
+            @change="drawAnaBarAlarmCount"
             placeholder="近一年"
             size="mini"
             style="width: 30%"
@@ -37,16 +36,15 @@
               :label="item.range"
               :value="item.code"
             ></el-option>
-          </el-select>报警次数：
-          <span id="count">{{ barAlarmCountResultTotal }}</span>
+          </el-select>
         </div>
-        <div class="grid-content bg-purple" ref="barAlarmCountResult" id="chart1"></div>
+        <div class="grid-content bg-purple" ref="anaBarAlarmCountResult" id="chart1"></div>
       </el-col>
       <el-col :span="8">
         <div id="select">
           <el-select
             v-model="barAlarmCountByUnitResultData"
-            @change="drawBarAlarmCountByUnit"
+            @change="drawAnaBarAlarmCountByUnit"
             placeholder="近一年"
             size="mini"
             style="width: 30%"
@@ -57,10 +55,9 @@
               :label="item.range"
               :value="item.code"
             ></el-option>
-          </el-select>报警次数：
-          <span id="count">{{ barAlarmCountByUnitResultTotal }}</span>
+          </el-select>
         </div>
-        <div class="grid-content bg-purple" ref="barAlarmCountByUnitResult" id="chart2"></div>
+        <div class="grid-content bg-purple" ref="anaBarAlarmCountByUnitResult" id="chart2"></div>
       </el-col>
     </el-row>
   </div>
@@ -100,12 +97,11 @@ export default {
   },
 
   methods: {
-    drawPieDistinguishResult() {
-      // console.log('时间为：' + this.pieDistinguishResultData)
-      var myChart = this.$echarts.init(this.$refs.pieDistinguishResult)
+    drawAnaPieDistinguishResult() {
+      var myChart = this.$echarts.init(this.$refs.anaPieDistinguishResult)
       myChart.showLoading()
       this.$http
-        .post('/distinguishResult', {
+        .post('/anaDistinguishResult', {
           timeCode: this.pieDistinguishResultData
         })
         .then(res => {
@@ -117,20 +113,16 @@ export default {
             this.pieDistinguishResultTotal = total
             this.pieDistinguishResult = []
             this.pieDistinguishResult.push({
-              name: '真实报警',
-              value: res.data.realAlarmCount
+              name: '掉线',
+              value: res.data.drawOff
             })
             this.pieDistinguishResult.push({
-              name: '误报',
-              value: res.data.falseAlarmCount
-            })
-            this.pieDistinguishResult.push({
-              name: '自测',
-              value: res.data.selfTestCount
+              name: '故障',
+              value: res.data.deviceFault
             })
             var option = {
               title: {
-                text: '系统识别正确率百分比',
+                text: '隐患设备分析',
                 left: 'center'
               },
               tooltip: {
@@ -141,17 +133,21 @@ export default {
                 type: 'scroll',
                 orient: 'vertical',
                 right: 10,
-                top: 40,
+                top: 30,
                 bottom: 20,
-                data: ['真实报警', '误报', '自测']
+                data: ['掉线', '故障']
               },
               series: [
                 {
-                  name: '识别结果',
+                  name: '结果分布',
                   type: 'pie',
                   radius: '40%',
                   center: ['50%', '50%'],
                   data: this.pieDistinguishResult,
+                  label: {
+                    show: true,
+                    formatter: '{b}:{c}'
+                  },
                   emphasis: {
                     itemStyle: {
                       shadowBlur: 10,
@@ -169,8 +165,8 @@ export default {
           }
         })
     },
-    drawBarAlarmCount() {
-      var myChart = this.$echarts.init(this.$refs.barAlarmCountResult)
+    drawAnaBarAlarmCount() {
+      var myChart = this.$echarts.init(this.$refs.anaBarAlarmCountResult)
       myChart.showLoading()
       if (
         this.barAlarmCountResultData === '近一年' ||
@@ -186,7 +182,7 @@ export default {
         // console.log('xAxis = ' + this.xAxis)
       }
       this.$http
-        .post('/barAlarmCount', {
+        .post('/anaBarAlarmCount', {
           timeCode: this.barAlarmCountResultData
         })
         .then(res => {
@@ -227,13 +223,13 @@ export default {
           }
         })
     },
-    drawBarAlarmCountByUnit() {
+    drawAnaBarAlarmCountByUnit() {
       this.xAxis_unit = []
       this.barAlarmCountByUnitResult = []
-      var myChart = this.$echarts.init(this.$refs.barAlarmCountByUnitResult)
+      var myChart = this.$echarts.init(this.$refs.anaBarAlarmCountByUnitResult)
       myChart.showLoading()
       this.$http
-        .post('/barAlarmCountByUnit', {
+        .post('/anaBarAlarmCountByUnit', {
           timeCode: this.barAlarmCountByUnitResultData
         })
         .then(res => {
@@ -255,6 +251,10 @@ export default {
                 text: '单位报警次数统计图',
                 left: 'center'
               },
+              grid: {
+                containLabel: false,
+                bottom: '40%'
+              },
               tooltip: {},
               legend: {
                 data: ['次数'],
@@ -262,6 +262,11 @@ export default {
                 right: '10px'
               },
               xAxis: {
+                type: 'category',
+                axisLabel: {
+                  interval: 0,
+                  rotate: 90
+                },
                 data: this.xAxis_unit
               },
               yAxis: {},
@@ -270,7 +275,9 @@ export default {
                   id: 'dataZoomX',
                   type: 'slider',
                   xAxisIndex: [0],
-                  filterModel: 'filter'
+                  filterModel: 'filter',
+                  maxSpan: 45,
+                  maxValueSpan: 12
                 },
                 {
                   id: 'dataZoomY',
@@ -297,11 +304,15 @@ export default {
   },
   mounted() {
     this.$nextTick(function() {
-      this.$http.all(
-        this.drawPieDistinguishResult(),
-        this.drawBarAlarmCount(),
-        this.drawBarAlarmCountByUnit()
-      )
+      this.$http
+        .all(
+          this.drawAnaPieDistinguishResult(),
+          this.drawAnaBarAlarmCount(),
+          this.drawAnaBarAlarmCountByUnit()
+        )
+        .catch(err => {
+          console.log(err)
+        })
     })
   }
 }

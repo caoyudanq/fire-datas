@@ -17,8 +17,7 @@
               :label="item.range"
               :value="item.code"
             ></el-option>
-          </el-select>报警次数：
-          <span id="count">{{ pieDistinguishResultTotal }}</span>
+          </el-select>
         </div>
         <div class="grid-content bg-purple" ref="pieDistinguishResult" id="chart"></div>
       </el-col>
@@ -37,8 +36,7 @@
               :label="item.range"
               :value="item.code"
             ></el-option>
-          </el-select>报警次数：
-          <span id="count">{{ barAlarmCountResultTotal }}</span>
+          </el-select>
         </div>
         <div class="grid-content bg-purple" ref="barAlarmCountResult" id="chart1"></div>
       </el-col>
@@ -57,8 +55,7 @@
               :label="item.range"
               :value="item.code"
             ></el-option>
-          </el-select>报警次数：
-          <span id="count">{{ barAlarmCountByUnitResultTotal }}</span>
+          </el-select>
         </div>
         <div class="grid-content bg-purple" ref="barAlarmCountByUnitResult" id="chart2"></div>
       </el-col>
@@ -140,8 +137,7 @@ export default {
                 type: 'scroll',
                 orient: 'vertical',
                 right: 10,
-                top: 40,
-                bottom: 20,
+                top: 30,
                 data: ['真实报警', '误报', '自测']
               },
               series: [
@@ -151,6 +147,10 @@ export default {
                   radius: '40%',
                   center: ['50%', '50%'],
                   data: this.pieDistinguishResult,
+                  label: {
+                    show: true,
+                    formatter: '{b}:{c}'
+                  },
                   emphasis: {
                     itemStyle: {
                       shadowBlur: 10,
@@ -204,7 +204,7 @@ export default {
               tooltip: {},
               legend: {
                 data: ['次数'],
-                top: '40px',
+                top: '30px',
                 right: '10px'
               },
               xAxis: {
@@ -259,13 +259,24 @@ export default {
               tooltip: {},
               legend: {
                 data: ['次数'],
-                top: '40px',
+                top: '30px',
                 right: '10px'
               },
+              grid: {
+                containLabel: false,
+                bottom: '40%'
+              },
               xAxis: {
+                type: 'category',
+                axisLabel: {
+                  interval: 0,
+                  rotate: 90
+                },
                 data: this.xAxis_unit
               },
-              yAxis: {},
+              yAxis: {
+                type: 'value'
+              },
               dataZoom: [
                 {
                   id: 'dataZoomX',
@@ -276,7 +287,9 @@ export default {
                     fontWight: 'bolder'
                   },
                   xAxisIndex: [0],
-                  filterModel: 'filter'
+                  filterModel: 'filter',
+                  maxSpan: 45,
+                  maxValueSpan: 12
                 },
                 {
                   id: 'dataZoomY',

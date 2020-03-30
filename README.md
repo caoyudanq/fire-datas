@@ -1,22 +1,14 @@
-# fire-datas
-
-> A Vue.js project
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-
 # 火警大数据平台
 
 ## 项目介绍
 
 本项目基于 vue 框架，完成某市符合国家消防规定单位的火警信息，以及火警信息的历史记录、实时报警记录展示功能。
 
-## Build Setup
+## 项目构建
 
 ```bash
 npm install
 npm run dev
-npm run build
-npm run build --report
 ```
 
 PS: 默认 8080 端口
@@ -53,12 +45,22 @@ PS: 默认 8080 端口
 - 隐患日志
   ![hazardLog](images/HazardLog.jpg)
 
+- 数据分析  
+ 近一年：
+ ![dataAna1](images/DataAna1.jpg)
+ 近半年：
+ ![dataAna2](images/DataAna2.jpg)
+ 近一个月：
+ ![dataAna3](images/DataAna3.jpg)
 - 修改用户信息
-  ![changeInfo](images/ChangeInfo)
+  ![changeInfo](images/ChangeInfo.jpg)
 
 - 实时报警弹窗
-  ![alarmAlert](images/AlarmAlert)
+  ![alarmAlert](images/AlarmAlert.jpg)
 
+- 用户名、密码校验
+ ![checkPass](images/CheckPass.jpg)
+ ![checkPass1](images/CheckPass1.jpg)
 ## 日志
 
 第一次测试后： 1.跨域问题 2.路由导航改了 3.常量 魔法数 4.几个地方的时间戳还没有转换 5.请求相应格式

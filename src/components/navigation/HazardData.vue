@@ -83,6 +83,34 @@ export default {
           }
           console.log(this.tableData)
         })
+    },
+    getHistoryDataBySection() {
+      this.$http
+        .post('/queryHiddenLogBySearch', {
+          section: this.section,
+          pageIndex: this.pageIndex
+        })
+        .then(res => {
+          console.log('按单位获取历史日志')
+          console.log(res.data)
+          if (res.data.code === 2000) {
+            this.hiddenData = res.data.hiddenLogVos
+            this.hiddenData.forEach(function(item) {
+              item.alarmTime = this.COMMON.getTime(item.alarmTime)
+            }, this)
+            this.tableData = this.hiddenData
+            var pageSize = res.data.pageSize
+            var pageNum = res.data.pageNum
+            var pageTotals = pageNum * pageSize
+            if (this.total !== pageTotals || this.pageSize !== pageSize) {
+              console.log('总页数改变, total = ' + pageTotals)
+              this.$emit('changeTotal', pageTotals, pageSize)
+            }
+          } else {
+            this.$message.error('按单位查询失败')
+            this.$emit('changeView')
+          }
+        })
     }
   },
   created() {
@@ -90,15 +118,23 @@ export default {
   },
   watch: {
     pageIndex: function(newVal, oldVal) {
-      // console.log('new:' + newVal)
-      // console.log('old:' + oldVal)
-      this.myPageIndex = newVal
-      this.getHistoryData()
-    }
-  },
-  computed: {
-    myPageIndex: function() {
-      return this.pageIndex
+      if (this.dataType === 'firedatas') {
+        console.log('最新请求的数据是第' + this.pageIndex + '页, 直接搜索')
+        this.getHistoryData()
+      } else {
+        console.log('最新请求的数据是第' + this.pageIndex + '页, 按单位搜索')
+        this.getHistoryDataBySection()
+      }
+    },
+    dataType: function(newVal1, oldVal1) {
+      console.log('new:' + newVal1 + 'old:' + oldVal1)
+      if (this.dataType === 'firedatas') {
+        console.log('最新请求的数据是第' + this.pageIndex + '页, 直接搜索')
+        this.getHistoryData()
+      } else {
+        console.log('最新请求的数据是第' + this.pageIndex + '页, 按单位搜索')
+        this.getHistoryDataBySection()
+      }
     }
   }
 }

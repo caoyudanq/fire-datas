@@ -1,6 +1,6 @@
 <template>
   <div id="container">
-    <el-table :data="tableData" max-height="400">
+    <el-table :data="tableData" max-height="400" height="400px">
       <el-table-column
         v-for="{ prop, label } in dataHeaders"
         :prop="prop"
@@ -17,6 +17,7 @@ export default {
   data() {
     return {
       height: '',
+      myTotal: '',
       dataHeaders: [
         {
           prop: 'unit',
@@ -46,16 +47,33 @@ export default {
   props: ['pageIndex', 'dataType', 'section', 'total', 'pageSize'],
   methods: {
     getHistoryDataBySection() {
-      this.$http.get('/api/' + this.section + this.pageIndex).then(res => {
-        console.log('按单位获取历史日志')
-        console.log(res.data)
-        if (res.data.error === 0) {
-          this.tableData = res.data
-        } else {
-          console.log('按单位获取历史日志失败')
-          this.$emit('changeView')
-        }
-      })
+      this.$http
+        .post('/queryAlarmLogBySearch', {
+          section: this.section,
+          pageIndex: this.pageIndex
+        })
+        .then(res => {
+          console.log('按单位获取历史日志')
+          console.log(res.data)
+          if (res.data.code === 2000) {
+            this.historyData = res.data.alarmLogVos
+            this.historyData.forEach(function(item) {
+              item.alarmTime = this.COMMON.getTime(item.alarmTime)
+            }, this)
+            this.tableData = this.historyData
+            this.tableData = res.data.alarmLogVos
+            var pageSize = res.data.pageSize
+            var pageNum = res.data.pageNum
+            var pageTotals = pageNum * pageSize
+            if (this.total !== pageTotals || this.pageSize !== pageSize) {
+              console.log('总页数改变, total = ' + pageTotals)
+              this.$emit('changeTotal', pageTotals, pageSize)
+            }
+          } else {
+            this.$message.error('按单位查询失败')
+            this.$emit('changeView')
+          }
+        })
     },
     getHistoryData() {
       this.$http
@@ -82,36 +100,15 @@ export default {
           console.log('报警日志查询失败')
           console.log(err)
         })
-    },
-    getHistoryDataBySection1() {
-      this.$http
-        .post('/queryAlarmLog', {
-          curPage: this.pageIndex,
-          pageSize: this.pageSize,
-          unit: this.section
-        })
-        .then(res => {
-          console.log(res)
-          if (res.data.code === 2000) {
-            this.tableData = res.data.msg
-            this.total = res.data.msg.pageNum
-          } else {
-            this.$message.error('按单位查询失败')
-            this.$emit('changeView')
-          }
-        })
-        .catch(err => {
-          console.log('按单位查询失败')
-          console.log(err)
-        })
     }
   },
   created() {
-    // console.log('historyData被创建了')
+    console.log('historyData被创建了')
     // console.log('pageIndex=' + this.pageIndex)
     if (this.dataType === 'firedatas') {
       this.getHistoryData()
     } else {
+      console.log('区域搜索')
       this.getHistoryDataBySection()
     }
   },
@@ -120,18 +117,20 @@ export default {
       // console.log('new:' + newVal + 'old:' + oldVal)
       // console.log('请求的数据类型为：' + this.dataType)
       if (this.dataType === 'firedatas') {
-        console.log('最新请求的数据是第' + this.pageIndex + '页')
+        console.log('最新请求的数据是第' + this.pageIndex + '页, 直接搜索')
         this.getHistoryData()
       } else {
+        console.log('最新请求的数据是第' + this.pageIndex + '页, 按单位搜索')
         this.getHistoryDataBySection()
       }
     },
     dataType: function(newVal1, oldVal1) {
-      console.log('new:' + newVal1)
-      console.log('old:' + oldVal1)
+      console.log('new:' + newVal1 + 'old:' + oldVal1)
       if (this.dataType === 'firedatas') {
+        console.log('最新请求的数据是第' + this.pageIndex + '页, 直接搜索')
         this.getHistoryData()
       } else {
+        console.log('最新请求的数据是第' + this.pageIndex + '页, 按单位搜索')
         this.getHistoryDataBySection()
       }
     }
