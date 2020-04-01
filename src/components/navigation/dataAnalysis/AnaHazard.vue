@@ -198,6 +198,10 @@ export default {
                 text: '报警次数统计图',
                 left: 'center'
               },
+              grid: {
+                containLabel: false,
+                left: '15%'
+              },
               tooltip: {},
               legend: {
                 data: ['次数'],
@@ -253,7 +257,8 @@ export default {
               },
               grid: {
                 containLabel: false,
-                bottom: '40%'
+                bottom: '40%',
+                left: '15%'
               },
               tooltip: {},
               legend: {

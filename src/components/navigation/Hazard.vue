@@ -36,7 +36,8 @@
       <el-pagination
         layout="prev, pager, next"
         :total="total"
-        :pageSize="pageSize"
+        :current-page="this.pageIndex"
+        :page-size="pageSize"
         @current-change="HandleCurrentPage"
         style="padding-left: 0"
       ></el-pagination>
